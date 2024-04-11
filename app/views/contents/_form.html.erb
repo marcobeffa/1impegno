@@ -1,130 +1,185 @@
-<%= form_with(model: content, class: "contents") do |form| %>
-  <% if content.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(content.errors.count, "error") %> prohibited this content from being saved:</h2>
-      <ul>
-        <% content.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+<% @tab_active = "inline-block px-4 py-3 text-white bg-blue-600 rounded-lg active" %>
+<% @tab_disable = "inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white" %>
+<div class="p-4">
+  <%= form_with(model: content, class: "contents") do |form| %>
+    <% if content.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <h2><%= pluralize(content.errors.count, "error") %> prohibited this content from being saved:</h2>
+        <ul>
+          <% content.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+      <li class="me-2">
+        <% if action_name == "new" %>
+          <% if params[:ricavo].nil? %>
+            <%= link_to 'Costo', new_content_path, class:"#{@tab_active }" %>
+          <% else %>
+            <%= link_to 'Costo', new_content_path, class:"#{@tab_disable }" %>
+          <% end %>
         <% end %>
-      </ul>
+        <% if action_name == "edit" %>
+          <% if params[:ricavo].nil? %>
+            <%= link_to 'Costo', edit_content_path, class:"#{@tab_active }" %>
+          <% else %>
+            <%= link_to 'Costo', edit_content_path, class:"#{@tab_disable }" %>
+          <% end %>
+        <% end %>
+      </li>
+      <li class="me-2">
+        <% if action_name == "new" %>
+          <% if params[:ricavo].nil? %>
+            <%= link_to 'Ricavo', new_content_path(ricavo: true), class:"#{@tab_disable }" %>
+          <% else %>
+            <%= link_to 'Ricavo', new_content_path(ricavo: true), class:"#{@tab_active }" %>
+          <% end %>
+        <% end %>
+        <% if action_name == "edit" %>
+          <% if params[:ricavo].nil? %>
+            <%= link_to 'Ricavo', edit_content_path(ricavo: true), class:"#{@tab_disable }" %>
+          <% else %>
+            <%= link_to 'Ricavo', edit_content_path(ricavo: true), class:"#{@tab_active }" %>
+          <% end %>
+        <% end %>
+      </li>
+      <li>
+        <div class="flex mt-3 ">
+          <b class="flex">
+            Valore 1 <%= image_tag "https://cdn-icons-png.flaticon.com/512/825/825534.png", class: "w-4 h-4 mx-2" %>
+            = 
+            <div id="exchangeRateCosto"></div>
+            <div id="exchangeRateRicavo"></div>
+          </b>
+        </div>
+      </li>
+    </ul>
+    <div class="grid grid-cols-2 gap-4">
+    <div class= "">
+        <!--- costo ricavo in dash--->
+        <% if params[:ricavo].nil? %>
+          <div class="my-5">
+            <div class="flex items-center">
+              <%= form.label :costo, class:"inline mr-2" %>
+              <%= image_tag "https://cdn-icons-png.flaticon.com/512/825/825534.png", class: "w-6 h-6" %>
+            </div>
+            <%= form.number_field :costo, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", id: "valore-dash-costo", step: "0.01", min: "0"  %>
+            <p class="mt-2">Valore in euro per il costo: <span id="valore-euro-costo"></span></p>
+          </div>
+        <% else%>
+          <div class="my-5">
+            <div class="flex items-center">
+              <%= form.label :ricavo, class:"inline mr-2" %>
+              <%= image_tag "https://cdn-icons-png.flaticon.com/512/825/825534.png", class: "w-6 h-6" %>
+            </div>
+            <%= form.number_field :ricavo, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", id: "valore-dash-ricavo", step: "0.01" , min: "0"  %>
+            <p class="mt-2">Valore in euro per il ricavo: <span id="valore-euro-ricavo"></span></p>
+          </div>
+        <% end %>
+        <script>
+          function updateValoreEuro(idDashInput, idEuroSpan, idExchangeRate) {
+            const valoreDashInput = document.getElementById(idDashInput);
+            const valoreEuroSpan = document.getElementById(idEuroSpan);
+
+            if (valoreDashInput.value.trim() === '') {
+              // Se il campo è vuoto, azzera i valori in euro e il tasso di cambio
+              document.getElementById(idExchangeRate).innerHTML = '';
+              valoreEuroSpan.textContent = '';
+              return; // Esce dalla funzione
+            }
+
+            if (!isNaN(valoreDashInput.value)) {
+              fetch('https://api.coingecko.com/api/v3/simple/price?ids=dash&vs_currencies=eur')
+                .then(response => response.json())
+                .then(data => {
+                  const exchangeRate = data.dash.eur;
+                  const valoreDash = parseFloat(valoreDashInput.value);
+                  const valoreEuro = valoreDash * exchangeRate;
+
+                  document.getElementById(idExchangeRate).innerHTML = `${exchangeRate} €`;
+                  valoreEuroSpan.textContent = valoreEuro.toFixed(2) + " €";
+                })
+                .catch(error => {
+                  console.error('Si è verificato un errore durante il recupero del prezzo di Dash in Euro:', error);
+                });
+            } else {
+              document.getElementById(idExchangeRate).innerHTML = '';
+              valoreEuroSpan.textContent = '';
+            }
+          }
+
+          document.addEventListener("DOMContentLoaded", function() {
+            updateValoreEuro("valore-dash-costo", "valore-euro-costo", "exchangeRateCosto");
+            updateValoreEuro("valore-dash-ricavo", "valore-euro-ricavo", "exchangeRateRicavo");
+          });
+
+          document.getElementById("valore-dash-costo").addEventListener("input", function() {
+            updateValoreEuro("valore-dash-costo", "valore-euro-costo", "exchangeRateCosto");
+          });
+          document.getElementById("valore-dash-costo").addEventListener("change", function() {
+            updateValoreEuro("valore-dash-costo", "valore-euro-costo", "exchangeRateCosto");
+          });
+
+          document.getElementById("valore-dash-ricavo").addEventListener("input", function() {
+            updateValoreEuro("valore-dash-ricavo", "valore-euro-ricavo", "exchangeRateRicavo");
+          });
+          document.getElementById("valore-dash-ricavo").addEventListener("change", function() {
+            updateValoreEuro("valore-dash-ricavo", "valore-euro-ricavo", "exchangeRateRicavo");
+          });
+        </script>
+        <!-- costo ricavo in dash-->
+      </div>
+      <div class=" ">
+        <div class="my-5">
+          <%= form.label :data %>
+          <%= form.datetime_field :data, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", value: Time.now, required: true %>
+        </div>
+      </div>
+      
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div class=" ">
+        <div class="my-5">
+          <%= form.label :tipo %>
+          <%= form.select :tipo, options_for_select(Content.tipos.map {|k, v| [k.titleize, k]}, selected:  @content.tipo || Content.tipos.keys.first),  { prompt: "Scegli" },  class: "my-4 block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
+        </div>
+      </div>
+      <div class= "">
+        <div class="my-5">
+          <%= form.label :visibiilità %>
+          <%= form.select :visibility, options_for_select(Content.visibilities.map {|k, v| [k.titleize, k]}, selected:  @content.visibility || Content.visibilities.keys.first),  { prompt: "Scegli" },  class: "my-4 block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
+        </div>
+      </div>
+    </div>
+    <div class="my-5">
+      <%= form.label :nome %>
+      <%= form.text_field :nome, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
+    </div>
+    <div class="my-5">
+      <%= form.label :descrizione %>
+      <%= form.text_field :descrizione, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
+    </div>
+    <div class="my-5">
+      <%= form.label :body %>
+      <%= form.text_area :body, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+    <div class="my-5">
+      <%= form.label :img_url %>
+      <%= form.text_field :img_url, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+    <div class="my-5">
+      <%= form.label :email %>
+      <%= form.text_field :email, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+    <div class="my-5">
+      <%= form.label :telefono %>
+      <%= form.text_field :telefono, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+    <br>
+    <div class="inline">
+      <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
     </div>
   <% end %>
-  <div class="my-5">
-    <%= form.label :tipo %>
-    <%= form.select :tipo, options_for_select(Content.tipos.map {|k, v| [k.titleize, k]}, selected:  @content.tipo || Content.tipos.keys.first),  { prompt: "Scegli" },  class: "my-4 block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
-  </div>
-  <div class="my-5">
-    <%= form.label :data %>
-    <%= form.datetime_field :data, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", value: Time.now, required: true %>
-  </div>
-  <div class="my-5">
-    <%= form.label :nome %>
-    <%= form.text_field :nome, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
-  </div>
-  <div class="my-5">
-    <%= form.label :descrizione %>
-    <%= form.text_field :descrizione, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
-  </div>
-  <div class="my-5">
-    <%= form.label :body %>
-    <%= form.text_area :body, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-  <div class="my-5">
-    <%= form.label :img_url %>
-    <%= form.text_field :img_url, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-  <div class="my-5">
-    <%= form.label :email %>
-    <%= form.text_field :email, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-  <div class="my-5">
-    <%= form.label :telefono %>
-    <%= form.text_field :telefono, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-  <!--- costo ricavo in dash--->
-  <div class="my-5">
-    <%= form.label :costo_dash %>
-    <%= form.text_field :costo, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", id: "valore-dash-costo" %>
-  </div>
-  <p>Valore in euro per il costo: <span id="valore-euro-costo"></span></p>
-  <div id="exchangeRateCosto"></div>
-  <script>
-    // Funzione per ottenere il tasso di cambio da CoinGecko e aggiornare il valore in euro per il costo
-    function updateValoreEuroCosto() {
-      const valoreDashInputCosto = document.getElementById("valore-dash-costo");
-      const valoreEuroSpanCosto = document.getElementById("valore-euro-costo");
-
-      // Effettua una richiesta HTTP GET all'API di CoinGecko per ottenere il prezzo di Dash in euro
-      fetch('https://api.coingecko.com/api/v3/simple/price?ids=dash&vs_currencies=eur')
-        .then(response => response.json())
-        .then(data => {
-          // Estrai il prezzo di Dash in euro dalla risposta
-          const exchangeRateCosto = data.dash.eur;
-
-          // Calcola il valore in euro per il costo in base al valore in dash inserito dall'utente
-          const valoreDashCosto = parseFloat(valoreDashInputCosto.value);
-          const valoreEuroCosto = valoreDashCosto * exchangeRateCosto;
-
-          // Mostra il tasso di cambio per il costo nella pagina
-          document.getElementById('exchangeRateCosto').innerHTML = `1 Dash = ${exchangeRateCosto} €`;
-
-          // Mostra il valore in euro per il costo nella pagina
-          valoreEuroSpanCosto.textContent = valoreEuroCosto.toFixed(2) + " €"; // Formattazione del valore in euro
-        })
-        .catch(error => {
-          console.error('Si è verificato un errore durante il recupero del prezzo di Dash in Euro per il costo:', error);
-        });
-    }
-
-    // Aggiorna il valore in euro per il costo ogni volta che l'utente inserisce un nuovo valore in dash
-    document.getElementById("valore-dash-costo").addEventListener("input", updateValoreEuroCosto);
-
-    // Chiama la funzione per aggiornare il valore in euro per il costo quando la pagina è completamente caricata
-    document.addEventListener("DOMContentLoaded", updateValoreEuroCosto);
-  </script>
-  <div class="my-5">
-    <%= form.label :ricavo_dash %>
-    <%= form.text_field :ricavo, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", id: "valore-dash-ricavo" %>
-  </div>
-  <p>Valore in euro per il ricavo: <span id="valore-euro-ricavo"></span></p>
-  <div id="exchangeRateRicavo"></div>
-  <script>
-    // Funzione per ottenere il tasso di cambio da CoinGecko e aggiornare il valore in euro per il ricavo
-    function updateValoreEuroRicavo() {
-      const valoreRicavoInput = document.getElementById("valore-dash-ricavo");
-      const valoreEuroSpanRicavo = document.getElementById("valore-euro-ricavo");
-
-      // Effettua una richiesta HTTP GET all'API di CoinGecko per ottenere il prezzo di Dash in euro
-      fetch('https://api.coingecko.com/api/v3/simple/price?ids=dash&vs_currencies=eur')
-        .then(response => response.json())
-        .then(data => {
-          // Estrai il prezzo di Dash in euro dalla risposta
-          const exchangeRateRicavo = data.dash.eur;
-
-          // Calcola il valore in euro per il ricavo in base al valore inserito dall'utente
-          const valoreRicavo = parseFloat(valoreRicavoInput.value);
-          const valoreEuroRicavo = valoreRicavo * exchangeRateRicavo;
-
-          // Mostra il tasso di cambio per il ricavo nella pagina
-          document.getElementById('exchangeRateRicavo').innerHTML = `1 Dash = ${exchangeRateRicavo} €`;
-
-          // Mostra il valore in euro per il ricavo nella pagina
-          valoreEuroSpanRicavo.textContent = valoreEuroRicavo.toFixed(2) + " €"; // Formattazione del valore in euro
-        })
-        .catch(error => {
-          console.error('Si è verificato un errore durante il recupero del prezzo di Dash in Euro per il ricavo:', error);
-        });
-    }
-
-    // Aggiorna il valore in euro per il ricavo ogni volta che l'utente inserisce un nuovo valore nel campo "ricavo"
-    document.getElementById("valore-dash-ricavo").addEventListener("input", updateValoreEuroRicavo);
-
-    // Chiama la funzione per aggiornare il valore in euro per il ricavo quando la pagina è completamente caricata
-    document.addEventListener("DOMContentLoaded", updateValoreEuroRicavo);
-  </script>
-  <!-- costo ricavo in dash-->
-  <br>
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
-<% end %>
+</div>

@@ -1,5 +1,9 @@
+# 11 aprile 2024 19:30
+
+rails g migration AddVisibilityToContent visibility:integer
+
 # 8 aprile 2024 19:30
-Mettere visibility: privato progetto pubblico 
+
 Trasferire su github e farlo open source. Mettere il valore in dash 
 
 rails d migration AddUserToContent user:references

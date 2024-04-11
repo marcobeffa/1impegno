@@ -17,6 +17,12 @@ class ContentsController < ApplicationController
 
   # GET /contents/1/edit
   def edit
+    if params[:ricavo].nil?
+      @content.update(ricavo: nil)
+    end
+    if !params[:ricavo].nil?
+      @content.update(costo: nil)
+    end
   end
 
   # POST /contents or /contents.json
@@ -65,6 +71,6 @@ class ContentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def content_params
-      params.require(:content).permit(:data, :tipo, :nome, :descrizione, :body, :img_url, :email, :telefono, :costo, :ricavo, :user_id )
+      params.require(:content).permit(:data, :tipo, :nome, :descrizione, :body, :img_url, :email, :telefono, :costo, :ricavo, :user_id, :visibility )
     end
 end
