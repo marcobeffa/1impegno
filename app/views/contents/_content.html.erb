@@ -1,0 +1,43 @@
+<div id="<%= dom_id content %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Tipo:</strong>
+    <%= content.tipo %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Nome:</strong>
+    <%= content.nome %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Descrizione:</strong>
+    <%= content.descrizione %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Body:</strong>
+    <%= markdown(content.body) if content.body %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Img url:</strong>
+    <%= content.img_url %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Email:</strong>
+    <%= content.email %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Telefono:</strong>
+    <%= content.telefono %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Costo:</strong>
+    <%= content.costo %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Ricavo:</strong>
+    <%= content.ricavo %>
+  </p>
+  <% if action_name != "show" %>
+    <%= link_to "Show this content", content, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this content", edit_content_path(content), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

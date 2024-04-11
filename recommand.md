@@ -1,0 +1,10 @@
+# 8 aprile 2024 19:30
+Mettere visibility: privato progetto pubblico 
+Trasferire su github e farlo open source. Mettere il valore in dash 
+
+rails d migration AddUserToContent user:references
+
+rails g migration AddFieldToContent data:datetime
+
+rails g scaffold Content tipo nome descrizione body:text img_url email telefono costo:decimal ricavo:decimal 
+rails g migration AddFieldToUser avatar_url username nome_cognome telefono admin:boolean

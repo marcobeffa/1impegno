@@ -1,0 +1,47 @@
+<% if !user_signed_in?%>
+  <div style="position: relative; width: 100%; height: 0; padding-top: 56.2225%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+    <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+    src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAF_2jmAAs4&#x2F;F5gY9Vaj6dZRAOSF8m45og&#x2F;view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+    </iframe>
+  </div>
+  <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAF_2jmAAs4&#x2F;F5gY9Vaj6dZRAOSF8m45og&#x2F;view?utm_content=DAF_2jmAAs4&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">1impegno.it</a> di Mark Postura
+<% else %>
+  <div class="w-full">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+    <section class="bg-white dark:bg-gray-900 py-2 lg:py-8 antialiased">
+      <div class="max-w-2xl mx-auto px-2">
+        <div class="flex justify-between items-center">
+          <h1 class="font-bold text-4xl">Contenuti</h1>
+        </div>
+        <div class="mb-2 text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+          <ul class="flex flex-wrap -mb-px">
+            <li class="me-2">
+              <%= link_to "Passati", contents_path, class: "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" %>
+            </li>
+            <li class="me-2">
+              <%= link_to "Prossimi", root_path, class: "inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" %>
+            </li>
+            <li class="me-2">
+              <%= link_to "+ Nuovo", new_content_path, class: "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" %>
+            </li>
+          </ul>
+        </div>
+        <div class="border-b p-2 ">
+          <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Lun 24</span>  <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">Aprile</span>
+        </div>
+        <div class="border-b p-2 flex justify-between">
+          <span class=" text-blue-800 text-xs font-medium me-1 px-1 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">10:00 - 11:00 </span>
+          <b class="mx-2">  Ciao</b>
+          <svg class="ml-auto w-6 h-6 text-gray-800 dark:text-white inline-block ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+            <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+  </div>
+<% end %>

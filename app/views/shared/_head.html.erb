@@ -1,0 +1,67 @@
+  <!---head>
+    <title>Impegno2024</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.turbo.min.js"></script>
+  </head-->
+<head>
+  <title>1impegno</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.turbo.min.js"></script>
+  
+   <%= favicon_link_tag asset_path('home/impegno.png') %>
+    <%= favicon_link_tag asset_path("home/impegno.png"), :rel => "apple-touch-icon"  %>
+   
+     <%# Add iziToast %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+   
+    <!-- TRIX -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.1/trix.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.1/trix.js" defer></script>
+
+   
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- SEO -->
+    <meta
+      name="1impegno"
+      content="Organizza i tuoi impegni e le tue risorse."
+    />
+    <link rel="canonical" href="https://www.1impegno.org/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="1impegno" />
+    <meta
+      property="og:description"
+      content="Organizza i tuoi impegni e le tue risorse.""
+    />
+    <meta property="og:image" content="<%= image_url('home/impegno.png') %>" />
+    <meta property="og:url" content="https://www.1impegno.org" />
+    <meta property="og:site_name" content="1impegno" />
+    <meta name="twitter:title" content="1impegno" />
+    <meta
+      name="1impegno"
+      content="Organizza i tuoi impegni e le tue risorse."
+    />
+
+    
+    <meta name="twitter:image" content="<%= image_url('home/impegno.png') %>" >
+    <meta name="twitter:site" content="@1impegno" />
+    <meta name="twitter:creator" content="@1impegno" />
+    <meta name="”robots”" content="index,follow" />
+  <!-- Font Awesome -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+</head>
