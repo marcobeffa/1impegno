@@ -1,3 +1,8 @@
+linkTree per developers https://www.youtube.com/watch?v=2cwjtRR9Rzk 
+# 18 aprile 2024 19:30
+
+rails g migration AddEnergyToContent energy:integer importanza:integer
+
 # 11 aprile 2024 19:30
 
 rails g migration AddVisibilityToContent visibility:integer

@@ -1,154 +1,202 @@
 <% @non_attivo = "inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500"%>
 <% @attivo = "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"%>
-<div class="w-full">
-  <!--div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Contenuti</h1>
-    <%#= link_to "New content", new_content_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div-->
-  <!--div id="contents" class="min-w-full">
-    <%#= render @contents %>
-  </div-->
+<%= render 'shared/nav' %>
+<div class="h-16"></div>
+<div data-controller="contentdata" data-content-data="<%= @data %>">
+  <!--script>
+    window.onload = function() {
+      // Ottieni la data dalla variabile @data
+      var currentDate = '<%= @data %>';
+
+      // Costruisci l'ID dell'elemento del giorno corrispondente
+      var todayElementId = 'day-' + currentDate;
+
+      // Trova l'elemento del giorno corrispondente
+      var todayElement = document.getElementById(todayElementId);
+
+      // Altezza del banner sticky
+      var bannerHeight = document.getElementById('sticky-banner').offsetHeight;
+
+      // Se l'elemento specificato non è stato trovato
+      if (!todayElement) {
+        var elements = document.querySelectorAll('[id^="day-"]');
+        var closestElement = null;
+        var closestDiff = Infinity;
+
+        // Itera attraverso gli elementi per trovare l'elemento più vicino alla data
+        elements.forEach(function(element) {
+          var elementId = element.id.substring(4); // Rimuovi il prefisso 'day-'
+          var elementDate = new Date(elementId);
+          var diff = Math.abs(new Date(currentDate) - elementDate);
+
+          // Se l'elemento è più vicino alla data e il più vicino trovato finora
+          if (diff < closestDiff) {
+            closestDiff = diff;
+            closestElement = element;
+          }
+        });
+
+        if (closestElement) {
+          // Scorri fino all'elemento più vicino, considerando lo spazio sopra al banner sticky
+          window.scrollTo({ top: closestElement.offsetTop - bannerHeight, behavior: 'smooth' });
+        }
+      } else {
+        // Se l'elemento specificato è stato trovato, scorri fino ad esso, considerando lo spazio sopra al banner sticky
+        window.scrollTo({ top: todayElement.offsetTop - bannerHeight, behavior: 'smooth' });
+      }
+    };
+  </script-->
   <div class="w-full">
     <section class="bg-white dark:bg-gray-900 py-2 lg:py-8 antialiased">
       <div class="max-w-2xl mx-auto px-2">
-        <div class="flex justify-between items-center">
-          <h1 class="font-bold text-4xl">Contenuti</h1>
-        </div>
-        <div class="mb-2 text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-          <ul class="flex flex-wrap -mb-px">
-            <li class="me-2">
-              <% if controller_name == "pages" && action_name == "home" %>
-                <%= link_to "Passati", contents_path, class: "#{@attivo}" %>
-              <% else %>
-                <%= link_to "Passati", contents_path, class: "#{@non_attivo}" %>
-              <% end %>
-            </li>
-            <li class="me-2">
-              <% if controller_name == "contents" && action_name == "index" %>
-                <%= link_to "Prossimi", root_path, class: "#{@attivo}" %>
-              <% else %>
-                <%= link_to "Prossimi", root_path, class: "#{@non_attivo}" %>
-              <% end %>
-            </li>
-            <li class="me-2">
-              <%= link_to "+ Nuovo", new_content_path, class: "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" %>
-            </li>
-          </ul>
-        </div>
-        <!---->
-        <% @contents.each do |content| %>
-          <div class="border-b p-2 ">
-            <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
-              <%= helper_day(content.data.strftime("%u").to_i)  %> <%= content.data.strftime("%d")  %>
-            </span>
-            <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
-              <%= helper_month(content.data.strftime("%m").to_i)  %>
-            </span>
-          </div>
-          <div class="border-b p-2 flex justify-between">
-            <div class="flex">
-              <div class="mr-1">
-                <% if content.visibility == "pubblico" %>
-                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
-                    <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                  </svg>
-                <% elsif content.visibility == "gruppo"  %>
-                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>
-                  </svg>
-                <% elsif content.visibility == "privato"  %>
-                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                  </svg>
-                <% end %>
+        <% @contents.order(data: :desc).each do |content| %>
+          <div class=" p-2 flex" id="day-<%= content.data.strftime('%Y-%m-%d') %>">
+            <div class="flex w-full">
+              <!-- https://dribbble.com/shots/14959823-Dashboard-UI-Elements -->
+              <!-- { /*variation dark set*/ } -->
+              <div class=' '>
+                <div class='flex group  <% if content.data.strftime("%Y-%m-%d") ==  @data %> bg-purple-300<% else %>bg-purple-100<% end %>  shadow-lg light-shadow rounded-lg mx-1 cursor-pointer justify-center relative w-16 content-center'>
+                  <span class="flex h-3 w-3 absolute -top-1 -right-1">
+                    <span class="animate-ping absolute group-hover:opacity-75 opacity-0 inline-flex h-full w-full rounded-full <% if content.data.strftime("%Y-%m-%d") ==  @data %> bg-purple-400<% else %>bg-purple-200<% end %> "></span>
+                    <% if content.data.strftime("%Y-%m-%d") ==  DateTime.now.strftime('%Y-%m-%d') %>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+                    <% end %>
+                  </span>
+                  <%= link_to contents_path(data: content.data.strftime("%Y-%m-%d")) do %>
+                    <div class='flex items-center px-2 py-2'>
+                      <div class='text-center'>
+                        <p class='text-purple-900 text-sm'>    <%= helper_day(content.data.strftime("%u").to_i).truncate(3, omission: '')  %>
+                        </p>
+                        <p class='text-purple-900   font-bold  -mt-1'> <%= content.data.strftime("%d")  %> </p>
+                        <p class='text-purple-900  font-bold -mt-1'>  <%= helper_month(content.data.strftime("%m").to_i).truncate(3, omission: '')  %> </p>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+                <div class='mt-1 flex group <% if content.data.strftime("%Y-%m-%d") ==  @data %> bg-purple-300<% else %>bg-purple-100<% end %> shadow-lg light-shadow rounded-lg mx-1 cursor-pointer justify-center relative w-16 content-center'>
+                  <p class='text-purple-900 text-sm'>
+                    <%= content.data.strftime("%H:%M")  %>
+                  </p>
+                </div>
               </div>
-              <span class=" text-blue-800 text-xs font-medium me-1 px-1 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
-                <%= content.data.strftime("%H:%M")  %>
-              </span>
-              <% if content.ricavo %>
-                <!-- Ricavo con tooltip per la conversione in euro -->
-                <span class="flex text-green-800 text-xs font-medium me-1 px-1 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400" data-tooltip-target="tooltip-ricavo" id="ricavo-value">
-                  <%= content.ricavo %><%= image_tag "https://cdn-icons-png.flaticon.com/512/825/825534.png", class: "w-4 h-4 ml-1" %>
-                </span>
-                <div id="tooltip-ricavo" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                  <span id="tooltip-content">Conversione in euro: </span>
-                  <div class="tooltip-arrow" data-popper-arrow></div>
+              <!------->
+              <!----->
+              <div class="w-full bg-white border shadow-sm rounded-xl hover:shadow-md transition dark:bg-slate-900 dark:border-gray-800" >
+                <div class="py-2 px-3 md:p-4">
+                  <div class="flex justify-between items-center">
+                    <div>
+                      <div class="flex">
+                        <p class="text-sm text-gray-500">
+                          <div class="flex border-b pb-2">
+                            <div class="mr-1">
+                              <% if content.visibility == "pubblico" %>
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                  <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+                                  <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                </svg>
+                              <% elsif content.visibility == "gruppo"  %>
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                  <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>
+                                </svg>
+                              <% elsif content.visibility == "privato"  %>
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                </svg>
+                              <% end %>
+                            </div>
+                            <span class=" mx-1 lg:mx-2 ">
+                              <%= content.tipo %>
+                            </span>
+                          </div>
+                        </p>
+                        <div class=" flex  mx-2 lg:mx-4 ">
+                          <% if content.importanza %>
+                            <div class=" flex  mx-2 lg:mx-4 ">
+                              <div class="text-xl lg:text-2xl emoji-rating">
+                                <% case content.energy %>
+                                <% when 1 %>
+                                😢
+                                <% when 2 %>
+                                😞
+                                <% when 3 %>
+                                😐
+                                <% when 4 %>
+                                🙂
+                                <% when 5 %>
+                                😄
+                              <% end %>
+                            </div>
+                            <!-- Aggiungi altre informazioni del contenuto qui -->
+                          </div>
+                        <% end %>
+                        <% if content.importanza %>
+                          <div class="flex  mx-2 lg:mx-4 ">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                            </svg>
+                            <%= content.importanza %>
+                          </div>
+                        <% end %>
+                        <!-- stelle valutazione importanza-->
+                      </div>
+                      <% if content.ricavo && content.costo %>
+                        <% guadagno = content.ricavo.to_f - content.costo.to_f %>
+                        <!-- Guadagno con tooltip per la conversione in euro -->
+                        <% guadagno_class = guadagno >= 0 ? "text-green-800 border-green-400 dark:text-green-400" : "text-red-800 border-red-400 dark:text-red-400" %>
+                        <span class="h-6 w-auto flex <%= guadagno_class %> text-xs font-medium me-1 px-1 py-0.5 rounded dark:bg-gray-700 border dark:bg-gray-700 dark:border-gray-700" data-tooltip-target="tooltip-guadagno" id="guadagno-value">
+                          <%= guadagno %><%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-4 h-4 ml-1" %>
+                        </span>
+                        <div id="tooltip-guadagno" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                          <span id="tooltip-content">Conversione in euro: </span>
+                          <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                        <script>
+                          // Funzione per ottenere il tasso di cambio da CoinGecko e aggiornare il tooltip
+                          function updateTooltipGuadagno() {
+                            const guadagnoValue = document.getElementById('guadagno-value').innerText;
+
+                            // Effettua una richiesta HTTP GET all'API di CoinGecko per ottenere il prezzo di Dash in euro
+                            fetch('https://api.coingecko.com/api/v3/simple/price?ids=dash&vs_currencies=eur')
+                              .then(response => response.json())
+                              .then(data => {
+                                const exchangeRate = data.dash.eur;
+                                const guadagnoEuro = parseFloat(guadagnoValue) * exchangeRate;
+                                const tooltipContent = `Conversione in euro: ${guadagnoEuro.toFixed(2)} €`;
+
+                                // Aggiorna il contenuto del tooltip
+                                document.getElementById('tooltip-content').innerText = tooltipContent;
+                              })
+                              .catch(error => {
+                                console.error('Si è verificato un errore durante il recupero del prezzo di Dash in Euro:', error);
+                              });
+                          }
+
+                          // Aggiungi un gestore eventi per aggiornare il tooltip quando il cursore si trova sull'elemento
+                          document.getElementById('guadagno-value').addEventListener('mouseover', updateTooltipGuadagno);
+                        </script>
+                        <!-- fine -->
+                      <% end %>
+                    </div>
+                    <h3 class="flex mt-1 group-hover:text-blue-600 font-semibold text-gray-800 dark:group-hover:text-gray-400 dark:text-gray-200">
+                      <%= link_to content, class:"hover:text-gray-500 hover:text-lg" do %>
+                        <%= content.nome %>
+                      <% end %>
+                    </h3>
+                  </div>
+                  <!---da vedere --->
+                  <!------>
+                  <%= link_to content, class:"hidden lg:block hover:text-gray-500 hover:text-lg" do %>
+                    <div class="ps-3">
+                      <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                  <% end %>
                 </div>
-                <script>
-                  // Funzione per ottenere il tasso di cambio da CoinGecko e aggiornare il tooltip
-                  function updateTooltipRicavo() {
-                    const ricavoValue = document.getElementById('ricavo-value').innerText;
-
-                    // Effettua una richiesta HTTP GET all'API di CoinGecko per ottenere il prezzo di Dash in euro
-                    fetch('https://api.coingecko.com/api/v3/simple/price?ids=dash&vs_currencies=eur')
-                      .then(response => response.json())
-                      .then(data => {
-                        const exchangeRate = data.dash.eur;
-                        const ricavoEuro = parseFloat(ricavoValue) * exchangeRate;
-                        const tooltipContent = `${ricavoEuro.toFixed(2)} €`;
-
-                        // Aggiorna il contenuto del tooltip
-                        document.getElementById('tooltip-content').innerText = tooltipContent;
-                      })
-                      .catch(error => {
-                        console.error('Si è verificato un errore durante il recupero del prezzo di Dash in Euro:', error);
-                      });
-                  }
-
-                  // Aggiungi un gestore eventi per aggiornare il tooltip quando il cursore si trova sull'elemento
-                  document.getElementById('ricavo-value').addEventListener('mouseover', updateTooltipRicavo);
-                </script>
-                <!-- fine -->
-              <% elsif content.costo %>
-                <!-- Costo con tooltip per la conversione in euro -->
-                <span class="flex text-red-800 text-xs font-medium me-1 px-1 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400" data-tooltip-target="tooltip-costo" id="costo-value">
-                  <%= content.costo %><%= image_tag "https://cdn-icons-png.flaticon.com/512/825/825534.png", class: "w-4 h-4 ml-1" %>
-                </span>
-                <div id="tooltip-costo" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                  <span id="tooltip-content">Conversione in euro: </span>
-                  <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-                <script>
-                  // Funzione per ottenere il tasso di cambio da CoinGecko e aggiornare il tooltip
-                  function updateTooltipCosto() {
-                    const costoValue = document.getElementById('costo-value').innerText;
-
-                    // Effettua una richiesta HTTP GET all'API di CoinGecko per ottenere il prezzo di Dash in euro
-                    fetch('https://api.coingecko.com/api/v3/simple/price?ids=dash&vs_currencies=eur')
-                      .then(response => response.json())
-                      .then(data => {
-                        const exchangeRate = data.dash.eur;
-                        const costoEuro = parseFloat(costoValue) * exchangeRate;
-                        const tooltipContent = `Conversione in euro: ${costoEuro.toFixed(2)} €`;
-
-                        // Aggiorna il contenuto del tooltip
-                        document.getElementById('tooltip-content').innerText = tooltipContent;
-                      })
-                      .catch(error => {
-                        console.error('Si è verificato un errore durante il recupero del prezzo di Dash in Euro:', error);
-                      });
-                  }
-
-                  // Aggiungi un gestore eventi per aggiornare il tooltip quando il cursore si trova sull'elemento
-                  document.getElementById('costo-value').addEventListener('mouseover', updateTooltipCosto);
-                </script>
-                <!-- fine -->
-              <% end %>
-              <%= link_to content do %>
-                <b class="mx-2">  <%= content.nome %></b>
-              <% end %>
+              </div>
             </div>
-            <div>
-              <%= content.tipo %>
-            </div>
-            <!--svg class="ml-auto w-6 h-6 text-gray-800 dark:text-white inline-block ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
-              <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-            </svg-->
           </div>
-        <% end %>
-      </div>
-    </section>
-  </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div>
 </div>

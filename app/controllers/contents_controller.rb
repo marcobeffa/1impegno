@@ -3,7 +3,34 @@ class ContentsController < ApplicationController
 
   # GET /contents or /contents.json
   def index
-    @contents = current_user.contents.where('data < ?', Date.today)
+    @contents = current_user.contents
+    if !user_signed_in?
+      redirect_to root_path
+    end
+    if params[:data].nil?
+      
+       @data_completa = DateTime.now
+       @data =  @data_completa.strftime('%Y-%m-%d')
+       @dataform = DateTime.now.strftime('%d-%m-%Y')
+    
+    else
+      @data = params[:data]  
+      begin
+        @data_completa = DateTime.strptime(@data, '%Y-%m-%d')
+      rescue ArgumentError => e
+        flash[:error] = "Data non valida. Utilizzando la data corrente."
+        @data_completa = DateTime.now
+        @data =  @data_completa.strftime('%Y-%m-%d')
+        
+      end
+    
+      @dataform =  @data_completa.strftime('%d-%m-%Y')
+    
+    end 
+
+   
+   
+    
   end
 
   # GET /contents/1 or /contents/1.json
@@ -17,12 +44,7 @@ class ContentsController < ApplicationController
 
   # GET /contents/1/edit
   def edit
-    if params[:ricavo].nil?
-      @content.update(ricavo: nil)
-    end
-    if !params[:ricavo].nil?
-      @content.update(costo: nil)
-    end
+   
   end
 
   # POST /contents or /contents.json
@@ -71,6 +93,6 @@ class ContentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def content_params
-      params.require(:content).permit(:data, :tipo, :nome, :descrizione, :body, :img_url, :email, :telefono, :costo, :ricavo, :user_id, :visibility )
+      params.require(:content).permit(:data, :tipo, :nome, :descrizione, :body, :img_url, :email, :telefono, :costo, :ricavo, :user_id, :visibility, :energy, :importanza )
     end
 end

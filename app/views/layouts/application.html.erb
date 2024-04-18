@@ -4,7 +4,9 @@
     <%= render 'shared/head' %>
     <body>
       <%= render 'shared/flash' %>
-      <%= render 'shared/nav' %>
+      <% unless controller_name == "contents" && action_name == "index" %>
+        <%= render 'shared/nav' %>
+      <% end %>
       <main class="">
         <%= yield %>
       </main>

@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   def home
     if user_signed_in?
-      @contents = current_user.contents.where('data >= ?', Date.today)
+      @contents = current_user.contents
     end
   end
 
