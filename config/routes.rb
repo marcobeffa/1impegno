@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :contents
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
+ 
   get 'pages/home'
   get 'pages/about'
   get 'changelog', to: "pages#changelog"
