@@ -1,6 +1,9 @@
 class ContentsController < ApplicationController
+  before_action :authenticate_user!, except: %i[ show ]
   before_action :set_content, only: %i[ show edit update destroy ]
-
+  before_action :edit_auth, only: %i[ edit update destroy ]
+  before_action :show_auth, only: %i[ show ]
+  
   # GET /contents or /contents.json
   def index
     @contents = current_user.contents
@@ -95,4 +98,21 @@ class ContentsController < ApplicationController
     def content_params
       params.require(:content).permit(:data, :tipo, :nome, :descrizione, :body, :img_url, :email, :telefono, :costo, :ricavo, :user_id, :visibility, :energy, :importanza )
     end
+    
+    def show_auth
+      if !@content.pubblico?
+        unless current_user.id == @content.user.id 
+          redirect_to root_path
+        end
+      end
+    end
+
+    def edit_auth
+     
+        unless current_user.id == @content.user.id 
+          redirect_to root_path
+        end
+   
+    end
+
 end
