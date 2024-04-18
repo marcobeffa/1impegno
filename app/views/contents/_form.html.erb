@@ -85,7 +85,11 @@
       <div class=" ">
         <div class="my-5">
           <%= form.label :data %>
-          <%= form.datetime_field :data, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", value: Time.now, required: true %>
+          <% if action_name == "edit" %>
+            <%= form.datetime_field :data, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+          <% else %>
+            <%= form.datetime_field :data, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", value: Time.now, required: true %>
+          <% end %>
         </div>
       </div>
     </div>
