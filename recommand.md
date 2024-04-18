@@ -1,5 +1,11 @@
+
+
 linkTree per developers https://www.youtube.com/watch?v=2cwjtRR9Rzk 
+
+
 # 18 aprile 2024 19:30
+
+rails g model Dash valore:decimal eur:decimal usd:decimal jpy:decimal chf:decimal cny:decimal oro_grammi:decimal gbp:decimal
 
 rails g migration AddEnergyToContent energy:integer importanza:integer
 

@@ -14,21 +14,21 @@
     <% end %>
     <div class="grid xl:grid-cols-3 md:grid-cols-2 gap-4">
       <!--- costo ricavo in dash--->
-      <div class="my-5" data-controller="valore-euro">
+      <div class="my-5">
         <div class="flex items-center">
           <%= form.label :costo, class: "inline mr-2 text-red-600" %>
           <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
         </div>
         <%= form.number_field :costo, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full",  step: "0.01", min: "0"  %>
-        <p class="mt-2">Valore in euro per il costo: <span data-valore-euro-target="euroSpan"></span></p>
+        <p class="mt-2">Valore in euro per il costo: <span ></span></p>
       </div>
-      <div class="my-5" data-controller="valore-euro">
+      <div class="my-5" >
         <div class="flex items-center">
           <%= form.label :ricavo, class: "text-green-600 inline mr-2" %>
           <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
         </div>
         <%= form.number_field :ricavo, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full",  step: "0.01", min: "0"  %>
-        <p class="mt-2">Valore in euro per il ricavo: <span data-valore-euro-target="euroSpan"></span></p>
+        <p class="mt-2">Valore in euro per il ricavo: <span></span></p>
       </div>
       <!-- costo ricavo in dash-->
       <div class=" ">
@@ -57,68 +57,7 @@
       </div>
     </div>
     <!------->
-    <!--- Inizio radio button--->
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <%= form.label :energia %>
-        <div class="rating gap-4">
-          <% (1..5).each do |i| %>
-            <%= form.radio_button :energy, i, id: "energy_#{i}", class: "emoji-radio" %>
-            <%= form.label "energy_#{i}", "😄", class: "emoji", for: "energy_#{i}" %>
-          <% end %>
-        </div>
-      </div>
-      <div>
-        <%= form.label :importanza, "What's your overall rating?" %>
-        <div class="rating flex">
-          <% (1..5).each do |i| %>
-            <%= form.radio_button :importanza, i, id: "importanza_#{i}" %>
-            <label class="star-label" for="importanza_#{i}">
-              <svg class="w-6 h-6 text-gray-800 dark:text-white star" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
-              </svg>
-            </label>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <style>
-      .star-label {
-        cursor: pointer;
-      }
-
-      .star.active path {
-        fill: yellow; /* Colore per le stelline attive */
-      }
-    </style>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const stars = document.querySelectorAll('.star-label');
-        const importanzaRadioBtns = document.querySelectorAll('input[name="content[importanza]"]');
-
-        stars.forEach(function(star, index) {
-          star.addEventListener('click', function() {
-            // Simula il clic sul radio button corrispondente all'importanza
-            importanzaRadioBtns[index].checked = true;
-            updateStars(index + 1);
-          });
-        });
-
-        function updateStars(value) {
-          const allStars = document.querySelectorAll('.star');
-
-          // Rimuovi la classe 'active' da tutte le stelline
-          allStars.forEach(function(star, index) {
-            if (index < value) {
-              star.classList.add('active');
-            } else {
-              star.classList.remove('active');
-            }
-          });
-        }
-      });
-    </script>
-    <!--- fine radio button--->
+    <%= render 'radio_button', form: form %>
     <div class="my-5">
       <%= form.label :nome %>
       <%= form.text_field :nome, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
