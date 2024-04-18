@@ -31,13 +31,17 @@
         <p class="mt-2">Valore in euro per il ricavo: <span id="valore-euro-ricavo"></span></p>
       </div>
       <script>
-        function updateValoreEuro(idDashInput, idEuroSpan, idExchangeRate) {
+        function updateValoreEuro(idDashInput, idEuroSpan) {
           const valoreDashInput = document.getElementById(idDashInput);
           const valoreEuroSpan = document.getElementById(idEuroSpan);
 
+          if (!valoreDashInput || !valoreEuroSpan) {
+            console.error('Uno degli elementi non esiste.');
+            return;
+          }
+
           if (valoreDashInput.value.trim() === '') {
-            // Se il campo è vuoto, azzera i valori in euro e il tasso di cambio
-            document.getElementById(idExchangeRate).innerHTML = '';
+            // Se il campo è vuoto, azzera il valore in euro
             valoreEuroSpan.textContent = '';
             return; // Esce dalla funzione
           }
@@ -50,35 +54,29 @@
                 const valoreDash = parseFloat(valoreDashInput.value);
                 const valoreEuro = valoreDash * exchangeRate;
 
-                document.getElementById(idExchangeRate).innerHTML = `${exchangeRate} €`;
                 valoreEuroSpan.textContent = valoreEuro.toFixed(2) + " €";
               })
               .catch(error => {
                 console.error('Si è verificato un errore durante il recupero del prezzo di Dash in Euro:', error);
               });
           } else {
-            document.getElementById(idExchangeRate).innerHTML = '';
             valoreEuroSpan.textContent = '';
           }
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-          updateValoreEuro("valore-dash-costo", "valore-euro-costo", "exchangeRateCosto");
-          updateValoreEuro("valore-dash-ricavo", "valore-euro-ricavo", "exchangeRateRicavo");
+          // Aggiorna il valore in euro al caricamento della pagina
+          updateValoreEuro("valore-dash-costo", "valore-euro-costo");
+          updateValoreEuro("valore-dash-ricavo", "valore-euro-ricavo");
         });
 
+        // Aggiorna il valore in euro quando il valore in dash viene modificato
         document.getElementById("valore-dash-costo").addEventListener("input", function() {
-          updateValoreEuro("valore-dash-costo", "valore-euro-costo", "exchangeRateCosto");
-        });
-        document.getElementById("valore-dash-costo").addEventListener("change", function() {
-          updateValoreEuro("valore-dash-costo", "valore-euro-costo", "exchangeRateCosto");
+          updateValoreEuro("valore-dash-costo", "valore-euro-costo");
         });
 
         document.getElementById("valore-dash-ricavo").addEventListener("input", function() {
-          updateValoreEuro("valore-dash-ricavo", "valore-euro-ricavo", "exchangeRateRicavo");
-        });
-        document.getElementById("valore-dash-ricavo").addEventListener("change", function() {
-          updateValoreEuro("valore-dash-ricavo", "valore-euro-ricavo", "exchangeRateRicavo");
+          updateValoreEuro("valore-dash-ricavo", "valore-euro-ricavo");
         });
       </script>
       <!-- costo ricavo in dash-->
