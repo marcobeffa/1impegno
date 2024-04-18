@@ -14,71 +14,22 @@
     <% end %>
     <div class="grid xl:grid-cols-3 md:grid-cols-2 gap-4">
       <!--- costo ricavo in dash--->
-      <div class="my-5">
+      <div class="my-5" data-controller="valore-euro">
         <div class="flex items-center">
-          <%= form.label :costo, class:"inline mr-2 text-red-600" %>
+          <%= form.label :costo, class: "inline mr-2 text-red-600" %>
           <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
         </div>
-        <%= form.number_field :costo, class: " block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", id: "valore-dash-costo", step: "0.01", min: "0"  %>
-        <p class="mt-2">Valore in euro per il costo: <span id="valore-euro-costo"></span></p>
+        <%= form.number_field :costo, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data-valore-euro-target="dashInput", step: "0.01", min: "0"  %>
+        <p class="mt-2">Valore in euro per il costo: <span data-valore-euro-target="euroSpan"></span></p>
       </div>
-      <div class="my-5">
+      <div class="my-5" data-controller="valore-euro">
         <div class="flex items-center">
-          <%= form.label :ricavo, class:"text-green-600 inline mr-2" %>
+          <%= form.label :ricavo, class: "text-green-600 inline mr-2" %>
           <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
         </div>
-        <%= form.number_field :ricavo, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", id: "valore-dash-ricavo", step: "0.01" , min: "0"  %>
-        <p class="mt-2">Valore in euro per il ricavo: <span id="valore-euro-ricavo"></span></p>
+        <%= form.number_field :ricavo, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data-valore-euro-target="dashInput", step: "0.01", min: "0"  %>
+        <p class="mt-2">Valore in euro per il ricavo: <span data-valore-euro-target="euroSpan"></span></p>
       </div>
-      <script>
-        function updateValoreEuro(idDashInput, idEuroSpan) {
-          const valoreDashInput = document.getElementById(idDashInput);
-          const valoreEuroSpan = document.getElementById(idEuroSpan);
-
-          if (!valoreDashInput || !valoreEuroSpan) {
-            console.error('Uno degli elementi non esiste.');
-            return;
-          }
-
-          if (valoreDashInput.value.trim() === '') {
-            // Se il campo è vuoto, azzera il valore in euro
-            valoreEuroSpan.textContent = '';
-            return; // Esce dalla funzione
-          }
-
-          if (!isNaN(valoreDashInput.value)) {
-            fetch('https://api.coingecko.com/api/v3/simple/price?ids=dash&vs_currencies=eur')
-              .then(response => response.json())
-              .then(data => {
-                const exchangeRate = data.dash.eur;
-                const valoreDash = parseFloat(valoreDashInput.value);
-                const valoreEuro = valoreDash * exchangeRate;
-
-                valoreEuroSpan.textContent = valoreEuro.toFixed(2) + " €";
-              })
-              .catch(error => {
-                console.error('Si è verificato un errore durante il recupero del prezzo di Dash in Euro:', error);
-              });
-          } else {
-            valoreEuroSpan.textContent = '';
-          }
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-          // Aggiorna il valore in euro al caricamento della pagina
-          updateValoreEuro("valore-dash-costo", "valore-euro-costo");
-          updateValoreEuro("valore-dash-ricavo", "valore-euro-ricavo");
-        });
-
-        // Aggiorna il valore in euro quando il valore in dash viene modificato
-        document.getElementById("valore-dash-costo").addEventListener("input", function() {
-          updateValoreEuro("valore-dash-costo", "valore-euro-costo");
-        });
-
-        document.getElementById("valore-dash-ricavo").addEventListener("input", function() {
-          updateValoreEuro("valore-dash-ricavo", "valore-euro-ricavo");
-        });
-      </script>
       <!-- costo ricavo in dash-->
       <div class=" ">
         <div class="my-5">
