@@ -1,5 +1,9 @@
 class ResourcesController < ApplicationController
+  before_action :authenticate_user!, except: %i[ show ]
   before_action :set_resource, only: %i[ show edit update destroy ]
+  before_action :edit_auth, only: %i[ edit update destroy ]
+  before_action :show_auth, only: %i[ show ]
+
 
   # GET /resources or /resources.json
   def index
@@ -66,5 +70,20 @@ class ResourcesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def resource_params
       params.require(:resource).permit(:user_id, :tipo, :nome, :descrizione, :body, :img_url, :email, :telefono, :costo, :ricavo, :data, :visibility, :energy, :importanza)
+    end
+    def show_auth
+      if !@resource.pubblico?
+        unless current_user.id == @resource.user.id 
+          redirect_to root_path
+        end
+      end
+    end
+
+    def edit_auth
+     
+        unless current_user.id == @resource.user.id 
+          redirect_to root_path
+        end
+   
     end
 end

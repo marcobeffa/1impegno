@@ -2,9 +2,12 @@
 
 linkTree per developers https://www.youtube.com/watch?v=2cwjtRR9Rzk 
 
-# 19 aprile 2024 07:48
 
-rails g scaffold Resource user:references tipo nome descrizione body:text img_url email telefono costo:decimal ricavo:decimal data:datetime visibility:integer energy:integer importanza:integer
+
+
+# 19 aprile 2024 07:48
+rails migration RemoveTipoToResource tipo
+rails g scaffold Resource user:references tipo:integer nome descrizione body:text img_url email telefono costo:decimal ricavo:decimal data:datetime visibility:integer energy:integer importanza:integer
 
 
 # 18 aprile 2024 19:30
