@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :contents
   devise_for :users, controllers: { registrations: 'registrations' }
  
+  post 'valdash', to: 'pages#valdash'
+  get 'dash', to: 'pages#dash'
   get 'pages/home'
   get 'pages/about'
   get 'changelog', to: "pages#changelog"
