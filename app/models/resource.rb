@@ -4,6 +4,6 @@ class Resource < ApplicationRecord
   enum visibility: { privato: 0, gruppo: 1, pubblico: 2   }
  
 
-  validates :data, presence: true
+  #validates :data, presence: true
   validates :tipo, presence: true
 end
