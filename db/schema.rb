@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_18_063248) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_19_055009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,6 +34,26 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_18_063248) do
     t.index ["user_id"], name: "index_contents_on_user_id"
   end
 
+  create_table "resources", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "tipo"
+    t.string "nome"
+    t.string "descrizione"
+    t.text "body"
+    t.string "img_url"
+    t.string "email"
+    t.string "telefono"
+    t.decimal "costo"
+    t.decimal "ricavo"
+    t.datetime "data"
+    t.integer "visibility"
+    t.integer "energy"
+    t.integer "importanza"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_resources_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -52,4 +72,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_18_063248) do
   end
 
   add_foreign_key "contents", "users"
+  add_foreign_key "resources", "users"
 end
