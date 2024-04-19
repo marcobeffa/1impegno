@@ -49,41 +49,39 @@ class PagesController < ApplicationController
     dash_record_json = last_dash_record.to_json
   
     # Definisci il percorso del file JSON in cui verranno salvati i dati
-    file_path = Rails.root.join("public", "last_dash_record.json")
+    file_path = Rails.root.join("lib", "dash","last_dash_record.json")
   
     # Salva i dati serializzati nel file JSON
     File.open(file_path, "w") do |file|
       file.write(dash_record_json)
     end
   end
-
   def importdash
-    if Rails.env.development?
-      # Qui inserisci la logica per l'importazione in ambiente di sviluppo
-    elsif Rails.env.production?
-      # Effettua una richiesta HTTP per ottenere i dati JSON dal server
-      response = HTTParty.get("https://1impegno.it/last_dash_record.json")
+    file_path = Rails.root.join('lib', 'dash', 'last_dash_record.json')
+    
+    # Leggi il contenuto del file JSON
+    json_content = File.read(file_path)
   
-      # Controlla se la richiesta ha avuto successo
-      if response.code == 200
-        # Analizza il contenuto JSON in un hash
-        dash_data = JSON.parse(response.body)
+    # Analizza il contenuto JSON in un hash
+    record_data = JSON.parse(json_content)
   
-        # Modifica il formato del timestamp di 'created_at' e 'updated_at' per Rails
-        created_at = DateTime.parse(dash_data['created_at'])
-        updated_at = DateTime.parse(dash_data['updated_at'])
+    # Rimuovi l'id dal record_data se presente
+    record_data.except!('id')
   
-        # Rimuovi gli attributi 'created_at' e 'updated_at' dall'hash dei dati
-        dash_data.except!('created_at', 'updated_at')
+    # Modifica il formato del timestamp di 'created_at' e 'updated_at' per Rails
+    created_at = DateTime.parse(record_data['created_at'])
+    updated_at = DateTime.parse(record_data['updated_at'])
   
-        # Crea un nuovo record nel modello Dash utilizzando i dati importati
-        Dash.create!(dash_data.merge(created_at: created_at, updated_at: updated_at))
-      else
-        # Gestisci il caso in cui la richiesta HTTP non abbia avuto successo
-        Rails.logger.error "Failed to fetch data from the server: #{response.code} - #{response.body}"
-      end
-    end
+    # Rimuovi gli attributi 'created_at' e 'updated_at' dall'hash dei dati
+    record_data.except!('created_at', 'updated_at')
+  
+    # Crea un nuovo record nel modello Dash utilizzando i dati importati
+    Dash.create!(record_data.merge(created_at: created_at, updated_at: updated_at))
+  redirect_to dash_path
   end
+  
+  
+
 
 
   private
