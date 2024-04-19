@@ -22,6 +22,24 @@
         <%= form.number_field :costo, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full",  step: "0.01", min: "0"   %>
         <p class="mt-2">Valore in euro per il costo: <span ></span></p>
       </div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          var costoField = document.getElementById("costo-field");
+          var valoreEuroSpan = document.getElementById("valore-euro");
+
+          costoField.addEventListener("input", function() {
+            var costoValue = parseFloat(this.value);
+            var eurValue = <%= Dash.last.eur %>;
+
+            if (!isNaN(costoValue)) {
+              var valoreEuro = (costoValue * eurValue).toFixed(2);
+              valoreEuroSpan.textContent = valoreEuro;
+            } else {
+              valoreEuroSpan.textContent = "";
+            }
+          });
+        });
+      </script>
       <div class="my-5" >
         <div class="flex items-center">
           <%= form.label :ricavo, class: "text-green-600 inline mr-2" %>

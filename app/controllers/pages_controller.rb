@@ -41,6 +41,51 @@ class PagesController < ApplicationController
     redirect_to dash_path
   end
 
+  def exportdash
+    # Trova l'ultimo record nel modello Dash
+    last_dash_record = Dash.last
+  
+    # Serializza il record in formato JSON
+    dash_record_json = last_dash_record.to_json
+  
+    # Definisci il percorso del file JSON in cui verranno salvati i dati
+    file_path = Rails.root.join("public", "last_dash_record.json")
+  
+    # Salva i dati serializzati nel file JSON
+    File.open(file_path, "w") do |file|
+      file.write(dash_record_json)
+    end
+  end
+
+  def importdash
+    if Rails.env.development?
+      # Qui inserisci la logica per l'importazione in ambiente di sviluppo
+    elsif Rails.env.production?
+      # Effettua una richiesta HTTP per ottenere i dati JSON dal server
+      response = HTTParty.get("https://posturacorretta.org/last_dash_record.json")
+  
+      # Controlla se la richiesta ha avuto successo
+      if response.code == 200
+        # Analizza il contenuto JSON in un hash
+        dash_data = JSON.parse(response.body)
+  
+        # Modifica il formato del timestamp di 'created_at' e 'updated_at' per Rails
+        created_at = DateTime.parse(dash_data['created_at'])
+        updated_at = DateTime.parse(dash_data['updated_at'])
+  
+        # Rimuovi gli attributi 'created_at' e 'updated_at' dall'hash dei dati
+        dash_data.except!('created_at', 'updated_at')
+  
+        # Crea un nuovo record nel modello Dash utilizzando i dati importati
+        Dash.create!(dash_data.merge(created_at: created_at, updated_at: updated_at))
+      else
+        # Gestisci il caso in cui la richiesta HTTP non abbia avuto successo
+        Rails.logger.error "Failed to fetch data from the server: #{response.code} - #{response.body}"
+      end
+    end
+  end
+
+
   private
 
   

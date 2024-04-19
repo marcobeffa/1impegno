@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :contents
   devise_for :users, controllers: { registrations: 'registrations' }
  
+  post 'importdash', to: "pages#importdash"
+  post 'exportdash', to: "pages#exportdash"
   post 'valdash', to: 'pages#valdash'
   get 'dash', to: 'pages#dash'
   get 'pages/home'

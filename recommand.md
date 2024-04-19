@@ -1,11 +1,8 @@
-
-
 linkTree per developers https://www.youtube.com/watch?v=2cwjtRR9Rzk 
 
-
-
-
 # 19 aprile 2024 07:48
+rails g migration RemoveFieldToDash bch xlm 
+
 
 rails g migration AddBtcToDash btc:float bch:float eth:float ltc:float eos:float xlm:float dot:float link:float 
 
