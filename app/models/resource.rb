@@ -5,4 +5,5 @@ class Resource < ApplicationRecord
  
 
   validates :data, presence: true
+  validates :tipo, presence: true
 end

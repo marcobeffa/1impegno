@@ -6,7 +6,7 @@
     <%= render @resource %>
     <%= link_to "Edit this resource", edit_resource_path(@resource), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">
-      <%= button_to "Elimina", resource_path(@resource), data: { turbo_confirm: "Sei sicuro di voler eliminare la risorsa?", turbo_method: :delete}, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= button_to "Elimina", resource_path(@resource), data: { turbo_confirm: "Sicuro di eliminare {resource.tipo}", }, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
     <%= link_to "Back to resources", resources_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
