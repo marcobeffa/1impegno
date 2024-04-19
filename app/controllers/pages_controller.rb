@@ -62,7 +62,7 @@ class PagesController < ApplicationController
       # Qui inserisci la logica per l'importazione in ambiente di sviluppo
     elsif Rails.env.production?
       # Effettua una richiesta HTTP per ottenere i dati JSON dal server
-      response = HTTParty.get("https://posturacorretta.org/last_dash_record.json")
+      response = HTTParty.get("https://1impegno.it/last_dash_record.json")
   
       # Controlla se la richiesta ha avuto successo
       if response.code == 200
