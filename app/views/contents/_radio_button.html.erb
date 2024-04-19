@@ -35,40 +35,4 @@
     </div>
   </div>
 </div>
-<style>
-  .star-label {
-    cursor: pointer;
-  }
-
-  .star.active path {
-    fill: yellow; /* Colore per le stelline attive */
-  }
-</style>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const stars = document.querySelectorAll('.star-label');
-    const importanzaRadioBtns = document.querySelectorAll('input[name="content[importanza]"]');
-
-    stars.forEach(function(star, index) {
-      star.addEventListener('click', function() {
-        // Simula il clic sul radio button corrispondente all'importanza
-        importanzaRadioBtns[index].checked = true;
-        updateStars(index + 1);
-      });
-    });
-
-    function updateStars(value) {
-      const allStars = document.querySelectorAll('.star');
-
-      // Rimuovi la classe 'active' da tutte le stelline
-      allStars.forEach(function(star, index) {
-        if (index < value) {
-          star.classList.add('active');
-        } else {
-          star.classList.remove('active');
-        }
-      });
-    }
-  });
-</script>
 <!--- fine radio button--->
