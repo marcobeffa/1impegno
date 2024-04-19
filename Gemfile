@@ -72,3 +72,6 @@ gem "devise", "~> 4.9"
 
 gem "redcarpet"
 gem 'inline_svg'
+
+gem 'whenever', require: false
+gem 'httparty'

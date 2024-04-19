@@ -6,13 +6,15 @@ linkTree per developers https://www.youtube.com/watch?v=2cwjtRR9Rzk
 
 
 # 19 aprile 2024 07:48
-rails migration RemoveTipoToResource tipo
-rails g scaffold Resource user:references tipo:integer nome descrizione body:text img_url email telefono costo:decimal ricavo:decimal data:datetime visibility:integer energy:integer importanza:integer
+
+rails g migration AddBtcToDash btc:float bch:float eth:float ltc:float eos:float xlm:float dot:float link:float 
+
+rails g model Dash eur:decimal chf:decimal gbp:decimal  usd:decimal jpy:decimal cny:decimal kwd:decimal inr:decimal 
+
 
 
 # 18 aprile 2024 19:30
 
-rails g model Dash valore:decimal eur:decimal usd:decimal jpy:decimal chf:decimal cny:decimal oro_grammi:decimal gbp:decimal
 
 rails g migration AddEnergyToContent energy:integer importanza:integer
 

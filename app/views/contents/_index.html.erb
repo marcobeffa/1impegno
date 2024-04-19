@@ -138,43 +138,27 @@
                         <% end %>
                         <!-- stelle valutazione importanza-->
                       </div>
-                      <% if content.ricavo && content.costo %>
-                        <% guadagno = content.ricavo.to_f - content.costo.to_f %>
-                        <!-- Guadagno con tooltip per la conversione in euro -->
-                        <% guadagno_class = guadagno >= 0 ? "text-green-800 border-green-400 dark:text-green-400" : "text-red-800 border-red-400 dark:text-red-400" %>
-                        <span class="h-6 w-auto flex <%= guadagno_class %> text-xs font-medium me-1 px-1 py-0.5 rounded dark:bg-gray-700 border dark:bg-gray-700 dark:border-gray-700" data-tooltip-target="tooltip-guadagno" id="guadagno-value">
-                          <%= guadagno %><%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-4 h-4 ml-1" %>
-                        </span>
-                        <div id="tooltip-guadagno" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                          <span id="tooltip-content">Conversione in euro: </span>
-                          <div class="tooltip-arrow" data-popper-arrow></div>
-                        </div>
-                        <script>
-                          // Funzione per ottenere il tasso di cambio da CoinGecko e aggiornare il tooltip
-                          function updateTooltipGuadagno() {
-                            const guadagnoValue = document.getElementById('guadagno-value').innerText;
-
-                            // Effettua una richiesta HTTP GET all'API di CoinGecko per ottenere il prezzo di Dash in euro
-                            fetch('https://api.coingecko.com/api/v3/simple/price?ids=dash&vs_currencies=eur')
-                              .then(response => response.json())
-                              .then(data => {
-                                const exchangeRate = data.dash.eur;
-                                const guadagnoEuro = parseFloat(guadagnoValue) * exchangeRate;
-                                const tooltipContent = `Conversione in euro: ${guadagnoEuro.toFixed(2)} €`;
-
-                                // Aggiorna il contenuto del tooltip
-                                document.getElementById('tooltip-content').innerText = tooltipContent;
-                              })
-                              .catch(error => {
-                                console.error('Si è verificato un errore durante il recupero del prezzo di Dash in Euro:', error);
-                              });
-                          }
-
-                          // Aggiungi un gestore eventi per aggiornare il tooltip quando il cursore si trova sull'elemento
-                          document.getElementById('guadagno-value').addEventListener('mouseover', updateTooltipGuadagno);
-                        </script>
-                        <!-- fine -->
+                      <% if content.ricavo.nil? %>
+                        <% @ricavo = 0 %>
+                      <% else %>
+                        <% @ricavo = content.ricavo.to_f %>
                       <% end %>
+                      <% if  content.costo.nil? %>
+                        <% @costo = 0 %>
+                      <% else %>
+                        <% @costo = content.costo.to_f %>
+                      <% end %>
+                      <% guadagno = @ricavo - @costo %>
+                      <!-- Guadagno con tooltip per la conversione in euro -->
+                      <% guadagno_class = guadagno >= 0 ? "text-green-800 border-green-400 dark:text-green-400" : "text-red-800 border-red-400 dark:text-red-400" %>
+                      <span class="h-6 w-auto flex <%= guadagno_class %> text-xs font-medium me-1 px-1 py-0.5 rounded dark:bg-gray-700 border dark:bg-gray-700 dark:border-gray-700" data-tooltip-target="tooltip-guadagno-<%= content.id%>" id="guadagno-value">
+                        <%= guadagno %><%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-4 h-4 ml-1" %>
+                      </span>
+                      <div id="tooltip-guadagno-<%= content.id%>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        <span id="tooltip-content-<%= content.id%>">Conversione in euro:<%= guadagno * Dash.last.eur if Dash.last.eur %></span>
+                        <div class="tooltip-arrow-<%= content.id%>" data-popper-arrow></div>
+                      </div>
+                      <!-- fine -->
                     </div>
                     <h3 class="flex mt-1 group-hover:text-blue-600 font-semibold text-gray-800 dark:group-hover:text-gray-400 dark:text-gray-200">
                       <%= link_to content, class:"leading-tight hover:text-gray-500 text-lg hover:text-xl" do %>
