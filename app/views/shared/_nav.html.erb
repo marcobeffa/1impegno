@@ -1,3 +1,6 @@
+<% if @data.nil? %>
+  <% @data = DateTime.now.strftime('%Y-%m-%d') %>
+<% end %>
 <nav id="sticky-banner" tabindex="-1" class="fixed  top-0 start-0 z-50 flex  w-full px-4 p-1 lg:p-2 border-b border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
   <a href="https://1impegno.it/" class="mx-8 hidden md:flex items-center space-x-3 rtl:space-x-reverse">
     <%= image_tag 'home/impegno.png', class:"rounded-full h-10 lg:h10" %>
