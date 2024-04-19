@@ -19,17 +19,19 @@
           <%= form.label :costo, class: "inline mr-2 text-red-600" %>
           <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
         </div>
-        <%= form.number_field :costo, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full",  step: "0.01", min: "0"   %>
-        <p class="mt-2">Valore in euro per il costo: <span ></span></p>
+        <%= form.number_field :costo, id: "costo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.01", min: "0" %>
+        <p class="mt-2">Valore in euro per il costo: <span id="valore-euro"></span></p>
       </div>
       <script>
         document.addEventListener("DOMContentLoaded", function() {
           var costoField = document.getElementById("costo-field");
           var valoreEuroSpan = document.getElementById("valore-euro");
 
+          // Inizializza il valore in euro con il valore corrente dal modello Dash
+          var eurValue = <%= Dash.last.eur %>;
+
           costoField.addEventListener("input", function() {
             var costoValue = parseFloat(this.value);
-            var eurValue = <%= Dash.last.eur %>;
 
             if (!isNaN(costoValue)) {
               var valoreEuro = (costoValue * eurValue).toFixed(2);
@@ -40,14 +42,34 @@
           });
         });
       </script>
-      <div class="my-5" >
+      <div class="my-5">
         <div class="flex items-center">
           <%= form.label :ricavo, class: "text-green-600 inline mr-2" %>
           <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
         </div>
-        <%= form.number_field :ricavo, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full",  step: "0.01", min: "0"  %>
-        <p class="mt-2">Valore in euro per il ricavo: <span></span></p>
+        <%= form.number_field :ricavo, id: "ricavo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.01", min: "0" %>
+        <p class="mt-2">Valore in euro per il ricavo: <span id="valore-euro-ricavo"></span></p>
       </div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          var ricavoField = document.getElementById("ricavo-field");
+          var valoreEuroRicavoSpan = document.getElementById("valore-euro-ricavo");
+
+          // Inizializza il valore in euro per il ricavo con il valore corrente dal modello Dash
+          var eurValue = <%= Dash.last.eur %>;
+
+          ricavoField.addEventListener("input", function() {
+            var ricavoValue = parseFloat(this.value);
+
+            if (!isNaN(ricavoValue)) {
+              var valoreEuroRicavo = (ricavoValue * eurValue).toFixed(2);
+              valoreEuroRicavoSpan.textContent = valoreEuroRicavo;
+            } else {
+              valoreEuroRicavoSpan.textContent = "";
+            }
+          });
+        });
+      </script>
       <!-- costo ricavo in dash-->
       <div class=" ">
         <div class="my-5">
