@@ -20,7 +20,7 @@ class PagesController < ApplicationController
 
   
   def dashvalue
-    if !Dash.last.nil?
+    if Dash.last.nil?
       values = {} # Creiamo un hash vuoto per memorizzare i valori ottenuti per ogni valuta
    
    
