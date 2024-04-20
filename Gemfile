@@ -75,3 +75,4 @@ gem 'inline_svg'
 
 gem 'whenever', require: false
 gem 'httparty'
+gem 'sidekiq'
