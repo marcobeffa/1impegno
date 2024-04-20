@@ -2,6 +2,10 @@
 #  runner "DashvalueJob.perform_now"
 # end
 
+every 2.minutes do
+  runner "DashvalueJob.perform_now"
+end
+
 # Use this file to easily define all of your cron jobs.
 #
 # It's helpful, but not entirely necessary to understand cron before proceeding.

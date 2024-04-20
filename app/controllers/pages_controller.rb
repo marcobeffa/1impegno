@@ -77,7 +77,7 @@ class PagesController < ApplicationController
   
     # Crea un nuovo record nel modello Dash utilizzando i dati importati
     Dash.create!(record_data.merge(created_at: created_at, updated_at: updated_at))
-  redirect_to dash_path
+    redirect_to dash_path
   end
   
   
