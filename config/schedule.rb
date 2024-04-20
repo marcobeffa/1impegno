@@ -2,7 +2,7 @@
 #  runner "DashvalueJob.perform_now"
 # end
 
-every 2.minutes do
+every 2.minutes, environment: 'production' do
   runner "DashvalueJob.perform_now"
 end
 
