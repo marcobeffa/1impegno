@@ -9,12 +9,12 @@ class DashvalueJob < ApplicationJob
       if response.code == 200
         data = JSON.parse(response.body)
         exchange_rate = data['dash'][val.to_s]
-        @dash = Dash.last
-        if @dash.attributes.values.all?(&:present?)
-          # Se tutti i campi sono validi, creiamo un nuovo record nel modello Dash
-          Dash.create!(val => exchange_rate)
-        else
-          # Se almeno uno dei campi non è valido, aggiorniamo il record esistente nel modello Dash con i nuovi valori
+
+        # Utilizza una transazione del database per garantire l'integrità dei dati
+        Dash.transaction do
+          # Trova il record esistente o inizializza un nuovo record se non esiste
+          @dash = Dash.first_or_initialize
+          # Aggiorna l'attributo corrispondente con il nuovo valore
           @dash.update!(val => exchange_rate)
         end
       else
