@@ -1,6 +1,7 @@
 # every 1.day, at: '00:00' do
 #  runner "DashvalueJob.perform_now"
 # end
+set :output, "./log/cron_log.log"
 
 every 2.minutes, environment: 'production' do
   runner "DashvalueJob.perform_now"
