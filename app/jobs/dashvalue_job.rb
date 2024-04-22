@@ -1,5 +1,6 @@
 class DashvalueJob < ApplicationJob
   queue_as :default
+  
 
   def perform
     valute = [:eur, :chf, :gbp, :usd, :jpy, :btc, :eth, :ltc, :eos, :dot, :link]
@@ -13,7 +14,7 @@ class DashvalueJob < ApplicationJob
         # Utilizza una transazione del database per garantire l'integrità dei dati
         Dash.transaction do
           # Trova il record esistente o inizializza un nuovo record se non esiste
-          @dash = Dash.first_or_initialize
+          @dash = Dash.last_or_initialize
           # Aggiorna l'attributo corrispondente con il nuovo valore
           @dash.update!(val => exchange_rate)
         end
