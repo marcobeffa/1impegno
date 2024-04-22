@@ -1,9 +1,7 @@
 class PagesController < ApplicationController
-  # before_action :newdashval, only: %i[ home dash ]
+  before_action :newdashval, only: %i[ home dash ]
   def dash
-    Dash.destroy_all
-    flash[:success] = "Tutti i record della tabella Dash sono stati eliminati."
-  
+
     @dashes = Dash.all
   end
 
@@ -68,7 +66,7 @@ class PagesController < ApplicationController
       nomi_attributi_senza_esclusi = Dash.attribute_names - ["id", "updated_at", "created_at"]
 
       # Ciclo finché ci sono valori mancanti negli attributi
-      while !@dash.attributes.values.all?(&:present?)
+      if !@dash.attributes.values.all?(&:present?)
         # Trova il primo attributo con valore mancante
         attributo_mancante = nomi_attributi_senza_esclusi.find { |attributo| @dash.attributes[attributo].blank? }
 
@@ -82,9 +80,7 @@ class PagesController < ApplicationController
           else
             Rails.logger.error "Failed to fetch Dash to #{attributo_mancante} conversion rate: #{response.code} - #{response.body}"
           end
-        else
-          # Se non ci sono più attributi mancanti, esci dal ciclo
-          break
+       
         end
       end
     end
