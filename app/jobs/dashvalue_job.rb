@@ -27,4 +27,5 @@ class DashvalueJob < ApplicationJob
     
       redirect_to dash_path
     end
+  end
 end

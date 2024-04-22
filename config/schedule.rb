@@ -1,11 +1,11 @@
 # every 1.day, at: '00:00' do
 #  runner "DashvalueJob.perform_now"
 # end
-set :output, "./log/cron_log.log"
+# set :output, "./log/cron_log.log"
 
-every 2.minutes do
-  runner "DashvalueJob.perform_now"
-end
+# every 2.minutes do
+#  runner "DashvalueJob.perform_now"
+# end
 
 # Use this file to easily define all of your cron jobs.
 #
