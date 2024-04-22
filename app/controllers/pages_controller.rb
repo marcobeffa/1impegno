@@ -1,6 +1,9 @@
 class PagesController < ApplicationController
   # before_action :newdashval, only: %i[ home dash ]
   def dash
+    Dash.destroy_all
+    flash[:success] = "Tutti i record della tabella Dash sono stati eliminati."
+  
     @dashes = Dash.all
   end
 
