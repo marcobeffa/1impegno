@@ -3,7 +3,7 @@
 # end
 set :output, "./log/cron_log.log"
 
-every 2.minutes, environment: 'production' do
+every 2.minutes do
   runner "DashvalueJob.perform_now"
 end
 
