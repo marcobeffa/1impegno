@@ -61,12 +61,11 @@ class PagesController < ApplicationController
     end
     
     # Controlla se ci sono valori mancanti negli attributi
-    if !@dash.attributes.values.all?(&:present?)
-      # Array dei nomi degli attributi escludendo "id", "updated_at" e "created_at"
-      nomi_attributi_senza_esclusi = Dash.attribute_names - ["id", "updated_at", "created_at"]
-
+    
       # Ciclo finché ci sono valori mancanti negli attributi
       if !@dash.attributes.values.all?(&:present?)
+        nomi_attributi_senza_esclusi = Dash.attribute_names - ["id", "updated_at", "created_at"]
+
         # Trova il primo attributo con valore mancante
         attributo_mancante = nomi_attributi_senza_esclusi.find { |attributo| @dash.attributes[attributo].blank? }
 
@@ -83,7 +82,7 @@ class PagesController < ApplicationController
        
         end
       end
-    end
+  
 
   end
 
