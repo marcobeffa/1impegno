@@ -155,7 +155,10 @@
                         <%= guadagno %><%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-4 h-4 ml-1" %>
                       </span>
                       <div id="tooltip-guadagno-<%= content.id%>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        <span id="tooltip-content-<%= content.id%>">Conversione in euro:<%= guadagno * Dash.last.eur if Dash.last.eur %></span>
+                        <%= @dash =  Dash.last %>
+                        <% if @dash %>
+                          <span id="tooltip-content-<%= content.id%>">Conversione in euro:<%= guadagno * @dash.eur if Dash.last.eur %></span>
+                        <% end %>
                         <div class="tooltip-arrow-<%= content.id%>" data-popper-arrow></div>
                       </div>
                       <!-- fine -->
