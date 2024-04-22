@@ -4,14 +4,14 @@ class DashvalueJob < ApplicationJob
   def perform
     @dash = Dash.last
     # crea valore se vuoto
-    # if @dash.nil?
+     if @dash.nil?
       @dash = Dash.create
-   # end
+     end
     
     # crea valore se creato dopo 24 ore
-   # if @dash.created_at < 24.hours.ago
-    #  @dash = Dash.create
-    # end
+     if @dash.created_at < 24.hours.ago
+      @dash = Dash.create
+     end
     
     # Controlla se ci sono valori mancanti negli attributi
     if !@dash.attributes.values.all?(&:present?)
