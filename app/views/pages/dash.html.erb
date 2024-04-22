@@ -1,5 +1,5 @@
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-4xl mx-auto mt-16">
-  <%= link_to "+", valdash_path(val: "eur"),  data: { turbo_method: :post } %>
+  <%#= link_to "+", valdash_path(val: "eur"),  data: { turbo_method: :post } %>
   <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
       <tr>
@@ -42,11 +42,6 @@
         <th scope="col" class="px-6 py-3">
           link
         </th>
-        <% if Rails.env.development? %>
-          <th scope="col" class="px-6 py-3">
-            Salva
-          </th>
-        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -138,13 +133,6 @@
               <%= val.link %>
             <% end %>
           </td>
-          <% if Rails.env.development? %>
-            <td class="px-6 py-4">
-              <% if  val.attributes.values.all?(&:present?) %>
-                <%= link_to "Salva", exportdash_path,  data: { turbo_method: :post } %>
-              <% end %>
-            </td>
-          <% end %>
         </tr>
       <% end %>
     </tbody>

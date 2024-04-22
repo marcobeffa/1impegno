@@ -157,7 +157,9 @@
                       <div id="tooltip-guadagno-<%= content.id%>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         <%= @dash =  Dash.last %>
                         <% if @dash %>
-                          <span id="tooltip-content-<%= content.id%>">Conversione in euro:<%= guadagno * @dash.eur if Dash.last.eur %></span>
+                          <% if !@dash.eur.nil? %>
+                            <span id="tooltip-content-<%= content.id%>">Conversione in euro:<%= guadagno * @dash.eur if Dash.last.eur %></span>
+                          <% end %>
                         <% end %>
                         <div class="tooltip-arrow-<%= content.id%>" data-popper-arrow></div>
                       </div>
