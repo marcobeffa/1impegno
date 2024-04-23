@@ -103,6 +103,42 @@
                                 </svg>
                               <% end %>
                             </div>
+                            <% if current_user.id == content.user.id %>
+                              <!-- costo ricavo --->
+                              <% if content.ricavo.nil? %>
+                                <% @ricavo = 0 %>
+                              <% else %>
+                                <% @ricavo = content.ricavo.to_f %>
+                              <% end %>
+                              <% if  content.costo.nil? %>
+                                <% @costo = 0 %>
+                              <% else %>
+                                <% @costo = content.costo.to_f %>
+                              <% end %>
+                              <% guadagno = @ricavo - @costo %>
+                              <!-- Guadagno con tooltip per la conversione in euro -->
+                              <% guadagno_class = guadagno >= 0 ? "text-green-800 border-green-400 dark:text-green-400" : "text-red-800 border-red-400 dark:text-red-400" %>
+                              <span class="h-6 w-auto flex <%= guadagno_class %> text-xs font-medium me-1 px-1 py-0.5 rounded dark:bg-gray-700 border dark:bg-gray-700 dark:border-gray-700" data-tooltip-target="tooltip-guadagno-<%= content.id%>" id="guadagno-value">
+                                <%= guadagno %><%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-4 h-4 ml-1" %>
+                              </span>
+                              <div id="tooltip-guadagno-<%= content.id%>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                <% dash_val = Dash.find_by(created_at: content.created_at) %>
+                                <!-- # Se non è presente un record con la data specificata, cerca il record più vicino -->
+                                <% if dash_val.nil? %>
+                                  <% dash_val =  Dash.where("created_at <= ?", content.created_at).order(created_at: :desc).first %>
+                                <%   end %>
+                                <% if dash_val.nil? %>
+                                  <% dash_val =  Dash.where("created_at > ?", content.created_at).order(created_at: :desc).first %>
+                                <%   end %>
+                                <% if dash_val %>
+                                  <% if !dash_val.eur.nil? %>
+                                    <span id="tooltip-content-<%= content.id%>"><%= (guadagno * dash_val.eur).round(2) if dash_val.eur %>€</span>
+                                  <% end %>
+                                <% end %>
+                                <div class="tooltip-arrow-<%= content.id%>" data-popper-arrow></div>
+                              </div>
+                              <!-- costo ricavo fine --->
+                            <% end %>
                             <span class=" mx-1 lg:mx-2 ">
                               <%= content.tipo %>
                             </span>
@@ -137,38 +173,6 @@
                           </div>
                         <% end %>
                         <!-- stelle valutazione importanza-->
-                      </div>
-                      <% if content.ricavo.nil? %>
-                        <% @ricavo = 0 %>
-                      <% else %>
-                        <% @ricavo = content.ricavo.to_f %>
-                      <% end %>
-                      <% if  content.costo.nil? %>
-                        <% @costo = 0 %>
-                      <% else %>
-                        <% @costo = content.costo.to_f %>
-                      <% end %>
-                      <% guadagno = @ricavo - @costo %>
-                      <!-- Guadagno con tooltip per la conversione in euro -->
-                      <% guadagno_class = guadagno >= 0 ? "text-green-800 border-green-400 dark:text-green-400" : "text-red-800 border-red-400 dark:text-red-400" %>
-                      <span class="h-6 w-auto flex <%= guadagno_class %> text-xs font-medium me-1 px-1 py-0.5 rounded dark:bg-gray-700 border dark:bg-gray-700 dark:border-gray-700" data-tooltip-target="tooltip-guadagno-<%= content.id%>" id="guadagno-value">
-                        <%= guadagno %><%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-4 h-4 ml-1" %>
-                      </span>
-                      <div id="tooltip-guadagno-<%= content.id%>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        <% dash_val = Dash.find_by(created_at: content.created_at) %>
-                        <!-- # Se non è presente un record con la data specificata, cerca il record più vicino -->
-                        <% if dash_val.nil? %>
-                          <% dash_val =  Dash.where("created_at <= ?", content.created_at).order(created_at: :desc).first %>
-                        <%   end %>
-                        <% if dash_val.nil? %>
-                          <% dash_val =  Dash.where("created_at > ?", content.created_at).order(created_at: :desc).first %>
-                        <%   end %>
-                        <% if dash_val %>
-                          <% if !dash_val.eur.nil? %>
-                            <span id="tooltip-content-<%= content.id%>">Conversione in euro:<%= guadagno * dash_val.eur if dash_val.eur %></span>
-                          <% end %>
-                        <% end %>
-                        <div class="tooltip-arrow-<%= content.id%>" data-popper-arrow></div>
                       </div>
                       <!-- fine -->
                     </div>

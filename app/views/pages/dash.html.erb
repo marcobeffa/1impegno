@@ -30,8 +30,12 @@
         </tbody>
       </table>
     </div>
-    <p class="mb-5 sm:text-xl text-center text-gray-500 dark:text-gray-400">Inizia a usare 1 impegno per gestire le tue risorse</p>
-    <a href="#" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Sign Up Now</a>
+    <% if !user_signed_in? %>
+      <p class="mb-5 sm:text-xl text-center text-gray-500 dark:text-gray-400">Inizia a usare 1 impegno per gestire le tue risorse</p>
+      <%= link_to new_user_registration_path, class:"text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" do %>
+        Registrati
+      <% end%>
+    <% end %>
   </div>
 </section>
 <!--div class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-4xl mx-auto mt-16">
@@ -175,6 +179,7 @@
     </tbody>
   </table>
 </div-->
+<% @dash = Dash.last %>
 <% if @dash.nil? || @dash.created_at < 24.hours.ago %>
   <%= render 'shared/dashjs', version: Time.now.to_i %>
 <% end %>
