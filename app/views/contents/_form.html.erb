@@ -19,7 +19,7 @@
           <%= form.label :costo, class: "inline mr-2 text-red-600" %>
           <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
         </div>
-        <%= form.number_field :costo, id: "costo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.001", min: "0" %>
+        <%= form.number_field :costo, id: "costo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.0001", min: "0" %>
         <p class="mt-2">| <span id="valore-euro"></span> €</p>
       </div>
       <script>
@@ -47,7 +47,7 @@
           <%= form.label :ricavo, class: "text-green-600 inline mr-2" %>
           <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
         </div>
-        <%= form.number_field :ricavo, id: "ricavo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.001", min: "0" %>
+        <%= form.number_field :ricavo, id: "ricavo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.0001", min: "0" %>
         <p class="mt-2">| <span id="valore-euro-ricavo"></span> €</p>
       </div>
       <script>
