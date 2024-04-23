@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   # before_action :newdashval, only: %i[ home dash ]
  
   def dash
-    Dash.destroy_all
+  
     @dashes = Dash.all
    
     # crea valore se vuoto

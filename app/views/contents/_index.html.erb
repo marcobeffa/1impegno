@@ -155,10 +155,17 @@
                         <%= guadagno %><%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-4 h-4 ml-1" %>
                       </span>
                       <div id="tooltip-guadagno-<%= content.id%>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        <%= @dash =  Dash.last %>
-                        <% if @dash %>
-                          <% if !@dash.eur.nil? %>
-                            <span id="tooltip-content-<%= content.id%>">Conversione in euro:<%= guadagno * @dash.eur if Dash.last.eur %></span>
+                        <% dash_val = Dash.find_by(created_at: content.created_at) %>
+                        <!-- # Se non è presente un record con la data specificata, cerca il record più vicino -->
+                        <% if dash_val.nil? %>
+                          <% dash_val =  Dash.where("created_at <= ?", content.created_at).order(created_at: :desc).first %>
+                        <%   end %>
+                        <% if dash_val.nil? %>
+                          <% dash_val =  Dash.where("created_at > ?", content.created_at).order(created_at: :desc).first %>
+                        <%   end %>
+                        <% if dash_val %>
+                          <% if !dash_val.eur.nil? %>
+                            <span id="tooltip-content-<%= content.id%>">Conversione in euro:<%= guadagno * dash_val.eur if dash_val.eur %></span>
                           <% end %>
                         <% end %>
                         <div class="tooltip-arrow-<%= content.id%>" data-popper-arrow></div>

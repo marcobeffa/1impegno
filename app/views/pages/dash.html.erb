@@ -1,4 +1,40 @@
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-4xl mx-auto mt-16">
+<section class="bg-white dark:bg-gray-900">
+  <div class="max-w-screen-xl px-4 py-8 mx-auto text-center sm:py-16 lg:px-6">
+    <div class="max-w-screen-sm mx-auto">
+      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Usiamo dash come moneta di riferimento</h2>
+      <p class="mb-6 lg:mb-16 font-light text-gray-500 md:text-lg dark:text-gray-400"><a href="https://www.dash.org/" target="_blank">Dash.org per saperne di più</a></p>
+    </div>
+    <!-- Table -->
+    <div class="relative mb-8 overflow-x-auto">
+      <table class="max-w-2xl mx-auto text-sm text-left text-gray-500 dark:text-gray-400">
+        <tbody>
+          <% @dashes.order(created_at: :desc).each do |val|%>
+            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+              <th scope="row" class=" w-24 mt-1 flex px-6 py-4 text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white">
+                1           <%= image_tag 'home/dash.png', class:"ml-2 w-16" %>
+              </th>
+              <td class="px-6 py-4 text-xl font-bold text-gray-900 dark:text-white">
+                <%= val.eur %>€
+              </td>
+              <% if val.id %>
+                <td class="px-6 py-4 text-sm font-semibold <% if dashpercentuale(val.id).to_f < 0 %> text-red-500 <% else %>text-green-500 <%end %>">
+                  <%= dashpercentuale(val.id) %> %
+                </td>
+              <% end %>
+              <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                <%= val.updated_at.strftime("%d/%m/%Y") %>
+                <%= val.updated_at.strftime("%H:%M") %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <p class="mb-5 sm:text-xl text-center text-gray-500 dark:text-gray-400">Inizia a usare 1 impegno per gestire le tue risorse</p>
+    <a href="#" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Sign Up Now</a>
+  </div>
+</section>
+<!--div class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-4xl mx-auto mt-16">
   <div id="conversionValue"></div>
   <a href="#" id="updateDashLink">Aggiorna valore Dash in Euro</a>
   <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -138,36 +174,7 @@
       <% end %>
     </tbody>
   </table>
-</div>
-<% if params[:eur].nil? %>
-  <script>
-    function convertDashToEuroAndRedirect() {
-       // Effettua una richiesta GET all'API per ottenere il tasso di conversione
-       fetch('https://api.coingecko.com/api/v3/simple/price?ids=dash&vs_currencies=eur')
-           .then(response => response.json())
-           .then(data => {
-               // Estrai il valore di 1 Dash in Euro dalla risposta JSON
-               const dashToEuro = data.dash.eur;
-
-               // Costruisci l'URL con il parametro eur=valore e reindirizza la pagina
-               const euroValue = encodeURIComponent(dashToEuro);
-               window.location.href = `dash/?eur=${euroValue}`;
-           })
-           .catch(error => {
-               console.error('Si è verificato un errore durante la conversione:', error);
-               // Gestione degli errori: puoi visualizzare un messaggio di errore o gestirlo in altro modo
-           });
-    }
-
-    // Esegui la funzione quando la pagina viene caricata
-    window.onload = convertDashToEuroAndRedirect;
-  </script>
-<% end %>
-<% if params[:eur] %>
-  <% @dash = Dash.last %>
-  <% if @dash.nil? %>
-    <%  @dash = Dash.create(eur: params[:eur]) %>
-  <%  elsif @dash.created_at < 24.hours.ago  %>
-    <%  @dash = Dash.create(eur: params[:eur]) %>
-  <% end %>
+</div-->
+<% if @dash.nil? || @dash.created_at < 24.hours.ago %>
+  <%= render 'shared/dashjs', version: Time.now.to_i %>
 <% end %>

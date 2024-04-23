@@ -1,0 +1,36 @@
+<% if params[:eur].nil? %>
+  <script>
+    function convertDashToEuroAndRedirect() {
+       // Effettua una richiesta GET all'API per ottenere il tasso di conversione
+       fetch('https://api.coingecko.com/api/v3/simple/price?ids=dash&vs_currencies=eur')
+           .then(response => response.json())
+           .then(data => {
+               // Estrai il valore di 1 Dash in Euro dalla risposta JSON
+               const dashToEuro = data.dash.eur;
+
+               // Costruisci l'URL con il parametro eur=valore e reindirizza la pagina
+               const euroValue = encodeURIComponent(dashToEuro);
+               <% if controller_name == "pages" && action_name == "home" %>
+               window.location.href = `/?eur=${euroValue}`;
+              <% elsif controller_name == "pages" && action_name == "dash" %>
+               window.location.href = `dash/?eur=${euroValue}`;
+              <% end %>
+           })
+           .catch(error => {
+               console.error('Si è verificato un errore durante la conversione:', error);
+               // Gestione degli errori: puoi visualizzare un messaggio di errore o gestirlo in altro modo
+           });
+    }
+
+    // Esegui la funzione quando la pagina viene caricata
+    window.onload = convertDashToEuroAndRedirect;
+  </script>
+<% end %>
+<% if params[:eur] %>
+  <% @dash = Dash.last %>
+  <% if @dash.nil? %>
+    <%  @dash = Dash.create(eur: params[:eur]) %>
+  <%  elsif @dash.created_at < 24.hours.ago  %>
+    <%  @dash = Dash.create(eur: params[:eur]) %>
+  <% end %>
+<% end %>

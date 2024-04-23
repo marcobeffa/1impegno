@@ -80,4 +80,18 @@ module ApplicationHelper
     @icona  
   end
 
+  def dashpercentuale(id)
+    # Trova l'ultimo e il penultimo record relativi a "Dash"
+    last_dash = Dash.find(id)
+    penultimate_dash =  Dash.where("id < ?", last_dash.id).order(id: :desc).first
+
+    # Calcola la percentuale di cambiamento tra i valori
+    if last_dash && penultimate_dash
+      change_percentage = ((last_dash.eur - penultimate_dash.eur) / penultimate_dash.eur.to_f) * 100
+      perc =  change_percentage.round(2)
+    end
+
+    
+  end
+
 end

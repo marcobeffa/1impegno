@@ -1,5 +1,9 @@
 linkTree per developers https://www.youtube.com/watch?v=2cwjtRR9Rzk 
 
+# 23 aprile 2024 07:48
+rails d migration AddDashToContent costo_dash:float ricavo_euro:float
+
+
 # 19 aprile 2024 07:48
 rails g migration RemoveFieldToDash bch xlm 
 
