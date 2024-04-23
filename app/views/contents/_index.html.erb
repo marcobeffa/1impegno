@@ -1,7 +1,9 @@
 <% @non_attivo = "inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500"%>
 <% @attivo = "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"%>
 <%= render 'shared/nav' %>
-<div data-controller="contentdata" data-content-data="<%= @data %>">
+<% if params[:tipo].nil? %>
+  <div data-controller="contentdata" data-content-data="<%= @data %>">
+  <% end %>
   <!--script>
     window.onload = function() {
       // Ottieni la data dalla variabile @data
@@ -48,6 +50,9 @@
   <div class="w-full">
     <section class="bg-white dark:bg-gray-900 py-2 lg:py-8 antialiased">
       <div class="max-w-2xl mx-auto px-2">
+        <% if !params[:tipo].nil?  %>
+          <h1 class="text-3xl font-bold m-4"><%= params[:tipo].titleize %></h1>
+        <% end %>
         <% @contents.order(data: :desc).each do |content| %>
           <div class=" p-2 flex" id="day-<%= content.data.strftime('%Y-%m-%d') %>">
             <div class="flex w-full">
@@ -140,7 +145,9 @@
                               <!-- costo ricavo fine --->
                             <% end %>
                             <span class=" mx-1 lg:mx-2 ">
-                              <%= content.tipo %>
+                              <%= link_to contents_path(tipo: content.tipo) do %>
+                                <%= content.tipo %>
+                              <% end %>
                             </span>
                           </div>
                         </p>
