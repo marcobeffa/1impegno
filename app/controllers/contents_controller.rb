@@ -6,7 +6,14 @@ class ContentsController < ApplicationController
   
   # GET /contents or /contents.json
   def index
-    @contents = current_user.contents
+    if params[:tipo]
+    
+      @contents = current_user.contents.where(tipo:  params[:tipo])
+    else
+      @contents = current_user.contents
+    end
+ 
+   
     if !user_signed_in?
       redirect_to root_path
     end
