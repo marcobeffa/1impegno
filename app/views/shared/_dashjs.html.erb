@@ -1,3 +1,4 @@
+<!-- shared/dashjs.html.erb --->
 <% if params[:eur].nil? %>
   <script>
     function convertDashToEuroAndRedirect() {
@@ -29,8 +30,8 @@
 <% if params[:eur] %>
   <% @dash = Dash.last %>
   <% if @dash.nil? %>
-    <%  @dash = Dash.create(eur: params[:eur]) %>
+    <%  @dash = Dash.create(eur: params[:eur].to_d ) %>
   <%  elsif @dash.created_at < 24.hours.ago  %>
-    <%  @dash = Dash.create(eur: params[:eur]) %>
+    <%  @dash = Dash.create(eur: params[:eur].to_d ) %>
   <% end %>
 <% end %>
