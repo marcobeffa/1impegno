@@ -76,3 +76,4 @@ gem 'inline_svg'
 gem 'whenever', require: false
 gem 'httparty'
 gem 'sidekiq'
+gem 'mechanize', '~> 2.10'

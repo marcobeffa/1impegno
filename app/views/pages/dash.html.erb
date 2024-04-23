@@ -1,5 +1,6 @@
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-4xl mx-auto mt-16">
-  <%#= link_to "+", valdash_path(val: "eur"),  data: { turbo_method: :post } %>
+  <div id="conversionValue"></div>
+  <a href="#" id="updateDashLink">Aggiorna valore Dash in Euro</a>
   <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
       <tr>
@@ -138,3 +139,35 @@
     </tbody>
   </table>
 </div>
+<% if params[:eur].nil? %>
+  <script>
+    function convertDashToEuroAndRedirect() {
+       // Effettua una richiesta GET all'API per ottenere il tasso di conversione
+       fetch('https://api.coingecko.com/api/v3/simple/price?ids=dash&vs_currencies=eur')
+           .then(response => response.json())
+           .then(data => {
+               // Estrai il valore di 1 Dash in Euro dalla risposta JSON
+               const dashToEuro = data.dash.eur;
+
+               // Costruisci l'URL con il parametro eur=valore e reindirizza la pagina
+               const euroValue = encodeURIComponent(dashToEuro);
+               window.location.href = `dash/?eur=${euroValue}`;
+           })
+           .catch(error => {
+               console.error('Si è verificato un errore durante la conversione:', error);
+               // Gestione degli errori: puoi visualizzare un messaggio di errore o gestirlo in altro modo
+           });
+    }
+
+    // Esegui la funzione quando la pagina viene caricata
+    window.onload = convertDashToEuroAndRedirect;
+  </script>
+<% end %>
+<% if params[:eur] %>
+  <% @dash = Dash.last %>
+  <% if @dash.nil? %>
+    <%  @dash = Dash.create(eur: params[:eur]) %>
+  <%  elsif @dash.created_at < 24.hours.ago  %>
+    <%  @dash = Dash.create(eur: params[:eur]) %>
+  <% end %>
+<% end %>

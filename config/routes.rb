@@ -4,6 +4,7 @@ Rails.application.routes.draw do
  
 
   post 'valdash', to: 'pages#valdash'
+  post 'newdash', to: 'pages#newdash'
   get 'dash', to: 'pages#dash'
   get 'pages/home'
   get 'pages/about'
