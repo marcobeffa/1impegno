@@ -66,6 +66,9 @@ group :test do
   gem "selenium-webdriver"
 end
 
+gem "better_errors"
+  gem "binding_of_caller"
+
 gem "tailwindcss-rails", "~> 2.4"
 
 gem "devise", "~> 4.9"
