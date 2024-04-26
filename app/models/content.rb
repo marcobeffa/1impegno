@@ -1,6 +1,6 @@
 class Content < ApplicationRecord
   belongs_to :user
-  enum tipo: { attività: 0, processi: 1, contatti: 2, ruoli: 2, abilità: 3, luogo: 4, post: 5, date: 6, todo: 7  }
+  enum tipo: { attività: 0, processi: 1, contatti: 2, ruoli: 2, abilità: 3, luogo: 4, post: 5, date: 6, todo: 7, contratti: 8  }
   enum visibility: { privato: 0, gruppo: 1, pubblico: 2   }
  
 

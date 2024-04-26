@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post 'valdash', to: 'pages#valdash'
   post 'newdash', to: 'pages#newdash'
   get 'dash', to: 'pages#dash'
-  get 'pages/home'
+  get 'home', to: 'pages#home'
   get 'pages/about'
   get 'changelog', to: "pages#changelog"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
