@@ -1,0 +1,141 @@
+<!--div class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-4xl mx-auto mt-16">
+  <div id="conversionValue"></div>
+  <a href="#" id="updateDashLink">Aggiorna valore Dash in Euro</a>
+  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" class="px-6 py-3">
+          Data
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Dash
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Euro
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Franco Svizzero
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Sterlina
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Dollaro
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Jen Giapponese
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Bitcoin
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Ethereum
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Ltc
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Eos
+        </th>
+        <th scope="col" class="px-6 py-3">
+          dot
+        </th>
+        <th scope="col" class="px-6 py-3">
+          link
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @dashes.order(created_at: :desc).each do |val|%>
+        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+          <td class="px-6 py-4">
+            <%= val.updated_at.strftime("%d/%m/%Y") %>
+            <%= val.updated_at.strftime("%H:%M") %>
+          </td>
+          <th scope="row" class="flex px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            1           <%= image_tag 'home/dash.png', style:"width:100px;",class:"ml-2" %>
+          </th>
+          <td class="px-6 py-4">
+            <% if val.eur.nil?%>
+              <%#= link_to "+", valdash_path(val: "eur"),  data: { turbo_method: :post } %>
+            <% else %>
+              <div class="flex">
+                <%= val.eur %>€
+              </div>
+            <% end %>
+          </td>
+          <td class="px-6 py-4">
+            <% if val.chf.nil?%>
+              <%= link_to "+", valdash_path(val: "chf"),  data: { turbo_method: :post } %>
+            <% else %>
+              <%= val.chf %>
+            <% end %>
+          </td>
+          <td class="px-6 py-4">
+            <% if val.gbp.nil?%>
+              <%= link_to "+", valdash_path(val: "gbp"),  data: { turbo_method: :post } %>
+            <% else %>
+              <%= val.gbp %>
+            <% end %>
+          </td>
+          <td class="px-6 py-4">
+            <% if val.usd.nil?%>
+              <%= link_to "+", valdash_path(val: "usd"),  data: { turbo_method: :post } %>
+            <% else %>
+              <%= val.usd %>
+            <% end %>
+          </td>
+          <td class="px-6 py-4">
+            <% if val.jpy.nil?%>
+              <%= link_to "+", valdash_path(val: "jpy"),  data: { turbo_method: :post } %>
+            <% else %>
+              <%= val.jpy %>
+            <% end %>
+          </td>
+          <td class="px-6 py-4">
+            <% if val.btc.nil?%>
+              <%= link_to "+", valdash_path(val: "btc"),  data: { turbo_method: :post } %>
+            <% else %>
+              <%= val.btc %>
+            <% end %>
+          </td>
+          <td class="px-6 py-4">
+            <% if val.eth.nil?%>
+              <%= link_to "+", valdash_path(val: "eth"),  data: { turbo_method: :post } %>
+            <% else %>
+              <%= val.eth %>
+            <% end %>
+          </td>
+          <td class="px-6 py-4">
+            <% if val.ltc.nil?%>
+              <%= link_to "+", valdash_path(val: "ltc"),  data: { turbo_method: :post } %>
+            <% else %>
+              <%= val.ltc %>
+            <% end %>
+          </td>
+          <td class="px-6 py-4">
+            <% if val.eos.nil?%>
+              <%= link_to "+", valdash_path(val: "eos"),  data: { turbo_method: :post } %>
+            <% else %>
+              <%= val.eos %>
+            <% end %>
+          </td>
+          <td class="px-6 py-4">
+            <% if val.dot.nil?%>
+              <%= link_to "+", valdash_path(val: "dot"),  data: { turbo_method: :post } %>
+            <% else %>
+              <%= val.dot %>
+            <% end %>
+          </td>
+          <td class="px-6 py-4">
+            <% if val.link.nil?%>
+              <%= link_to "+", valdash_path(val: "link"),  data: { turbo_method: :post } %>
+            <% else %>
+              <%= val.link %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div-->

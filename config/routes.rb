@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :contents
   devise_for :users, controllers: { registrations: 'registrations' }
  
-
+  get '/contacts', to: 'contacts#index'
   post 'valdash', to: 'pages#valdash'
   post 'newdash', to: 'pages#newdash'
   get 'dash', to: 'pages#dash'
