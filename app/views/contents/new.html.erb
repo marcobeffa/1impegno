@@ -1,5 +1,9 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Nuovo Contenuto</h1>
+<div class="mt-4 mx-auto md:w-2/3 w-full">
+  <% if params[:tipo].nil? %>
+    <h1 class="font-bold text-4xl">Nuovo Contenuto</h1>
+  <% else%>
+    <h1 class="font-bold text-4xl">Nuovo  <%= params[:tipo] %></h1>
+  <% end %>
   <%= render "form", content: @content %>
   <%= link_to "<-", contents_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

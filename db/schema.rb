@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_19_132109) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_03_104043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_19_132109) do
     t.integer "visibility"
     t.integer "energy"
     t.integer "importanza"
+    t.text "mermaid"
     t.index ["user_id"], name: "index_contents_on_user_id"
   end
 

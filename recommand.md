@@ -1,3 +1,8 @@
+
+# 3 maggio 2024 07:48
+rails g migration AddMermaidToContent mermaid:text
+
+
 linkTree per developers https://www.youtube.com/watch?v=2cwjtRR9Rzk 
 
 

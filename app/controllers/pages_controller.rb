@@ -2,7 +2,8 @@ class PagesController < ApplicationController
   
 
   # before_action :newdashval, only: %i[ home dash ]
- 
+  def docs
+  end
   def dash
    
     @dashes = Dash.all

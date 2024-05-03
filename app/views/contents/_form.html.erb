@@ -86,8 +86,17 @@
       <div class=" ">
         <div class="my-5">
           <%= form.label :tipo %>
-          <%= form.select :tipo, options_for_select(Content.tipos.map {|k, v| [k.titleize, k]}, selected:  @content.tipo || Content.tipos.keys.first),  { prompt: "Scegli" },  class: "my-4 block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
-        </div>
+          
+          <% if params[:tipo].nil? %>
+            <%= form.select :tipo, options_for_select(Content.tipos.map {|k, v| [k.titleize, k]}, selected:  @content.tipo || Content.tipos.keys.first),  { prompt: "Scegli" },  class: "my-4 block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
+          <% else%>
+          <h1 class="font-bold text-xl">
+          <%= form.label params[:tipo] %>
+          </h1>
+           <%= form.hidden_field :tipo, value: params[:tipo], required: true %>
+          <% end %>
+          
+            </div>
       </div>
       <div class= "">
         <div class="my-5">
@@ -109,6 +118,10 @@
     <div class="my-5">
       <%= form.label :body %>
       <%= form.text_area :body, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+     <div class="my-5">
+      <%= form.label :mermaid %>
+      <%= form.text_area :mermaid, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
     <div class="my-5">
       <%= form.label :img_url %>

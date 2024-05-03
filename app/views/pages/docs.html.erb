@@ -1,0 +1,47 @@
+<section class="m-2 lg:m-8">
+  <div class="mermaid">
+    graph TD 
+    B[(Tempo)]--> BA[Contratti]
+    B--> BB[Date]
+    B-->BD[Slot settimana] --> BE[Obiettivo defin lista di todo]--> AAB[Todo]
+    B-->BF[Impegni date]
+    A[(Attenzione)] --> AB[Imprese] --> AC[Progetti] --> AD[Attività]--> AE[Processi obiettivi ricorrenti]
+    A --> AAB[Todo]
+    AAB --> BF
+    A --> AF[Post]
+    A-->BD
+    AE-->BE
+    BD-->AD
+   
+  
+
+   
+  
+    C[Gruppi]-->CA[Ruoli]-->CB[Abilità]
+    
+    CA-->CAA[Contatti]
+    CB--> AD
+    L[Luoghi]
+    D[Mappe]
+  </div>
+  <!-- Include the Mermaid JavaScript -->
+  <!-- Initialize Mermaid -->
+  <script>
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+  <% if params[:mermaid].nil? %>
+    <script>
+      // Funzione per ricaricare la pagina e reindirizzare a "/docs?mermaid=redirect"
+      function reloadAndRedirect() {
+        // Ricarica la pagina
+        location.reload();
+
+        // Reindirizza a "/docs?mermaid=redirect"
+        window.location.replace("/docs?mermaid=redirect");
+      }
+
+      // Richiama la funzione all'avvio della pagina
+      reloadAndRedirect();
+    </script>
+  <% end %>
+</section>

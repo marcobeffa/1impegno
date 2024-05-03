@@ -29,6 +29,43 @@
       <%= markdown(content.body) if content.body %>
     </article>
   </p>
+  
+ <% if !content.mermaid.nil? %>
+    
+
+  
+  <p class="my-5">
+  
+  <div class="mermaid">
+   <%= content.mermaid %>
+  </div>
+<!-- Include the Mermaid JavaScript -->
+<!-- Initialize Mermaid -->
+<script>
+  mermaid.initialize({ startOnLoad: true });
+</script>
+
+
+  
+
+
+<% if params[:mermaid].nil? %>
+  <script>
+    // Funzione per ricaricare la pagina e reindirizzare a "/docs?mermaid=redirect"
+    function reloadAndRedirect() {
+      // Ricarica la pagina
+      location.reload();
+
+      // Reindirizza a "/docs?mermaid=redirect"
+      window.location.replace("/contents/<%= @content.id%>?mermaid=redirect");
+    }
+
+    // Richiama la funzione all'avvio della pagina
+    reloadAndRedirect();
+  </script>
+<% end %>
+<% end %>
+</p>
   <p class="my-5">
     <strong class="block font-medium mb-1">Img url:</strong>
     <%= content.img_url %>
