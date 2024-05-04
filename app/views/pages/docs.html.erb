@@ -1,28 +1,31 @@
 <section class="m-2 lg:m-8">
   <div class="mermaid">
     graph TD 
-    B[(Tempo)]--> BA[Contratti]
-    B--> BB[Date]
-    B-->BD[Slot settimana] --> BE[Obiettivo defin lista di todo]--> AAB[Todo]
-    B-->BF[Impegni date]
-    A[(Attenzione)] --> AB[Imprese] --> AC[Progetti] --> AD[Attività]--> AE[Processi obiettivi ricorrenti]
-    A --> AAB[Todo]
+    B[(Tempo)]--> BA[Contratti Attivi Conclusi] --> BB[Date Ripetute scadenze]
+    
+
+    B-->BF[Impegni date]--> BB
+        B-->BD[Slot settimana] --> BE[Obiettivo] --> AD[Attività singole o Ripetute]--> AE[Processi] 
+    A[(Attenzione)] --> AB[Imprese] --> AC[Progetti Nuovi Fix Update Attivi End] --> AD
+
+    A --> AAB[Todo]-->  CA
     AAB --> BF
     A --> AF[Post]
     A-->BD
-    AE-->BE
-    BD-->AD
+    AE--> AAB[Todo] 
+  
     AC --> BD
+    
    
   
 
    
   
-    C[Gruppi]-->CA[Ruoli]-->CB[Abilità]
+    C[Gruppi]-->CA[Contatti]
     
-    CA-->CAA[Contatti]
-    CAA--> CB
-    CB--> AD
+  
+    CA-->CB[Abilità]
+    
     L[Luoghi]
     D[Mappe]
   </div>
