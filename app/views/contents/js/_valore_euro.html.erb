@@ -4,16 +4,20 @@
           <%= form.label :costo, class: "inline mr-2 text-red-600" %>
           <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
         </div>
+
         <%= form.number_field :costo, id: "costo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.0001", min: "0" %>
         <p class="mt-2">| <span id="valore-euro"></span> €</p>
       </div>
+
+      <% @dash_id = dashidfromday(@content.created_at) %> 
+      <% @dash_eur = Dash.find(@dash_id).eur if @dash_id.present? %>
       <script>
         document.addEventListener("DOMContentLoaded", function() {
           var costoField = document.getElementById("costo-field");
           var valoreEuroSpan = document.getElementById("valore-euro");
 
           // Inizializza il valore in euro con il valore corrente dal modello Dash
-          var eurValue = <%= Dash.last.eur %>;
+          var eurValue = <% if action_name == "new" || @dash_record.nil? %><%= Dash.last.eur %><% else %><%=  @dash_eur %><% end %>;
 
           costoField.addEventListener("input", function() {
             var costoValue = parseFloat(this.value);
@@ -41,7 +45,7 @@
           var valoreEuroRicavoSpan = document.getElementById("valore-euro-ricavo");
 
           // Inizializza il valore in euro per il ricavo con il valore corrente dal modello Dash
-          var eurValue = <%= Dash.last.eur %>;
+           var eurValue = <% if action_name == "new" || @dash_record.nil? %><%= Dash.last.eur %><% else %><%=  @dash_eur %><% end %>;
 
           ricavoField.addEventListener("input", function() {
             var ricavoValue = parseFloat(this.value);

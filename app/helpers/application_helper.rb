@@ -1,4 +1,10 @@
 module ApplicationHelper
+  def dashidfromday(created_at)
+    # Implementa la logica per trovare l'ID di Dash in base alla data
+    # Ad esempio, supponendo che Dash abbia una data attributo 'created_at' e che tu voglia trovare l'ID di Dash con la data più vicina a quella del contenuto:
+    Dash.where("created_at >= ?", created_at).order(created_at: :desc).pluck(:id).first
+  end
+  
   def helper_day(number_day_of_week) 
     if number_day_of_week == 1
       "Lunedì"

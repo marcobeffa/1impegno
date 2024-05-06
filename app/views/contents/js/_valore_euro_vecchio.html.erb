@@ -1,0 +1,36 @@
+<% if action_name == "new"  %>
+  <%  @dash_eur = Dash.last.eur %>
+<% elsif  action_name == "edit" || @dash_record.nil? %>
+  <% @dash_id = dashidfromday(@content.created_at) %> 
+  <% @dash_eur = Dash.find(@dash_id).eur if @dash_id.present? %>
+  <% if @dash_record.nil? %>  
+    <%  @dash_eur = Dash.last.eur %>
+  <% end %>  
+<% end %>  
+
+<div data-controller="dash-conversion" data-dash-conversion-eur-value="<%= @dash_eur %>">
+  <!-- Il codice HTML rimane lo stesso -->
+
+
+  <!--- costo ricavo in dash #damodificare e mettere Dash.last per i nuovi mentre Dash.all.where(created_at: content.created_at) o avvicinarsi alla data --->
+      <div class="my-5">
+        <div class="flex items-center">
+          <%= form.label :costo, class: "inline mr-2 text-red-600" %>
+          <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
+        </div>
+
+        <%= form.number_field :costo, id: "costo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.0001", min: "0" %>
+        <p class="mt-2">| <span id="valore-euro"></span> €</p>
+      </div>
+
+     
+      <div class="my-5">
+        <div class="flex items-center">
+          <%= form.label :ricavo, class: "text-green-600 inline mr-2" %>
+          <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
+        </div>
+        <%= form.number_field :ricavo, id: "ricavo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.0001", min: "0" %>
+        <p class="mt-2">| <span id="valore-euro-ricavo"></span> €</p>
+      </div>
+      
+      </div>
