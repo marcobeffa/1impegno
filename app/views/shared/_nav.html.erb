@@ -45,9 +45,9 @@
               <li>
                 <%= link_to 'Risorse', contents_path, class:"block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
               </li>
-              <% Content.tipos.each do |item| %>
+              <% Content.tipos.each do |tipo, value| %>
                 <li>
-                  <%= link_to item.first, contents_path(tipo: item.first), class:"block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                  <%= link_to value.to_s + ") " + tipo.to_s  , contents_path(tipo: tipo.to_s), class:"block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                 </li>
               <% end %>
             </ul>

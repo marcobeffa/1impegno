@@ -13,7 +13,7 @@
       </div>
     <% end %>
     <div class="grid xl:grid-cols-3 md:grid-cols-2 gap-4">
-      <%= render 'contents/js/form_js', form: form %>
+      <%= render 'contents/js/valore_euro', form: form %>
       <div class=" ">
         <div class="my-5">
           <%= form.label :data %>
@@ -49,7 +49,7 @@
       </div>
     </div>
     <!------->
-    <%#= render 'radio_button', form: form %>
+    <%= render 'radio_button', form: form %>
     <div class="my-5">
       <%= form.label :nome %>
       <%= form.text_field :nome, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
