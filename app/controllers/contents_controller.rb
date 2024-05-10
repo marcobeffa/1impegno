@@ -167,9 +167,10 @@ class ContentsController < ApplicationController
 
     def dash_euro
       @dash_id = dashidfromday(@content.created_at)
-      @dash = Dash.find(@dash_id)
-      if @dash.nil?
+      if @dash_id.nil?
         @dash = Dash.all.last
+      else
+        @dash = Dash.find(@dash_id)
       end
       
     end
