@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :contents
+  resources :contents do 
+    member do
+      get "public"
+    end
+  end
   devise_for :users, controllers: { registrations: 'registrations' }
  
  

@@ -1,62 +1,52 @@
-<!--- costo ricavo in dash #damodificare e mettere Dash.last per i nuovi mentre Dash.all.where(created_at: content.created_at) o avvicinarsi alla data --->
+<!-- Il codice HTML rimane lo stesso -->
+<div>
+  <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="text-purple-600 hover:text-purple-600 dark:text-purple-500 dark:hover:text-purple-500 border-purple-600 dark:border-purple-500" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
+      <li class="me-2" role="presentation">
+        <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-styled-tab" data-tabs-target="#styled-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Euro</button>
+      </li>
+      <li class="me-2" role="presentation">
+        <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-styled-tab" data-tabs-target="#styled-dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">
+          <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-4 h-4" %>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div id="default-styled-tab-content">
+    <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
+      <!-- eur --->
+      <div class="my-5">
+        <div class="flex items-center">
+          <%= form.label :costo_euro, class: "inline mr-2 text-red-600" %>
+        </div>
+        <%= form.number_field :costo_eur, id: "costo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.01", min: "0" %>
+      </div>
+      <div class="my-5">
+        <div class="flex items-center">
+          <%= form.label :ricavo_eur, class: "text-green-600 inline mr-2" %>
+        </div>
+        <%= form.number_field :ricavo_eur, id: "ricavo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.01", min: "0" %>
+      </div>
+      <!--- fine eur -->
+    </div>
+    <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+      <!-- dash --->
       <div class="my-5">
         <div class="flex items-center">
           <%= form.label :costo, class: "inline mr-2 text-red-600" %>
           <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
         </div>
-
         <%= form.number_field :costo, id: "costo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.0001", min: "0" %>
-        <p class="mt-2">| <span id="valore-euro"></span> €</p>
       </div>
-
-      <% @dash_id = dashidfromday(@content.created_at) %> 
-      <% @dash_eur = Dash.find(@dash_id).eur if @dash_id.present? %>
-      <script>
-        document.addEventListener("DOMContentLoaded", function() {
-          var costoField = document.getElementById("costo-field");
-          var valoreEuroSpan = document.getElementById("valore-euro");
-
-          // Inizializza il valore in euro con il valore corrente dal modello Dash
-          var eurValue = <% if action_name == "new" || @dash_record.nil? %><%= Dash.last.eur %><% else %><%=  @dash_eur %><% end %>;
-
-          costoField.addEventListener("input", function() {
-            var costoValue = parseFloat(this.value);
-
-            if (!isNaN(costoValue)) {
-              var valoreEuro = (costoValue * eurValue).toFixed(2);
-              valoreEuroSpan.textContent = valoreEuro;
-            } else {
-              valoreEuroSpan.textContent = "";
-            }
-          });
-        });
-      </script>
       <div class="my-5">
         <div class="flex items-center">
           <%= form.label :ricavo, class: "text-green-600 inline mr-2" %>
           <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %>
         </div>
         <%= form.number_field :ricavo, id: "ricavo-field", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", step: "0.0001", min: "0" %>
-        <p class="mt-2">| <span id="valore-euro-ricavo"></span> €</p>
       </div>
-      <script>
-        document.addEventListener("DOMContentLoaded", function() {
-          var ricavoField = document.getElementById("ricavo-field");
-          var valoreEuroRicavoSpan = document.getElementById("valore-euro-ricavo");
-
-          // Inizializza il valore in euro per il ricavo con il valore corrente dal modello Dash
-           var eurValue = <% if action_name == "new" || @dash_record.nil? %><%= Dash.last.eur %><% else %><%=  @dash_eur %><% end %>;
-
-          ricavoField.addEventListener("input", function() {
-            var ricavoValue = parseFloat(this.value);
-
-            if (!isNaN(ricavoValue)) {
-              var valoreEuroRicavo = (ricavoValue * eurValue).toFixed(2);
-              valoreEuroRicavoSpan.textContent = valoreEuroRicavo;
-            } else {
-              valoreEuroRicavoSpan.textContent = "";
-            }
-          });
-        });
-      </script>
-      <!-- costo ricavo in dash-->
+      <!-- fine dash --->
+    </div>
+  </div>
+</div>
+<!--- costo ricavo in dash #damodificare e mettere Dash.last per i nuovi mentre Dash.all.where(created_at: content.created_at) o avvicinarsi alla data --->

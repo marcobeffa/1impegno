@@ -1,4 +1,12 @@
 
+# 10 maggio 2024 07:48
+
+rails g migration AddEurToContent costo_eur:decimal ricavo_eur:decimal
+
+# 6 maggio 2024 07:48
+
+rails g migration AddStatoToContent stato:integer
+
 # 3 maggio 2024 07:48
 rails g migration AddMermaidToContent mermaid:text
 

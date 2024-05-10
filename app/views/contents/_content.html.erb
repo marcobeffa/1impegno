@@ -3,6 +3,10 @@
     <strong class="block font-medium mb-1">Tipo:</strong>
     <%= content.tipo %>
   </p>
+   <p class="my-5">
+    <strong class="block font-medium mb-1">Stato:</strong>
+    <%= content.stato %>
+  </p>
   <p class="my-5">
     <strong class="block font-medium mb-1">Visibilità:</strong>
     <%= content.visibility %>
@@ -79,13 +83,20 @@
     <%= content.telefono %>
   </p>
   <p class="my-5">
-    <strong class="block font-medium mb-1">Costo:</strong>
-    <%= content.costo %>
+    <strong class="block font-medium -mb-1">Costo:</strong>
+   <div class="flex">  <%= content.costo %> 
+    <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %> - 
+   </div> <%= content.costo_eur %> €
+
   </p>
   <p class="my-5">
-    <strong class="block font-medium mb-1">Ricavo:</strong>
-    <%= content.ricavo %>
+    <strong class="block font-medium -mb-1">Ricavo:</strong>
+    <div class="flex"><%= content.ricavo %> 
+    <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %> 
+   </div>
+    <%= content.ricavo_eur %> €
   </p>
+
   <% if action_name != "show" %>
     <%= link_to "Show this content", content, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this content", edit_content_path(content), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>

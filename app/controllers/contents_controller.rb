@@ -1,8 +1,11 @@
 class ContentsController < ApplicationController
-  before_action :authenticate_user!, except: %i[ show ]
-  before_action :set_content, only: %i[ show edit update destroy ]
+  include ApplicationHelper
+  
+  before_action :authenticate_user!, except: %i[ public ]
+  before_action :set_content, only: %i[ show edit update destroy public]
   before_action :edit_auth, only: %i[ edit update destroy ]
-  before_action :show_auth, only: %i[ show ]
+  before_action :public, only: %i[ public ]
+  before_action :dash_euro, only: %i[ update create ]
   
   # GET /contents or /contents.json
   def index
@@ -63,6 +66,21 @@ class ContentsController < ApplicationController
 
     respond_to do |format|
       if @content.save
+      
+        if @content.costo.nil? && @content.costo_eur.present?
+          @content.update(costo: (1 / @dash.eur * @content.costo_eur).truncate(4)) 
+        end
+        if @content.costo_eur.nil? && @content.costo.present?
+          @content.update(costo_eur:  (@dash.eur * @content.costo).truncate(2))  
+        end
+        if @content.ricavo.nil? && @content.ricavo_eur.present?
+          @content.update(ricavo:  (1 / @dash.eur * @content.ricavo_eur).truncate(4)) 
+        end
+        if @content.costo.nil? && @content.costo_eur.present?
+          @content.update(ricavo_eur:  (@dash.eur * @content.ricavo).truncate(2))   
+        end
+        
+
         format.html { redirect_to content_url(@content), notice: "Content was successfully created." }
         format.json { render :show, status: :created, location: @content }
       else
@@ -74,8 +92,35 @@ class ContentsController < ApplicationController
 
   # PATCH/PUT /contents/1 or /contents/1.json
   def update
+    if @content.costo
+      @costo = @content.costo
+    end
+    if @content.costo_eur 
+      @costo_eur = @content.costo_eur
+    end
+    if @content.ricavo
+      @ricavo = @content.ricavo
+    end
+    if @content.ricavo_eur
+      @ricavo_eur = @content.ricavo_eur
+    end
+    
     respond_to do |format|
       if @content.update(content_params)
+        if @content.costo != @costo 
+          @content.update(costo_eur:  (@dash.eur  * @content.costo).truncate(2))  
+        end
+        if @content.costo_eur != @costo_eur
+          @content.update(costo: ( 1 / @dash.eur * @content.costo_eur).truncate(4)) 
+   
+        end
+        if @content.ricavo != @ricavo
+          @content.update(ricavo_eur:  (@dash.eur  * @content.ricavo).truncate(2)) 
+        end
+        if @content.ricavo_eur != @ricavo_eur
+          @content.update(ricavo:  (1 / @dash.eur * @content.ricavo_eur).truncate(4)) 
+           
+        end
         format.html { redirect_to content_url(@content), notice: "Content was successfully updated." }
         format.json { render :show, status: :ok, location: @content }
       else
@@ -103,23 +148,31 @@ class ContentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def content_params
-      params.require(:content).permit(:data, :tipo, :nome, :descrizione, :body, :img_url, :email, :telefono, :costo, :ricavo, :user_id, :visibility, :energy, :importanza, :mermaid )
+      params.require(:content).permit(:data, :tipo, :nome, :descrizione, :body, :img_url, :email, :telefono, :costo, :ricavo, :user_id, :visibility, :energy, :importanza, :mermaid, :stato, :costo_eur, :ricavo_eur )
     end
     
-    def show_auth
-      if !@content.pubblico?
-        unless current_user.id == @content.user.id 
+    def public
+      if @content.visibility != "pubblico"
+
           redirect_to root_path
-        end
+ 
       end
     end
 
     def edit_auth
-     
         unless current_user.id == @content.user.id 
           redirect_to root_path
         end
-   
     end
+
+    def dash_euro
+      @dash_id = dashidfromday(@content.created_at)
+      @dash = Dash.find(@dash_id)
+      if @dash.nil?
+        @dash = Dash.all.last
+      end
+      
+    end
+
 
 end

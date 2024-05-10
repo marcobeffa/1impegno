@@ -26,6 +26,21 @@
         </div>
       </div>
     </div>
+
+    
+      <div class="my-5">
+        <%= form.label :stato %>
+        
+        <% if params[:stato].nil? %>
+          <%= form.select :stato, options_for_select(Content.statos.map {|k, v| [k.titleize, k]}, selected:  @content.stato || Content.statos.keys.first),  { prompt: "Scegli" },  class: "my-4 block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
+        <% else%>
+        <h1 class="font-bold text-xl">
+        <%= form.label params[:stato] %>
+        </h1>
+          <%= form.hidden_field :stato, value: params[:stato], required: true %>
+        <% end %>
+        
+      </div>
     <div class="grid grid-cols-2 gap-4">
       <div class=" ">
         <div class="my-5">
@@ -40,7 +55,7 @@
            <%= form.hidden_field :tipo, value: params[:tipo], required: true %>
           <% end %>
           
-            </div>
+        </div>
       </div>
       <div class= "">
         <div class="my-5">
