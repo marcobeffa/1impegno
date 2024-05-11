@@ -4,7 +4,7 @@ class ContentsController < ApplicationController
   before_action :authenticate_user!, except: %i[ public ]
   before_action :set_content, only: %i[ show edit update destroy public]
   before_action :edit_auth, only: %i[ edit update destroy ]
-  before_action :public, only: %i[ public ]
+  before_action :set_public, only: %i[ public ]
   before_action :dash_euro, only: %i[ update create ]
   
   # GET /contents or /contents.json
@@ -49,7 +49,9 @@ class ContentsController < ApplicationController
   # GET /contents/1 or /contents/1.json
   def show
   end
-
+  
+  def public
+  end
   # GET /contents/new
   def new
     @content = current_user.contents.build
@@ -151,7 +153,7 @@ class ContentsController < ApplicationController
       params.require(:content).permit(:data, :tipo, :nome, :descrizione, :body, :img_url, :email, :telefono, :costo, :ricavo, :user_id, :visibility, :energy, :importanza, :mermaid, :stato, :costo_eur, :ricavo_eur )
     end
     
-    def public
+    def set_public
       if @content.visibility != "pubblico"
 
           redirect_to root_path

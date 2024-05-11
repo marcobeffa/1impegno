@@ -61,7 +61,11 @@
       location.reload();
 
       // Reindirizza a "/docs?mermaid=redirect"
+      <% if action_name == "show" %>
       window.location.replace("/contents/<%= @content.id%>?mermaid=redirect");
+      <% else %>
+        window.location.replace("/contents/<%= @content.id%>/public?mermaid=redirect");
+      <% end %>
     }
 
     // Richiama la funzione all'avvio della pagina
