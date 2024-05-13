@@ -1,6 +1,5 @@
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
-    <%= render @content %>
     <%= link_to "<-", contents_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <% if user_signed_in? %>
       <%  if current_user.id == @content.user.id %>
@@ -10,5 +9,6 @@
         </div>
       <% end %>
     <% end %>
+    <%= render @content %>
   </div>
 </div>
