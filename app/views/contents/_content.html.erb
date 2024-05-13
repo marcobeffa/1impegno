@@ -1,5 +1,5 @@
 
-<div class="lg:min-w-xl m-2" id="<%= dom_id content %>">
+<div class=" m-2" id="<%= dom_id content %>">
 
 
 <div class="my-1 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -64,9 +64,10 @@
 
     </div>
 </div>
-
-          <% if @content.img_url  %>
+ <% if !@content.img_url.nil?  %>
+          <% if @content.img_url.length > 2  %>
 <img class=" rounded-t-lg" src="<%= @content.img_url %>" alt="Immagine <%= @content.tipo %>" />
+    <% end %>
     <% end %>
 </div>
 </div>
@@ -132,6 +133,14 @@
 </div>
 </div>
 
+<% if user_signed_in? %>
+
+
+<% if @content.user.id == current_user.id %>
+  
+
+
+
 <div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
  
     <div class="flex items-center justify-between mb-4">
@@ -159,56 +168,107 @@
   </div>
   <div id="default-styled-tab-content">
     <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
-     
-    </div>
-    <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-      
-    </div>
-  </div>
-</div>
+      <!--- eur --->
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-            <li class="py-3 sm:py-4">
+          <li class="py-3 sm:py-4">
                 <div class="flex items-center">
-                   
-
                     <div class="flex-1 min-w-0 ms-4">
                      <strong class="block font-medium -mb-1">Costo:</strong>
 
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                       <%= content.costo %> 
-    <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %> - 
-<%= content.costo_eur %> €
+                                                        <%= content.costo_eur %> €
+                                  </div>
                     </div>
-                </div>
-            </li>
+          </li>
 
-<li class="py-3 sm:py-4">
-                <div class="flex items-center">
-                   
+          <li class="py-3 sm:py-4">
+                              <div class="flex items-center">
+                                
 
-                    <div class="flex-1 min-w-0 ms-4">
-                     <strong class="block font-medium -mb-1">Ricavo:</strong>
+                                  <div class="flex-1 min-w-0 ms-4">
+                                  <strong class="block font-medium -mb-1">Ricavo:</strong>
 
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                       <%= content.ricavo %> 
-    <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %> 
- 
-    <%= content.ricavo_eur %> €
-                    </div>
-                </div>
-            </li>
+                                  </div>
+                                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                
+                                  <%= content.ricavo_eur %> €
+                                </div>
+                              </div>
+          </li>
    
            
         </ul>
         <hr>
 
-    <div class="mt-4 flex items-center justify-between">
+        <div class="mt-4 flex items-center justify-between">
              <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tot</a>
-            <span class="text-3xl font-bold text-gray-900 dark:text-white">$599</span>
+            <span class="text-3xl font-bold text-gray-900 dark:text-white">
+             
+             <% if          @content.ricavo_eur.present? && @content.costo_eur.present? %>
+              
+          
+             
+              <%= @content.ricavo_eur - @content.costo_eur %>   €
+                 <% end %>
+            </span>
            
         </div>
+      <!--- fine eur -->
+    </div>
+    <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+       <!--- dash --->
+        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+          <li class="py-3 sm:py-4">
+                <div class="flex items-center">
+                    <div class="flex-1 min-w-0 ms-4">
+                     <strong class="block font-medium -mb-1">Costo:</strong>
+
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                                      <%= content.costo %> 
+                                    <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %> 
+                                
+                                  </div>
+                    </div>
+          </li>
+
+          <li class="py-3 sm:py-4">
+                              <div class="flex items-center">
+                                
+
+                                  <div class="flex-1 min-w-0 ms-4">
+                                  <strong class="block font-medium -mb-1">Ricavo:</strong>
+
+                                  </div>
+                                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                    <%= content.ricavo %> 
+                                  <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %> 
+                              
+                                
+                                </div>
+                              </div>
+          </li>
+   
+           
+        </ul>
+        <hr>
+
+        <div class="mt-4 flex items-center justify-between">
+             <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tot</a>
+            <span class="flex text-3xl font-bold text-gray-900 dark:text-white">
+             <% if          @content.ricavo.present? && @content.costo.present? %>
+              
+          
+            <%= @content.ricavo - @content.costo %>  &nbsp; <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %></span>
+           <% end %>
+        </div>
+      <!--- fine dash -->
+    </div>
+  </div>
+</div>
+       
+      
    </div>
    
 </div>
@@ -218,16 +278,21 @@
    
   
 
- 
- 
+ </div>
+
+
+ <% end %>
   
+<% end %>
+  <div class="w-full lg:w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+
   <p class="my-5">
-    <strong class="block font-medium mb-1">Body:</strong>
+    
     <article class="prose lg:prose-xl">
       <%= markdown(content.body) if content.body %>
     </article>
   </p>
-   
+   </div>
  <% if content.mermaid.present? %>
     
 
@@ -272,11 +337,18 @@
  
   
 
-  <% if action_name != "show" %>
+  <% if action_name != "show" && action_name != "public"  %>
+   <% if user_signed_in? %>
+
+
+  <% if @content.user.id == current_user.id %>
     <%= link_to "Show this content", content, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+   
     <%= link_to "Edit this content", edit_content_path(content), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <hr class="mt-6">
   <% end %>
+    <% end %>
+      <% end %>
   </div>
 </div>
 </div>
