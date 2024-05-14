@@ -5,7 +5,7 @@ class ContentsController < ApplicationController
   before_action :set_content, only: %i[ show edit update destroy public]
   before_action :edit_auth, only: %i[ edit update destroy ]
   before_action :set_public, only: %i[ public ]
-  before_action :dash_euro, only: %i[ update create ]
+
   
   # GET /contents or /contents.json
   def index
@@ -49,7 +49,7 @@ class ContentsController < ApplicationController
   # GET /contents/1 or /contents/1.json
   def show
   end
-  
+
   def public
   end
   # GET /contents/new
@@ -65,7 +65,12 @@ class ContentsController < ApplicationController
   # POST /contents or /contents.json
   def create
     @content = current_user.contents.build(content_params)
-
+    @dash_id = dashidfromday(@content.created_at)
+      if @dash_id.nil?
+        @dash = Dash.all.last
+      else
+        @dash = Dash.find(@dash_id)
+      end
     respond_to do |format|
       if @content.save
       
@@ -106,7 +111,12 @@ class ContentsController < ApplicationController
     if @content.ricavo_eur
       @ricavo_eur = @content.ricavo_eur
     end
-    
+    @dash_id = dashidfromday(@content.created_at)
+    if @dash_id.nil?
+      @dash = Dash.all.last
+    else
+      @dash = Dash.find(@dash_id)
+    end
     respond_to do |format|
       if @content.update(content_params)
         if @content.costo != @costo 
@@ -167,15 +177,7 @@ class ContentsController < ApplicationController
         end
     end
 
-    def dash_euro
-      @dash_id = dashidfromday(@content.created_at)
-      if @dash_id.nil?
-        @dash = Dash.all.last
-      else
-        @dash = Dash.find(@dash_id)
-      end
-      
-    end
+    
 
 
 end
