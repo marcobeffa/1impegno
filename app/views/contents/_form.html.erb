@@ -14,14 +14,14 @@
     <% end %>
     <div class="grid xl:grid-cols-3 md:grid-cols-2 gap-4">
      
-      <%#= render 'contents/js/valore_euro', form: form %>
+      <%= render 'contents/js/valore_euro', form: form %>
       <div class=" ">
         <div class="my-5">
           <%= form.label :data %>
           <% if action_name == "edit" %>
             <%= form.datetime_field :data, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
           <% else %>
-            <%= form.datetime_field :data, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", value: Time.now, required: true %>
+            <%= form.datetime_field :data, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", value: DateTime.now, required: true %>
           <% end %>
         </div>
       </div>
