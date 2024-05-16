@@ -1,3 +1,6 @@
+# mer 15 maggio 
+rails generate model SlotWeek week_n:integer week_year:integer day_of_week:integer content:references date_start:datetime date_end:datetime
+
 
 # 10 maggio 2024 07:48
 
