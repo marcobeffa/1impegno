@@ -3,14 +3,17 @@
   <div class="mermaid mx-auto" style="width:600px;">
     graph TD 
     B[(Tempo)]--> BA[8 Contratti] --> BF
+    B-->BBC[13 Calendaerio] 
     A-->AD
     BE-->AE
     B-->AD
-    B-->BF[14 Date impegni scadenze]--> BB[Ripetizione ]
-    B-->BD[12 Settimana] --> BE[7 Obiettivo] --> AD[0 Attività] --> AE[1 Processi] 
-    AD-->BB
+    B-->BF([- Dataevent scadenze])
+    BF-->BBC
+    B-->BD[[- Settimana dataevent]] --> BE[7 Obiettivo] --> AD[0 Attività] --> AE[1 Processi] 
+    BD-->AD
     
-    A[(Attenzione)] --> AB[11 Imprese] --> AC[13 Progetti] --> AD
+    
+    A[(Attenzione)] --> AB[10 Imprese] --> AC[11 Progetti] --> AD
     AC--> BE
     A --> AAB[6 Todo]-->  CA
     AAB --> BF
@@ -20,18 +23,21 @@
   
     AC --> BD
     
-   
-  
-
-   
-  
-    C[10 Gruppi]-->CA[2 Contatti]
     
   
-    CA-->CB[3 Abilità]
+    C[12 Gruppi]-->CA[2 Contatti]-->CB[3 Abilità]
     
     L[4 Luoghi]
     D[9 Mappe]
+  </div>
+  <div class="mermaid mx-auto" style="width:800px;">
+    graph TD 
+    A[(Attenzione)] --> AB[10 Imprese] --> AC[11 Progetti] --> AD[[- Settimana dataevent]] --> AE[7 Obiettivo] --> AF[0 Attività] --> AG[1 Processi] --> AH[6 Todo]-->AI([- Dataevent scadenze])--> AL[13 Calendario tramite content a cui è riferita dataevent]
+    A--> B[12 Gruppi]-->BA[2 Contatti]-->BC[3 Abilità]
+    A -->  C[8 Contratti] 
+    A--> D[5 Post] --> DA[9 Mappe concettuali]
+    A--> E[4 Luoghi]
+    F[(Tempo)]-->AL
   </div>
   </div>
   <!-- Include the Mermaid JavaScript -->

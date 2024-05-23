@@ -1,5 +1,14 @@
-# mer 15 maggio 
-rails generate model SlotWeek week_n:integer week_year:integer day_of_week:integer content:references date_start:datetime date_end:datetime
+rails g model Linkcontent user:refernces content_1_id:integer content_2_id:integer
+
+rails g model Booking dataevent:references user:references invitato_da_user_id:integer approvato_da_user_id:integer prezzo_euro:decimal prezzo_dash:decimal data_pagamento:datetime conferma_presenza:datetime
+
+rails g model Dataevent user:references content:references date_start:datetime date_end:datetime slot:boolean week_year:integer week_n:integer day_of_week:integer repetition:boolean unity_time:integer ogni_n:integer date_repeat_start:datetime date_repeat_end:datetime 
+
+enum unity_time: {secondi: 0, minuti: 1, ore: 2, giorni: 3, settimane: 4, mesi: 5, bimestri: 6, trimestri: 7, quadrimestri: 8, semestri: 9, anni: 10 }
+
+
+# mer 16 maggio 2024 09:21
+
 
 
 # 10 maggio 2024 07:48
