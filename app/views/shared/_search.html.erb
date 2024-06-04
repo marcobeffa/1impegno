@@ -1,0 +1,6 @@
+ <div class="max-w-xl mx-auto">
+    <%= form_with url: contents_path, method: :get, local: true, class:"flex mt-4 mx-6" do %>
+      <%= text_field_tag :query, params[:query],class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2  w-full" %>
+      <%= submit_tag "🔍", class:"text-white bg-gradient-to-r from-purple-400 via-purple-100 to-purple-200 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300  shadow-lg shadow-purple-500/50  font-medium rounded-lg text-sm px-5 py-2.5 text-center ml-2 "%>
+    <% end %>
+  </div>

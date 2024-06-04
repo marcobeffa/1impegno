@@ -5,4 +5,6 @@ class Content < ApplicationRecord
   enum stato: { nuovi: 0, to_fix: 1, to_update: 2, attivi: 3, conclusi: 4 }
 
   validates :data, presence: true
+
+  
 end

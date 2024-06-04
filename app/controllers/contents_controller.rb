@@ -8,24 +8,25 @@ class ContentsController < ApplicationController
 
   
   # GET /contents or /contents.json
-  def index
-    if params[:tipo]
-    
-      @contents = current_user.contents.where(tipo:  params[:tipo])
-    else
-      @contents = current_user.contents
-    end
  
-   
+  def index   
     if !user_signed_in?
       redirect_to root_path
     end
+
+    if params[:tipo]
+      @contents = current_user.contents.where(tipo:  params[:tipo])
+    elsif params[:query].present?
+     # @contents = Content.where("nome LIKE ?", "%#{params[:query]}%")
+     @contents = Content.where("lower(nome) LIKE ?", "%#{params[:query].downcase}%") 
+    else
+      @contents = current_user.contents
+    end
+  
     if params[:data].nil?
-      
-       @data_completa = DateTime.now
-       @data =  @data_completa.strftime('%Y-%m-%d')
-       @dataform = DateTime.now.strftime('%d-%m-%Y')
-    
+      @data_completa = DateTime.now
+      @data =  @data_completa.strftime('%Y-%m-%d')
+      @dataform = DateTime.now.strftime('%d-%m-%Y')
     else
       @data = params[:data]  
       begin
@@ -33,14 +34,14 @@ class ContentsController < ApplicationController
       rescue ArgumentError => e
         flash[:error] = "Data non valida. Utilizzando la data corrente."
         @data_completa = DateTime.now
-        @data =  @data_completa.strftime('%Y-%m-%d')
-        
+        @data =  @data_completa.strftime('%Y-%m-%d') 
       end
-    
       @dataform =  @data_completa.strftime('%d-%m-%Y')
-    
     end 
+    
 
+    
+  
    
    
     
