@@ -2,7 +2,7 @@
   <% @data = DateTime.now.strftime('%Y-%m-%d') %>
 <% end %>
 <nav id="sticky-banner" tabindex="-1" class="fixed  top-0 start-0 z-50 flex  w-full px-4 p-1 lg:p-2 border-b border-gray-200 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-  <%= link_to  home_path, class:"-ml-1 md:mx-8  flex items-center space-x-3 rtl:space-x-reverse" do%>
+  <%= link_to  home_path, class:"-ml-1 md:mr-8 mr-2 md:mx-8  flex items-center space-x-3 rtl:space-x-reverse" do%>
     <%= image_tag 'home/impegno.png', class:"rounded-full h-10 lg:h10" %>
     <span class="hidden md:flex lg:block self-center text-2xl font-semibold whitespace-nowrap dark:text-white">1impegno</span>
   <% end %>
