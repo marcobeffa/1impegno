@@ -32,12 +32,16 @@
   </div>
   <div class="mermaid mx-auto" style="width:800px;">
     graph TD 
-    A[(Attenzione)] --> AB[10 Imprese] --> AC[11 Progetti] --> AD[[- Settimana dataevent]] --> AE[7 Obiettivo] --> AF[0 Attività] --> AG[1 Processi] --> AH[6 Todo]-->AI([- Dataevent scadenze])--> AL[13 Calendario tramite content a cui è riferita dataevent]
-    A--> B[12 Gruppi]-->BA[2 Contatti]-->BC[3 Abilità]
-    A -->  C[8 Contratti] 
-    A--> D[5 Post] --> DA[9 Mappe concettuali]
-    A--> E[4 Luoghi]
+    A--> B[0 Gruppi]-->BA[1 Contatti]-->BC[2 Abilità]
+
+    A[(Attenzione)] --> AB[3 Imprese] --> AC[4 Progetti] --> AD[[ Settimana dataevent]] -->  AF[5 Attività] --> AG[6 Processi] --> AH[7 Todo]-->AI([- Dataevent scadenze])--> AL[ Calendario tramite content a cui è riferita dataevent]
+    
+    
+    A-->C[8 Post] -->  CA[9 Contratti] --> CB[10 Calendario] --> CC[11 Evento] --> CD[12 Luogo]
+
     F[(Tempo)]-->AL
+    AD --> AG
+   AC --> CA
     click AB href "dashboard/imprese" "This is a tooltip for a link"
   </div>
   </div>
