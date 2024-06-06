@@ -1,0 +1,34 @@
+<div class="max-w-lg mx-auto mt-4">
+  <h1 class="font-bold text-4xl">Impresa</h1>
+  <br>
+  <div class="my-4">
+    <%= link_to 'Nuova Impresa', new_content_path(tipo: "impresa"), class:" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+  </div>
+  <br>
+  <div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            Impresa
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Data
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @contents.each do |content| %>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <%= link_to content.nome, progetti_content_path(content.id) %>
+            </th>
+            <td class="px-6 py-4">
+              <%= content.data.strftime("%d/%m/%Y") %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
+  post 'newprogetto', to: 'links#newprogetto'
+  get 'dashboard/imprese'
+  get 'dashboard/settimana'
+  get 'dashboard/obiettivo'
+  get 'dashboard/attivit'
+  get 'dashboard/processi'
+  get 'dashboard/todo'
   resources :contents do 
     member do
+      get 'progetti', to: 'dashboard#progetti'
       get "public"
     end
   end

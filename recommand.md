@@ -1,4 +1,3 @@
-rails g model Linkcontent user:refernces content_1_id:integer content_2_id:integer
 
 rails g model Booking dataevent:references user:references invitato_da_user_id:integer approvato_da_user_id:integer prezzo_euro:decimal prezzo_dash:decimal data_pagamento:datetime conferma_presenza:datetime
 
@@ -7,7 +6,10 @@ rails g model Dataevent user:references content:references date_start:datetime d
 enum unity_time: {secondi: 0, minuti: 1, ore: 2, giorni: 3, settimane: 4, mesi: 5, bimestri: 6, trimestri: 7, quadrimestri: 8, semestri: 9, anni: 10 }
 
 
-# mer 16 maggio 2024 09:21
+# mer 6 Giu 2024 09:21
+rails g controller Dashboard imprese progetti settimana obiettivo attivit processi todo
+
+rails g model Linkcontent user:refernces content_1_id:integer content_2_id:integer
 
 
 
