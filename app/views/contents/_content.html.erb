@@ -1,355 +1,53 @@
-
 <div class=" m-2" id="<%= dom_id content %>">
-
-
-<div class="my-1 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    
-   
-    <div class="px-5 pb-5">
-      <div class="mt-4 flex items-center">
-        <div class="flex-shrink-0">
-            <img class="w-8 h-8 rounded-full" src="<%= avatar(@content.user.avatar_url) %>" alt="Neil image">
-        </div>
-        <div class="flex-1 min-w-0 ms-4">
-            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                <%= @content.user.username%>
-            </p>
-            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                <%= @content.user.email%>
-            </p>
-        </div>
-        <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-            <%= @content.data.strftime("%d/%m/%Y - %H:%M") if @content.data%>
-        </div>
-    </div>
-    <div class="flex items-center mt-2.5 mb-5">
-      
-          <div class="flex items-center space-x-1 rtl:space-x-reverse">
-          <%= link_to  contents_path(tipo: @content.tipo) do %>
-            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-            <%= @content.tipo.titleize %>
-            </h5>
-        <% end %>
-         &nbsp; | 
-        <!--- stelline -->
-      
-           <% content.importanza.to_i.times do %>
-              <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-              </svg>
-            <% end %>
-            <% (5 - content.importanza.to_i).times do %>
-              <svg class="w-4 h-4 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-              </svg>
-            <% end %>
-       
-          <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3"><%= content.importanza %></span>
-   
-        <!--fine stelline --->
-                
-   &nbsp; |     <%= emoji = case content.energy.to_i
-  when 1
-    "😢"
-  when 2
-    "😞"
-  when 3
-    "😐"
-  when 4
-    "🙂"
-  when 5
-    "😄"
-  end %>
-
-
-    </div>
-</div>
- <% if !@content.img_url.nil?  %>
-          <% if @content.img_url.length > 2  %>
-<img class=" rounded-t-lg" src="<%= @content.img_url %>" alt="Immagine <%= @content.tipo %>" />
-    <% end %>
-    <% end %>
-</div>
-</div>
-
-<div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 dark:bg-gray-800 dark:border-gray-700">
-   <div class="flex">
-  Stato: &nbsp; <b> <%= content.stato %> </b>&nbsp;
-   
-     <% stato_icon = case content.visibility
-   when "pubblico"
-    '<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
-      <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-    </svg>'
-  when "gruppo"
-    '<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>
-  </svg>
-  '
-    when "privato"
-      '<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-        </svg>
-        '
-
-    end %>
-
-  &nbsp; Visibilità: &nbsp; <%=  stato_icon.html_safe%>
-</div>
-<hr class="my-2">
-
-<% if @content.tipo == "contatto" %>
-  <ul class="my-4 space-y-3">
-<li>
-<a href="#" class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
-<span class="flex-1 ms-3 whitespace-nowrap">Nome: <%= @content.nome %></span>
-
-</a>
-</li>
-<li>
-<a href="#" class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
-<span class="flex-1 ms-3 whitespace-nowrap">Email:  <%= @content.email %></span>
-</a>
-</li>
-<li>
-<a href="#" class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
-<span class="flex-1 ms-3 whitespace-nowrap">Telefono:  <%= @content.telefono %></span>
-</a>
-</li>
-<% else %>
-
-<h5 class="mb-3 text-base font-semibold text-gray-900 md:text-xl dark:text-white">
-  <%= content.nome %> 
-</h5>
-<p class="text-sm font-normal text-gray-500 dark:text-gray-400">
- <%= content.descrizione %></p>
-
-<% end %>
-
-</ul>
-<div>
-
-</div>
-</div>
-
-<% if user_signed_in? %>
-
-
-<% if @content.user.id == current_user.id %>
-  
-
-
-
-<div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
- 
-    <div class="flex items-center justify-between mb-4">
-        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Valore Attribuito</h5>
-        <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
-            View all
-        </a>
-   </div>
-   
-
-   <div class="flow-root">
-   <div>
-  <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="text-purple-600 hover:text-purple-600 dark:text-purple-500 dark:hover:text-purple-500 border-purple-600 dark:border-purple-500" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
-      <li class="me-2" role="presentation">
-        <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-styled-tab" data-tabs-target="#styled-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Euro</button>
-      </li>
-      <li class="me-2" role="presentation">
-        <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-styled-tab" data-tabs-target="#styled-dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">
-          <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-4 h-4" %>
-        </button>
-      </li>
-      
-    </ul>
-  </div>
-  <div id="default-styled-tab-content">
-    <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
-      <!--- eur --->
-        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-          <li class="py-3 sm:py-4">
-                <div class="flex items-center">
-                    <div class="flex-1 min-w-0 ms-4">
-                     <strong class="block font-medium -mb-1">Costo:</strong>
-
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                                        <%= content.costo_eur %> €
-                                  </div>
-                    </div>
-          </li>
-
-          <li class="py-3 sm:py-4">
-                              <div class="flex items-center">
-                                
-
-                                  <div class="flex-1 min-w-0 ms-4">
-                                  <strong class="block font-medium -mb-1">Ricavo:</strong>
-
-                                  </div>
-                                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                
-                                  <%= content.ricavo_eur %> €
-                                </div>
-                              </div>
-          </li>
-   
-           
-        </ul>
-        <hr>
-
-        <div class="mt-4 flex items-center justify-between">
-             <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tot</a>
-            <span class="text-3xl font-bold text-gray-900 dark:text-white">
-             
-             <% if          @content.ricavo_eur.present? && @content.costo_eur.present? %>
-              
-          
-             
-              <%= @content.ricavo_eur - @content.costo_eur %>   €
-                 <% end %>
-            </span>
-           
-        </div>
-      <!--- fine eur -->
-    </div>
-    <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-       <!--- dash --->
-        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-          <li class="py-3 sm:py-4">
-                <div class="flex items-center">
-                    <div class="flex-1 min-w-0 ms-4">
-                     <strong class="block font-medium -mb-1">Costo:</strong>
-
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                                      <%= content.costo %> 
-                                    <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %> 
-                                
-                                  </div>
-                    </div>
-          </li>
-
-          <li class="py-3 sm:py-4">
-                              <div class="flex items-center">
-                                
-
-                                  <div class="flex-1 min-w-0 ms-4">
-                                  <strong class="block font-medium -mb-1">Ricavo:</strong>
-
-                                  </div>
-                                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                    <%= content.ricavo %> 
-                                  <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %> 
-                              
-                                
-                                </div>
-                              </div>
-          </li>
-   
-           
-        </ul>
-        <hr>
-
-        <div class="mt-4 flex items-center justify-between">
-             <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tot</a>
-            <span class="flex text-3xl font-bold text-gray-900 dark:text-white">
-             <% if          @content.ricavo.present? && @content.costo.present? %>
-              
-          
-            <%= @content.ricavo - @content.costo %>  &nbsp; <%= image_tag "https://media.dash.org/wp-content/uploads/blue-d-250.png", class: "w-6 h-6" %></span>
-           <% end %>
-        </div>
-      <!--- fine dash -->
-    </div>
-  </div>
-</div>
-       
-      
-   </div>
-   
-</div>
-
-
- 
-   
-  
-
- </div>
-
-
- <% end %>
-  
-<% end %>
+  <%= render 'content_head', content: @content %>
+  <%= render 'valore', content: @content %>
   <div class="w-full lg:w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-
-  <p class="my-5">
-    
-    <article class="prose lg:prose-xl">
-      <%= markdown(content.body) if content.body %>
-    </article>
-  </p>
-   </div>
- <% if content.mermaid.present? %>
-    
-
-  
-  <p class="my-5">
-  
-  <div class="mermaid">
-   <%= content.mermaid %>
+    <p class="my-5">
+      <article class="prose lg:prose-xl">
+        <%= markdown(content.body) if content.body %>
+      </article>
+    </p>
   </div>
-<!-- Include the Mermaid JavaScript -->
-<!-- Initialize Mermaid -->
-<script>
-  mermaid.initialize({ startOnLoad: true });
-</script>
+  <% if content.mermaid.present? %>
+    <p class="my-5">
+      <div class="mermaid">
+        <%= content.mermaid %>
+      </div>
+      <!-- Include the Mermaid JavaScript -->
+      <!-- Initialize Mermaid -->
+      <script>
+        mermaid.initialize({ startOnLoad: true });
+      </script>
+      <% if params[:mermaid].nil? %>
+        <script>
+          // Funzione per ricaricare la pagina e reindirizzare a "/docs?mermaid=redirect"
+          function reloadAndRedirect() {
+            // Ricarica la pagina
+            location.reload();
 
+            // Reindirizza a "/docs?mermaid=redirect"
+            <% if action_name == "show" %>
+            window.location.replace("/contents/<%= @content.id%>?mermaid=redirect");
+            <% else %>
+              window.location.replace("/contents/<%= @content.id%>/public?mermaid=redirect");
+            <% end %>
+          }
 
-  
-
-
-<% if params[:mermaid].nil? %>
-  <script>
-    // Funzione per ricaricare la pagina e reindirizzare a "/docs?mermaid=redirect"
-    function reloadAndRedirect() {
-      // Ricarica la pagina
-      location.reload();
-
-      // Reindirizza a "/docs?mermaid=redirect"
-      <% if action_name == "show" %>
-      window.location.replace("/contents/<%= @content.id%>?mermaid=redirect");
-      <% else %>
-        window.location.replace("/contents/<%= @content.id%>/public?mermaid=redirect");
+          // Richiama la funzione all'avvio della pagina
+          reloadAndRedirect();
+        </script>
       <% end %>
-    }
-
-    // Richiama la funzione all'avvio della pagina
-    reloadAndRedirect();
-  </script>
-<% end %>
-<% end %>
-</p>
-<div class="">
- 
-  
-
-  <% if action_name != "show" && action_name != "public"  %>
-   <% if user_signed_in? %>
-
-
-  <% if @content.user.id == current_user.id %>
-    <%= link_to "Show this content", content, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-   
-    <%= link_to "Edit this content", edit_content_path(content), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+    </p>
   <% end %>
-    <% end %>
+  <div class="">
+    <% if action_name != "show" && action_name != "public"  %>
+      <% if user_signed_in? %>
+        <% if @content.user.id == current_user.id %>
+          <%= link_to "Show this content", content, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+          <%= link_to "Edit this content", edit_content_path(content), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+          <hr class="mt-6">
+        <% end %>
       <% end %>
+    <% end %>
   </div>
-</div>
-</div>
 </div>

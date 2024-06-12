@@ -1,18 +1,2 @@
 <%= render 'shared/impresa_bread' %>
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <%= link_to "<-", contents_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <% if user_signed_in? %>
-      <%  if current_user.id == @content.user.id %>
-        <%= link_to "Modifica", edit_content_path(@content), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-        <div class="inline-block ml-2">
-          <%= button_to "Elimina", content_path(@content), method: :delete,  data: { turbo_confirm: "Sicuro di eliminare il contenuto?", turbo_method: :delete}, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-        </div>
-        <% if @content.visibility == "pubblico" %>
-          <%= link_to "Pubblico", public_content_path(@content), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-        <% end %>
-      <% end %>
-    <% end %>
-    <%= render @content %>
-  </div>
-</div>
+<%= render @content %>
