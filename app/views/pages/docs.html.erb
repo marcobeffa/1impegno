@@ -1,48 +1,19 @@
 <section class="m-2 lg:m-8">
 <div class="overflow-x-auto ">
-  <div class="mermaid mx-auto" style="width:600px;">
-    graph TD 
-    B[(Tempo)]--> BA[8 Contratti] --> BF
-    B-->BBC[13 Calendaerio] 
-    A-->AD
-    BE-->AE
-    B-->AD
-    B-->BF([- Dataevent scadenze])
-    BF-->BBC
-    B-->BD[[- Settimana dataevent]] --> BE[7 Obiettivo] --> AD[0 Attività] --> AE[1 Processi] 
-    BD-->AD
-    
-    
-    A[(Attenzione)] --> AB[10 Imprese] --> AC[11 Progetti] --> AD
-    AC--> BE
-    A --> AAB[6 Todo]-->  CA
-    AAB --> BF
-    A --> AF[5 Post]
-    A-->BD
-    AE--> AAB
-  
-    AC --> BD
-    
-    
-  
-    C[12 Gruppi]-->CA[2 Contatti]-->CB[3 Abilità]
-    
-    L[4 Luoghi]
-    D[9 Mappe]
-  </div>
-  <br><br>
+
+ 
   <div class="mermaid mx-auto" style="width:800px;">
     graph TD 
-    A--> B[0 Gruppi]-->BA[1 Contatti]-->BC[2 Abilità]
-
-    A[(Attenzione)] --> AB[3 Imprese] --> AC[4 Progetti] --> AD[[ Settimana dataevent]] -->  AF[5 Attività] --> AG[6 Processi] --> AH[7 Todo]-->AI([- Dataevent scadenze])--> AL[ Calendario tramite content a cui è riferita dataevent]
+   
+    A-->C[0 Evento]  -->  CD[1 Luogo] --> CE([Data])-->CF([Ripetizione])
+    A[(Attenzione)] --> AB[2 Imprese] --> AC[3 Progetto contratto calendario] -->   AF[4 Attività] -->  AH[5 Task ]
+     A--> B[6 Gruppi]-->BA[7 Contatti]-->BC[8 Abilità]--> BD[Prodotti]
     
     
-    A-->C[8 Post] -->  CA[9 Contratti] --> CB[10 Calendario] --> CC[11 Evento] --> CD[12 Luogo]
+       
 
-    F[(Tempo)]-->AL
-    AD --> AG
-    AC --> CA
+    
+    
     click AB href "dashboard/imprese" "This is a tooltip for a link"
   </div>
   </div>
@@ -66,4 +37,285 @@
       reloadAndRedirect();
     </script>
   <% end %>
+<div class="max-w-2xl mx-auto">
+  <b>Data - Partecipazione</b>
+  <br>
+    inizio fine content_id: user_id  luogo_content_id gmaps_link num_partecipanti: seriale:
+    <br>data:boolean data_id: valore_euro valore_dash
+    <br>admin_u_id resp_luogo_u_id  
+    <br><b>positivi</b> - organizzatore_u_id conduttore_u_id entrate
+    <br><b>negativi</b> - partecipazione_u_id partec_contat_content_id: uscite
+  <table>
+    <tbody>
+      <tr>
+          <td class="border-2 border-black p-4">
+            <table>
+              <tbody>
+                <tr>
+                    <td class="border-2 border-black p-4"> Data p-1</td>
+                
+                  
+                </tr>
+                <tr>
+                    <td class="border-2 border-black p-4"> Data p-4 seriale
+                     
+                    </td>
+                     <tr>
+                            <td class="border-2 border-black p-4">Ticket_1 negativo</td>
+                           
+                          </tr>
+                           <tr>
+                            <td class="border-2 border-black p-4">Ticket_1 negativo</td>
+                           
+                          </tr>
+                </tr>
+                <tr>
+                    <td class="border-2 border-black p-4">Data p-5 parallelo</td>
+                    <td class="border-2 border-black p-4">Ticket 1 - posit</td>
+                    <td class="border-2 border-black p-4">Ticket 1 - negativo</td>
+                    <td class="border-2 border-black p-4">Ticket 1</td>
+                                    
+                  
+                </tr>
+              
+              </tbody>
+            </table>
+          </td>
+      
+          
+      </tr>
+    
+    </tbody>
+  </table>
+  </div>
+<div class="max-w-xl mx-auto">
+ <b>Progetto</b>
+<table>
+    <tbody>
+      <tr>
+        <td class="border-2 border-black p-4">
+        <table>
+    <tbody>
+      <tr>
+        <td class="border-2 border-black p-4">
+        <ul> 
+        <li> Task</li>
+        <li> Task</li>
+        <li> Task</li>
+        <li> Task</li>
+        <li> Task</li>
+        </ul>
+         </td>
+      
+      <td>attività (a ripetizione o una tantum)</td>
+      </tr>
+    </tbody>
+  </table>
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <!-- calendario inizio ---->
+  <style>
+        .border-1 {
+            border-width: 1px;
+        }
+    </style>
+    <b>Prodotti</b>
+    <ul>
+    <li>Entrata </li>
+    <li>Uscita</li>
+    <li>Prenotazioni</li>
+    <li></li></ul>
+     <b>Settimana - data</b>
+    <div class="grid grid-cols-7 mt-8 mx-auto  overflow-x-auto" style="height:700px; width:1200px;">
+        <div class="border-l-2 border-r-2 border-black text-center">
+            <div style="height:25px;">
+              Lunedì
+            </div>
+            <div class="w-full p-2 bg-gray-400 border border-gray-200 rounded-lg shadow " style="margin-top: 230px; px; height: 80px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              15:00 - 16:00
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Professionisti</p>
+          </div>
+            <div class="w-full p-2 bg-blue-400 border border-gray-200 rounded-lg shadow " style="height: 180px;">
+              <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+                16:00 - 19:30
+              </h5>
+              <p class="text-sm font-normal text-gray-800 ">Appuntamenti singoli</p>
+            </div>
+            <div class="w-full p-2 bg-red-200 border border-gray-200 rounded-lg shadow" style="margin-top: 30px; height: 60px;">
+              <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              20:00 - 20:30
+              </h5>
+              <p class="text-sm font-normal text-gray-800 ">Musica Strumenti</p>
+            </div>
+            <div class="w-full p-2 bg-red-200 border border-gray-200 rounded-lg shadow" style="height: 90px;">
+              <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white" >
+              20:30 - 22:00
+              </h5>
+              <p class="text-sm font-normal text-gray-800 ">Coro canti folcloristici Viadana</p>
+
+            </div>
+        </div>
+        <div class="border-r-2 border-black text-center">
+          <div style="height:25px;">
+            Martedì 
+          </div>
+          <div class="w-full p-2 bg-gray-400 border border-gray-200 rounded-lg shadow " style="margin-top: 5px; height: 80px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              8:30 - 11:00
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Professionisti</p>
+          </div>
+          <div class="w-full p-2 bg-blue-400 border border-gray-200 rounded-lg shadow " style="margin-top: 15px; height: 150px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              11:30 - 15:00
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Appuntamenti singoli</p>
+          </div>
+          <div class="w-full p-2 bg-blue-200 border border-gray-200 rounded-lg shadow " style=" height: 60px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              15:00 - 16:00
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Gruppo Postura</p>
+          </div>
+          <div class="w-full p-2 bg-blue-400 border border-gray-200 rounded-lg shadow " style="height: 140px;">
+              <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+                16:00 - 18:30
+              </h5>
+              <p class="text-sm font-normal text-gray-800 ">Appuntamenti singoli</p>
+            </div>
+          <div class="w-full p-2 bg-blue-200 border border-gray-200 rounded-lg shadow " style="margin-top: 25px;height: 60px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              19:00 - 19:45
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Gruppo Postura</p>
+          </div>
+          <div class="w-full p-2 bg-blue-300 border border-gray-200 rounded-lg shadow " style="height: 60px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              19:45 - 20:15
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Benessere Integrato</p>
+          </div>
+          <div class="w-full p-2 bg-red-300 border border-gray-200 rounded-lg shadow " style="height: 60px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              20:15 - 21:00
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Giardino del corpo</p>
+          </div>
+        </div>
+        <div class="border-r-2 border-black text-center">
+           <div style="height:25px;">
+            Mercoledì
+          </div>
+           <div class="w-full p-2 bg-gray-400 border border-gray-200 rounded-lg shadow " style="margin-top: 5px; height: 80px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              8:30 - 11:00
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Professionisti</p>
+          </div>
+        </div>
+        <div class="border-r-2 border-black text-center">
+           <div style="height:25px;">
+            Giovedì
+          </div>
+          <div class="w-full p-2 bg-yellow-200 border border-gray-200 rounded-lg shadow " style="margin-top: 220px; height: 60px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              14:30 - 15:15 
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Rails 4 Business</p>
+          </div>
+          <div class="w-full p-2 bg-green-200 border border-gray-200 rounded-lg shadow " style="margin-top: 10px; height: 60px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              16:00 - 16:45
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">1impegno</p>
+          </div>
+          <div class="w-full p-2 bg-red-400 border border-gray-200 rounded-lg shadow " style="margin-top: 10px;height: 280px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              17:30 - 22:00
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Parco Nocivelli</p>
+          </div>
+          
+        </div>
+        <div class="border-r-2 border-black text-center">
+          <div style="height:25px;">  
+            Venerdì
+          </div>
+           <div class="w-full p-2 bg-gray-400 border border-gray-200 rounded-lg shadow " style="margin-top: 5px; height: 80px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              8:30 - 11:00
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Professionisti</p>
+          </div>
+          <div class="w-full p-2 bg-blue-400 border border-gray-200 rounded-lg shadow " style="margin-top: 15px; height: 150px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              11:30 - 15:00
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Appuntamenti singoli</p>
+          </div>
+          <div class="w-full p-2 bg-purple-200 border border-gray-200 rounded-lg shadow " style=" height: 60px;">
+            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+              15:00 - 16:00
+            </h5>
+            <p class="text-sm font-normal text-gray-800 ">Video PosturaCorretta</p>
+          </div>
+           <div class="w-full p-2 bg-blue-400 border border-gray-200 rounded-lg shadow " style="height: 180px;">
+              <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+                16:00 - 19:30
+              </h5>
+              <p class="text-sm font-normal text-gray-800 ">Appuntamenti singoli</p>
+            </div>
+        </div>
+        <div class="border-r-2 border-black text-center">
+           <div style="height:25px;">
+            Sabato
+          </div>
+           <div class="w-full p-2 bg-gray-400 border border-gray-200 rounded-lg shadow " style="margin-top: 250px; height: 180px;">
+              <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
+                15:00 - 18:00
+              </h5>
+              <p class="text-sm font-normal text-gray-800 ">Appuntamenti singoli</p>
+            </div>
+        </div>
+        <div class="border-r-2 border-black text-center">
+          <div style="height:25px;">  
+            Domenica
+           </div> 
+        </div>
+    </div>
+    <br><br>
+
+<div class="m-4 md:m-16 ">
+    <ol class="space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400   ">
+      <li>Lavoro in solitaria programmare - pensare - contenuti - riflettere leggere - connessione - fare il punto situazione</li>
+      <li>Video Youtube Registrare - Video Maker</li>
+      <li>Contenuti instagram - sulle 3 attività - salute - progetti - eventi</li>
+      <li>Riccardo Diago Incontro progetti e Programmatori Rails 4 B.</li>
+      <li>Palestra Lavori all'aperto camminate mestieri antichi Orto</li>
+      <li>Coro canti popolari</li>
+      <li>Musica strumento Fisa o chitarra</li>
+      <li> (preparare schema e tema)Gruppo martedì pomeriggio ore 15:00 Postura BenessereIntegrato</li>
+      <li> Gruppo martedì sera ore 19:00 Postura BenessereIntegrato </li>
+      <li> Gruppo martedì sera ore 20:00 Giardino del corpo - eventi - meditazione lavoro</li>
+      <li>Vendita dei percorsi contatto professionisti</li>
+      <li>Gruppi igiene posturale itineranti</li>
+      <li>Parco nocivelli</li>
+      <li>Valvestino Droane Giancarlo Montagna</li>
+      <li>Verona Studio</li>
+      <li>Gambara Palestra</li>
+      <li>Papa Idea Fare su Montichiari week o un settimanale sulla postura - Giornale di  Brescia o brescia Oggi</li>
+
+
+
+    </ol>
+    </div>
+    <!-- calendario fine--->
+
 </section>
+
