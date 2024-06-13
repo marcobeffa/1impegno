@@ -14,21 +14,18 @@
     <% end %>
     <div class="grid xl:grid-cols-3 md:grid-cols-2 gap-4">
      
-      <%= render 'contents/js/valore_euro', form: form %>
+    
       <div class=" ">
         <div class="my-5">
           <%= form.label :data %>
           <% if action_name == "edit" %>
             <%= form.datetime_field :data, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
           <% else %>
-            <%= form.datetime_field :data, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", value: DateTime.now.strftime("%Y-%m-%dT%H:%M"), required: true %>, required: true %>
+            <%= form.datetime_field :data, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", value: DateTime.now.strftime("%Y-%m-%dT%H:%M"), required: true %>
           <% end %>
         </div>
       </div>
-    </div>
-
-    
-      <div class="my-5">
+       <div class="my-5">
         <%= form.label :stato %>
         
         <% if params[:stato].nil? %>
@@ -41,7 +38,11 @@
         <% end %>
         
       </div>
-    <div class="grid grid-cols-2 gap-4">
+    </div>
+
+    
+     
+    <div class="grid lg:grid-cols-4 gap-4">
       <div class=" ">
         <div class="my-5">
           <%= form.label :tipo %>
@@ -63,9 +64,10 @@
           <%= form.select :visibility, options_for_select(Content.visibilities.map {|k, v| [k.titleize, k]}, selected:  @content.visibility || Content.visibilities.keys.first),  { prompt: "Scegli" },  class: "my-4 block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
         </div>
       </div>
-    </div>
+   
     <!------->
     <%= render 'radio_button', form: form %>
+   </div>
     <div class="my-5">
       <%= form.label :nome %>
       <%= form.text_field :nome, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
@@ -94,6 +96,7 @@
       <%= form.label :telefono %>
       <%= form.text_field :telefono, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
+      <%= render 'contents/js/valore_euro', form: form %>
     <br>
     <br>
     <div class="block">

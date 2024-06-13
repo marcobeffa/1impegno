@@ -10,12 +10,7 @@ class ContentsController < ApplicationController
   # GET /contents or /contents.json
  
   def index  
-    Content.all.each do |content|
-      if content.tipo.present? && Content.tipos[content.tipo] > 10
-        content.tipo = :task
-        content.save
-      end
-    end
+    
     if !user_signed_in?
       redirect_to root_path
     end

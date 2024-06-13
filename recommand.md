@@ -18,6 +18,7 @@ enum tipo: {data: 0,  ticket: 1, contabilità: 2}
 # mer 6 Giu 2024 09:21
 rails g controller Dashboard imprese progetti settimana obiettivo attivit processi todo
 
+rails generate migration DropLinkcontentsTable
 rails g model Linkcontent user:refernces content_1_id:integer content_2_id:integer
 
 
