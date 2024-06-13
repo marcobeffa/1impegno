@@ -1,9 +1,18 @@
 
+
+
+## Valuta: 
 rails g model Booking dataevent:references user:references invitato_da_user_id:integer approvato_da_user_id:integer prezzo_euro:decimal prezzo_dash:decimal data_pagamento:datetime conferma_presenza:datetime
 
 rails g model Dataevent user:references content:references date_start:datetime date_end:datetime slot:boolean week_year:integer week_n:integer day_of_week:integer repetition:boolean unity_time:integer ogni_n:integer date_repeat_start:datetime date_repeat_end:datetime 
 
+
 enum unity_time: {secondi: 0, minuti: 1, ore: 2, giorni: 3, settimane: 4, mesi: 5, bimestri: 6, trimestri: 7, quadrimestri: 8, semestri: 9, anni: 10 }
+
+--- 
+rails g scaffold Dataevent inizio:datetime fine:datetime content:references user:references  luogo_content_id:integer gmaps_link  seriale:boolean tipo:integer num_partecipanti:integer parent_id:integer valore_euro:decimal valore_dash:decimal  admin_u_id:integer resp_luogo_u_id:integer organizzatore_u_id conduttore_u_id partecipante_u_id partec_contat_content_id:
+
+enum tipo: {data: 0,  ticket: 1, contabilità: 2}
 
 
 # mer 6 Giu 2024 09:21
