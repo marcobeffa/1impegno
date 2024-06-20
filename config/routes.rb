@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'passate/:user_id/', to: 'weeks#passate', as: 'passate'
+  get 'weeks/:user_id/', to: 'weeks#future', as: 'weeks'
+  get 'weeks/:user_id/:year/:number', to: 'weeks#show', as: 'week'
+  
+
+  
   post 'newprogetto', to: 'links#newprogetto'
   get 'dashboard/imprese'
   get 'dashboard/settimana'

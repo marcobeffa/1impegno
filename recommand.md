@@ -1,19 +1,30 @@
 
 
+rails g model Secretary user:references contact:references
+
+rails g scaffold Contact nome cognome email telefono professione note
+
+rails g scaffold Locations gmapslink:text indirizzo paese_città provincia nome descrizione
 
 ## Valuta: 
-rails g model Booking dataevent:references user:references invitato_da_user_id:integer approvato_da_user_id:integer prezzo_euro:decimal prezzo_dash:decimal data_pagamento:datetime conferma_presenza:datetime
+rails g model Ticket dataevent:references user:references invitato_da_user_id:integer approvato_da_user_id:integer prezzo_euro:decimal prezzo_dash:decimal data_pagamento:datetime conferma_presenza:datetime servizio_content_id:references contact_id:integer
 
-rails g model Dataevent user:references content:references date_start:datetime date_end:datetime slot:boolean week_year:integer week_n:integer day_of_week:integer repetition:boolean unity_time:integer ogni_n:integer date_repeat_start:datetime date_repeat_end:datetime 
 
+--- 
+
+rails g scaffold Dataevent user:references content:references inizio:datetime fine:datetime tempo_ripetizione:integer ogni_n:integer inizio_ripetizione:datetime fine_ripetizione:datetime luogo_content_id:integer gmaps_link:string seriale:boolean tipo:integer num_partecipanti:integer parent_id:integer valore_euro:decimal valore_dash:decimal admin_c_id:integer resp_luogo_c_id:integer organizzatore_c_id:integer conduttore_c_id:integer partecipante_c_id:integer partec_contat_id:integer visibility:integer
+
+c_id:integer = contact_id
 
 enum unity_time: {secondi: 0, minuti: 1, ore: 2, giorni: 3, settimane: 4, mesi: 5, bimestri: 6, trimestri: 7, quadrimestri: 8, semestri: 9, anni: 10 }
 
---- 
-rails g scaffold Dataevent inizio:datetime fine:datetime content:references user:references  luogo_content_id:integer gmaps_link  seriale:boolean tipo:integer num_partecipanti:integer parent_id:integer valore_euro:decimal valore_dash:decimal  admin_u_id:integer resp_luogo_u_id:integer organizzatore_u_id conduttore_u_id partecipante_u_id partec_contat_content_id:
+enum tipo: {evento: 0,  prenotazione: 1, contratto: 2 }
 
-enum tipo: {data: 0,  ticket: 1, contabilità: 2}
+enum visibility: {privato: 0, gruppo: 1, pubblico: 2 }
 
+# mer 17 Giu 2024 09:24
+
+rails g controller Weeks index show 
 
 # mer 6 Giu 2024 09:21
 rails g controller Dashboard imprese progetti settimana obiettivo attivit processi todo
