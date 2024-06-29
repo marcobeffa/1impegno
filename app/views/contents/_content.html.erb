@@ -1,6 +1,6 @@
 <div class=" m-2" id="<%= dom_id content %>">
   <%= render 'content_head', content: @content %>
-  <%= render 'valore', content: @content %>
+  <%= render 'mappa_parent', content: @content %>
   <div class="w-full lg:w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
     <p class="my-5">
       <article class="prose lg:prose-xl">
@@ -51,3 +51,4 @@
     <% end %>
   </div>
 </div>
+<%= render 'valore', content: @content %>

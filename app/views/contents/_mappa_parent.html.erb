@@ -1,0 +1,6 @@
+<div class="max-w-3xl mx-auto lg:w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+  <h1 class="text-2xl font-bold mb-4"><%= @content.nome %></h1>
+  <ul class="numbered-list pl-5">
+    <%= nested_contents(@tree) %>
+  </ul>
+</div>

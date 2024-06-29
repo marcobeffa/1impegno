@@ -50,6 +50,16 @@ class ContentsController < ApplicationController
 
   # GET /contents/1 or /contents/1.json
   def show
+    
+    if @content.parent_id.nil?
+     
+      @tree = build_full_tree(@content)
+    
+    else
+      @tree = build_tree(@content)
+    end
+
+    Rails.logger.debug("Tree content: #{@tree}")
   end
 
   def public
@@ -162,7 +172,7 @@ class ContentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def content_params
-      params.require(:content).permit(:data, :tipo, :nome, :descrizione, :body, :img_url, :email, :telefono, :costo, :ricavo, :user_id, :visibility, :energy, :importanza, :mermaid, :stato, :costo_eur, :ricavo_eur )
+      params.require(:content).permit(:data, :tipo, :nome, :descrizione, :body, :img_url, :email, :telefono, :costo, :ricavo, :user_id, :visibility, :energy, :importanza, :mermaid, :stato, :costo_eur, :ricavo_eur, :parent_id )
     end
     
     def set_public
@@ -179,7 +189,37 @@ class ContentsController < ApplicationController
         end
     end
 
+  
     
+
+     # Costruisce l'albero completo per il contenuto radice
+     def build_full_tree(content)
+      children = content.children.sort_by do |child|
+        [child.parent_id, child.data]
+      end.map { |child| build_full_tree(child) }
+  
+      {
+        content: content,
+        children: children
+      }
+    end
+  
+   
+
+    
+  
+    # Costruisce l'albero per il content e i suoi parenti e figli
+    def build_tree(content)
+      root = content.self_and_ancestors.first
+  
+      # Ordina i figli diretti del nodo radice per data
+      children_sorted = root.children.sort_by { |child| child.data }
+  
+      {
+        content: root,
+        children: children_sorted.map { |child| build_full_tree(child) }
+      }
+    end
 
 
 end

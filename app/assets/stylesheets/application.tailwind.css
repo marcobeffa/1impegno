@@ -1,13 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/*
-
-@layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
-  }
+.numbered-list {
+  list-style-type: none; /* Rimuove i punti di default */
+  counter-reset: section; /* Inizia il contatore */
 }
 
-*/
+.numbered-list > li {
+  counter-increment: section; /* Incrementa il contatore per ogni li */
+  display: list-item; /* Aggiunge il display list-item per gli indicatori */
+  margin-bottom: 0.5em; /* Aggiunge spazio tra i li */
+}
+
+.numbered-list > li::before {
+  content: counters(section, ".") ". "; /* Mostra il contatore in formato gerarchico */
+  font-weight: bold; /* Opzionale: stile per il numero */
+}
+
+.numbered-list ul {
+  list-style-type: none;
+  padding-left: 1em; /* Indentazione per la struttura ad albero */
+  margin-top: 0.5em; /* Spazio sopra l'ul */
+  margin-bottom: 0.5em; /* Spazio sotto l'ul */
+  counter-reset: subsection;
+}
+
+.numbered-list ul > li {
+  counter-increment: subsection; /* Incrementa il contatore per ogni li nidificato */
+}
+
+.numbered-list ul > li::before {
+  content: counters(section, ".") "." counters(subsection, ".") ". "; /* Mostra il contatore nidificato */
+  font-weight: bold; /* Opzionale: stile per il numero */
+}

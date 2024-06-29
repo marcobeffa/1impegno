@@ -7,7 +7,7 @@ rails g scaffold Contact nome cognome email telefono professione note
 rails g scaffold Locations gmapslink:text indirizzo paese_città provincia nome descrizione
 
 ## Valuta: 
-rails g model Ticket dataevent:references user:references invitato_da_user_id:integer approvato_da_user_id:integer prezzo_euro:decimal prezzo_dash:decimal data_pagamento:datetime conferma_presenza:datetime servizio_content_id:references contact_id:integer
+rails g model Ticket dataevent:references user:references invitato_da_user_id:integer approvato_da_user_id:integer prezzo_euro:decimal prezzo_dash:decimal data_pagamento:datetime conferma_presenza:datetime servizio_content_id:references contact_id:integer content:references
 
 
 --- 
@@ -21,6 +21,10 @@ enum unity_time: {secondi: 0, minuti: 1, ore: 2, giorni: 3, settimane: 4, mesi: 
 enum tipo: {evento: 0,  prenotazione: 1, contratto: 2 }
 
 enum visibility: {privato: 0, gruppo: 1, pubblico: 2 }
+
+
+# mer 29 Giu 2024 09:24
+rails g migration AddParentToContent parent_id:integer
 
 # mer 17 Giu 2024 09:24
 
