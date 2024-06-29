@@ -21,7 +21,7 @@ class ContentsController < ApplicationController
      # @contents = Content.where("nome LIKE ?", "%#{params[:query]}%")
      @contents = Content.where("lower(nome) LIKE ?", "%#{params[:query].downcase}%") 
     else
-      @contents = current_user.contents
+      @contents = current_user.contents.where(parent_id: nil)
     end
   
     if params[:data].nil?
