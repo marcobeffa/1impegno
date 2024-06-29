@@ -10,7 +10,7 @@ class ContentsController < ApplicationController
   # GET /contents or /contents.json
  
   def index  
-    Content.where("tipo > ?", Content.tipos[:prodotti]).update_all(tipo: :evento)
+    
     if !user_signed_in?
       redirect_to root_path
     end
