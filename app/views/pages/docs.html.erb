@@ -1,21 +1,12 @@
 <section class="m-2 lg:m-8">
-<div class="overflow-x-auto ">
-
- 
-  <div class="mermaid mx-auto" style="width:800px;">
-    graph TD 
-   
-    A-->C[0 Evento]  -->  CD[1 Luogo] --> CE([Data])-->CF([Ripetizione])
-    A[(Attenzione)] --> AB[2 Imprese] --> AC[3 Progetto contratto calendario] -->   AF[4 Attività] -->  AH[5 Task ] --> AI[6 post]
-     A--> B[7 Gruppi]-->BA[8 Contatti]-->BC[9 Abilità]--> BD[10 Prodotti]
-    
-    
-       
-
-    
-    
-    click AB href "dashboard/imprese" "This is a tooltip for a link"
-  </div>
+  <div class="overflow-x-auto ">
+    <div class="mermaid mx-auto" style="width:800px;">
+      graph TD 
+      A-->C[0 Evento]  -->  CD[1 Luogo] --> CE([Data])-->CF([Ripetizione])
+      A[(Attenzione)] --> AB[2 Imprese] --> AC[3 Progetto contratto calendario] -->   AF[4 Attività] -->  AH[5 Task ] --> AI[6 post]
+      A--> B[7 Gruppi]-->BA[8 Contatti]-->BC[9 Abilità]--> BD[10 Prodotti]
+      click AB href "dashboard/imprese" "This is a tooltip for a link"
+    </div>
   </div>
   <!-- Include the Mermaid JavaScript -->
   <!-- Initialize Mermaid -->
@@ -37,261 +28,100 @@
       reloadAndRedirect();
     </script>
   <% end %>
-<div class="max-w-2xl mx-auto">
-  <b>Data - Partecipazione</b>
-  <br>
-    inizio fine content_id: user_id  luogo_content_id gmaps_link num_partecipanti: seriale:
-    <br>data:boolean data_id: valore_euro valore_dash
-    <br>admin_u_id resp_luogo_u_id  
-    <br><b>positivi</b> - organizzatore_u_id conduttore_u_id entrate
-    <br><b>negativi</b> - partecipazione_u_id partec_contat_content_id: uscite
-  <table>
-    <tbody>
-      <tr>
+  <div class="max-w-2xl mx-auto">
+    <b>User - Account User - Account - Contatto - Luogo  - Evento - Contenuto Evento (Raccolta responsabile) - Pagamento</b>
+    <br>
+    inizio:datetime fine:datetime account:references livello:integer tipo_evento:integer  num_partecipanti:integer collaboratore:integer evento_seriale:boolean
+    <br>
+    partecipante:boolean visibilità:integer
+    <br>
+    pubblicato:datetime inizio_prenotazioni:datetime fine_prenotazioni:datetime
+    <br>
+    costo_euro:decimal guadagno_eur:decimal costo_dash:decimal guadagno_dash:decimal 
+    <br>
+    (futuro aggiungere immagine)  gem icecube per la ripetizione
+    <br>
+    <br>
+    <b>visibilità:</b>
+    <ol>
+      <li>privato</li>
+      <li>gruppo</li>
+      <li>pubblico</li>
+    </ol>
+    <b>livello:</b>
+    <ol>
+      <li>0 - Calendarizza Raccolta (autorizzati)</li>
+      <li>1 - Evento (deve avere un conduttore)</li>
+      <li>2 - Partecipazione </li>
+    </ol>
+    <b>tipo_evento:</b>
+    <ol>
+      <li>0 - Ripetuti (con ice cube)</li>
+      <li>1 - Tour (Eventi che si ripetono in mondo non regolare )</li>
+      <li>2 - Progetto (è definito) </li>
+      <li>3 - Percorso (non è definito) </li>
+      <li>4 - Corso (è definito semplice)</li>
+      <li>5 - Obiettivo (è definito semplice)</li>
+    </ol>
+    <b>collaboratore:</b>
+    <ul>
+      <li>Organizzatore - Non deve partecipare coordina è il responsabile</li>
+      <li>Conduttore - Partecipa </li>
+      <li>Sponsor - Paga le spese e può partecipare se vuole</li>
+    </ul>
+    <table>
+      <tbody>
+        <tr>
           <td class="border-2 border-black p-4">
+            <b>Lun 4 dicembre</b>
             <table>
               <tbody>
                 <tr>
-                    <td class="border-2 border-black p-4"> Data p-1</td>
-                
-                  
+                  <td class="border-2 border-black p-4">Evento Organizzatore Luogo prezzo</td>
                 </tr>
                 <tr>
-                    <td class="border-2 border-black p-4"> Data p-4 seriale
-                     
-                    </td>
-                     <tr>
-                            <td class="border-2 border-black p-4">Ticket_1 negativo</td>
-                           
+                  <td class="border-2 border-black p-4">
+                    Evento Seriale (Luogo)
+                    <!--seriale--->
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td class="border-2 border-black p-4"> Partecipante prezzo 
+                          </td>
+                          <tr>
+                            <td class="border-2 border-black p-4">Partecipante</td>
                           </tr>
-                           <tr>
-                            <td class="border-2 border-black p-4">Ticket_1 negativo</td>
-                           
+                          <tr>
+                            <td class="border-2 border-black p-4">Partecipante</td>
                           </tr>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- chiuso-->
+                  </td>
+                  <tr>
+                    <td class="border-2 border-black p-4">Evento </td>
+                  </tr>
+                  <tr>
+                    <td class="border-2 border-black p-4">Evento </td>
+                  </tr>
                 </tr>
                 <tr>
-                    <td class="border-2 border-black p-4">Data p-5 parallelo</td>
-                    <td class="border-2 border-black p-4">Ticket 1 - posit</td>
-                    <td class="border-2 border-black p-4">Ticket 1 - negativo</td>
-                    <td class="border-2 border-black p-4">Ticket 1</td>
-                                    
-                  
+                  <td class="border-2 border-black p-4">Evento parallelo</td>
+                  <td class="border-2 border-black p-4">Eventp organizzatoret</td>
+                  <td class="border-2 border-black p-4">Evento partecipante</td>
+                  <td class="border-2 border-black p-4">Evento partecipante </td>
                 </tr>
-              
               </tbody>
             </table>
           </td>
-      
-          
-      </tr>
-    
-    </tbody>
-  </table>
+        </tr>
+      </tbody>
+    </table>
   </div>
-<div class="max-w-xl mx-auto">
- <b>Progetto</b>
-<table>
-    <tbody>
-      <tr>
-        <td class="border-2 border-black p-4">
-        <table>
-    <tbody>
-      <tr>
-        <td class="border-2 border-black p-4">
-        <ul> 
-        <li> Task</li>
-        <li> Task</li>
-        <li> Task</li>
-        <li> Task</li>
-        <li> Task</li>
-        </ul>
-         </td>
-      
-      <td>attività (a ripetizione o una tantum)</td>
-      </tr>
-    </tbody>
-  </table>
-        
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="max-w-xl mx-auto">
   </div>
-  <!-- calendario inizio ---->
-  <style>
-        .border-1 {
-            border-width: 1px;
-        }
-    </style>
-    <b>Prodotti</b>
-    <ul>
-    <li>Entrata </li>
-    <li>Uscita</li>
-    <li>Prenotazioni</li>
-    <li></li></ul>
-     <b>Settimana - data</b>
-    <div class="grid grid-cols-7 mt-8 mx-auto  overflow-x-auto" style="height:700px; width:1200px;">
-        <div class="border-l-2 border-r-2 border-black text-center">
-            <div style="height:25px;">
-              Lunedì
-            </div>
-            <div class="w-full p-2 bg-gray-400 border border-gray-200 rounded-lg shadow " style="margin-top: 230px; px; height: 80px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              15:00 - 16:00
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Professionisti</p>
-          </div>
-            <div class="w-full p-2 bg-blue-400 border border-gray-200 rounded-lg shadow " style="height: 180px;">
-              <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-                16:00 - 19:30
-              </h5>
-              <p class="text-sm font-normal text-gray-800 ">Appuntamenti singoli</p>
-            </div>
-            <div class="w-full p-2 bg-red-200 border border-gray-200 rounded-lg shadow" style="margin-top: 30px; height: 60px;">
-              <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              20:00 - 20:30
-              </h5>
-              <p class="text-sm font-normal text-gray-800 ">Musica Strumenti</p>
-            </div>
-            <div class="w-full p-2 bg-red-200 border border-gray-200 rounded-lg shadow" style="height: 90px;">
-              <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white" >
-              20:30 - 22:00
-              </h5>
-              <p class="text-sm font-normal text-gray-800 ">Coro canti folcloristici Viadana</p>
-
-            </div>
-        </div>
-        <div class="border-r-2 border-black text-center">
-          <div style="height:25px;">
-            Martedì 
-          </div>
-          <div class="w-full p-2 bg-gray-400 border border-gray-200 rounded-lg shadow " style="margin-top: 5px; height: 80px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              8:30 - 11:00
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Professionisti</p>
-          </div>
-          <div class="w-full p-2 bg-blue-400 border border-gray-200 rounded-lg shadow " style="margin-top: 15px; height: 150px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              11:30 - 15:00
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Appuntamenti singoli</p>
-          </div>
-          <div class="w-full p-2 bg-blue-200 border border-gray-200 rounded-lg shadow " style=" height: 60px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              15:00 - 16:00
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Gruppo Postura</p>
-          </div>
-          <div class="w-full p-2 bg-blue-400 border border-gray-200 rounded-lg shadow " style="height: 140px;">
-              <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-                16:00 - 18:30
-              </h5>
-              <p class="text-sm font-normal text-gray-800 ">Appuntamenti singoli</p>
-            </div>
-          <div class="w-full p-2 bg-blue-200 border border-gray-200 rounded-lg shadow " style="margin-top: 25px;height: 60px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              19:00 - 19:45
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Gruppo Postura</p>
-          </div>
-          <div class="w-full p-2 bg-blue-300 border border-gray-200 rounded-lg shadow " style="height: 60px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              19:45 - 20:15
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Benessere Integrato</p>
-          </div>
-          <div class="w-full p-2 bg-red-300 border border-gray-200 rounded-lg shadow " style="height: 60px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              20:15 - 21:00
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Giardino del corpo</p>
-          </div>
-        </div>
-        <div class="border-r-2 border-black text-center">
-           <div style="height:25px;">
-            Mercoledì
-          </div>
-           <div class="w-full p-2 bg-gray-400 border border-gray-200 rounded-lg shadow " style="margin-top: 5px; height: 80px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              8:30 - 11:00
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Professionisti</p>
-          </div>
-        </div>
-        <div class="border-r-2 border-black text-center">
-           <div style="height:25px;">
-            Giovedì
-          </div>
-          <div class="w-full p-2 bg-yellow-200 border border-gray-200 rounded-lg shadow " style="margin-top: 220px; height: 60px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              14:30 - 15:15 
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Rails 4 Business</p>
-          </div>
-          <div class="w-full p-2 bg-green-200 border border-gray-200 rounded-lg shadow " style="margin-top: 10px; height: 60px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              16:00 - 16:45
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">1impegno</p>
-          </div>
-          <div class="w-full p-2 bg-red-400 border border-gray-200 rounded-lg shadow " style="margin-top: 10px;height: 280px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              17:30 - 22:00
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Parco Nocivelli</p>
-          </div>
-          
-        </div>
-        <div class="border-r-2 border-black text-center">
-          <div style="height:25px;">  
-            Venerdì
-          </div>
-           <div class="w-full p-2 bg-gray-400 border border-gray-200 rounded-lg shadow " style="margin-top: 5px; height: 80px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              8:30 - 11:00
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Professionisti</p>
-          </div>
-          <div class="w-full p-2 bg-blue-400 border border-gray-200 rounded-lg shadow " style="margin-top: 15px; height: 150px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              11:30 - 15:00
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Appuntamenti singoli</p>
-          </div>
-          <div class="w-full p-2 bg-purple-200 border border-gray-200 rounded-lg shadow " style=" height: 60px;">
-            <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-              15:00 - 16:00
-            </h5>
-            <p class="text-sm font-normal text-gray-800 ">Video PosturaCorretta</p>
-          </div>
-           <div class="w-full p-2 bg-blue-400 border border-gray-200 rounded-lg shadow " style="height: 180px;">
-              <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-                16:00 - 19:30
-              </h5>
-              <p class="text-sm font-normal text-gray-800 ">Appuntamenti singoli</p>
-            </div>
-        </div>
-        <div class="border-r-2 border-black text-center">
-           <div style="height:25px;">
-            Sabato
-          </div>
-           <div class="w-full p-2 bg-gray-400 border border-gray-200 rounded-lg shadow " style="margin-top: 250px; height: 180px;">
-              <h5 class="text-base font-semibold text-gray-900 md:text-md dark:text-white">
-                15:00 - 18:00
-              </h5>
-              <p class="text-sm font-normal text-gray-800 ">Appuntamenti singoli</p>
-            </div>
-        </div>
-        <div class="border-r-2 border-black text-center">
-          <div style="height:25px;">  
-            Domenica
-           </div> 
-        </div>
-    </div>
-    <br><br>
-
-<div class="m-4 md:m-16 ">
+  <div class="m-4 md:m-16 ">
     <ol class="space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400   ">
       <li>Lavoro in solitaria programmare - pensare - contenuti - riflettere leggere - connessione - fare il punto situazione</li>
       <li>Video Youtube Registrare - Video Maker</li>
@@ -310,14 +140,11 @@
       <li>Verona Studio</li>
       <li>Gambara Palestra</li>
       <li>Papa Idea Fare su Montichiari week o un settimanale sulla postura - Giornale di  Brescia o brescia Oggi</li>
-
-
-
     </ol>
     <ol class="space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400   ">
       <li>PosturaCorretta Piattaforma Vai tipo accademia e vari servizi. Mettere un login user - gli step( teoria pratica scheda video) - (programma corso)- luogo (centro nome indirizzo attivo prezzo responsabile) - e dataevento step_id corso_id(autonomia gruppo professionista) insegnante prescrittore luogo  </li>
       <li>Fai la proposal dash Come fanno alla festa di s. Gius. Prendi gli euro e gli dai i dash e loro ti danno i dash. 
-      Crea un app per facilitare questo scambio e per aiutare le persone a spendere i dash e a guadagnarli. fai la proposal a
+        Crea un app per facilitare questo scambio e per aiutare le persone a spendere i dash e a guadagnarli. fai la proposal a
       </li>
       <li>Rifai il calendario della settimana - contatti - 1impegno.it</li>
       <li>Marte mattina Nocivelli 2 eventi (vedi per bni)</li>
@@ -330,17 +157,10 @@
       <li>Corso percezione e musica mario Finazzi</li>
       <li>Assicurazione fisioterapia aon </li>
       <li>Eventi in natura il gdc 30 giugno</li>
-     
       <li>Fisarmonica</li>
       <li>coro lune sera</li>
       <li>pazienti individuali calvisano lune pome /sera - marte 5 - 7 - giove 5 - 9 - venere pausa pranzo pomeriggio - sabato pausa pranzo pomeriggio 
       </li>
-
-
-
-   
     </div>
     <!-- calendario fine--->
-
-</section>
-
+  </section>

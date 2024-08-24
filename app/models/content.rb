@@ -3,7 +3,7 @@ class Content < ApplicationRecord
   belongs_to :parent, class_name: 'Content', optional: true
   has_many :children, class_name: 'Content', foreign_key: 'parent_id'
  
-  enum tipo: { evento: 0, attività:  1, task: 2, post: 3,  servizio: 4, prodotti: 5  }
+  enum tipo: {nota: 0, evento: 1, valore: 2, contatto: 3, luogo: 4  } # scambio da aggiungere tra gruppo e singolo o tra gruppo e gruppo o tra singolo o singolo.
   enum visibility: { privato: 0, partecipanti: 1, pubblico: 2   }
   enum stato: { nuovo: 0, to_fix: 1, to_update: 2, attivo: 3, concluso: 4 }
 

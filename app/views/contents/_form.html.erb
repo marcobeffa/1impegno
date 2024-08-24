@@ -1,4 +1,3 @@
-
 <% @tab_active = "inline-block px-4 py-3 text-white bg-blue-600 rounded-lg active" %>
 <% @tab_disable = "inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white" %>
 <div class="p-4">
@@ -14,8 +13,6 @@
       </div>
     <% end %>
     <div class="grid xl:grid-cols-3 md:grid-cols-2 gap-4">
-     
-    
       <div class=" ">
         <div class="my-5">
           <%= form.label :data %>
@@ -26,38 +23,30 @@
           <% end %>
         </div>
       </div>
-      
-       <div class="my-5">
+      <div class="my-5">
         <%= form.label :stato %>
-        
         <% if params[:stato].nil? %>
           <%= form.select :stato, options_for_select(Content.statos.map {|k, v| [k.titleize, k]}, selected:  @content.stato || Content.statos.keys.first),  { prompt: "Scegli" },  class: "my-4 block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
         <% else%>
-        <h1 class="font-bold text-xl">
-        <%= form.label params[:stato] %>
-        </h1>
+          <h1 class="font-bold text-xl">
+            <%= form.label params[:stato] %>
+          </h1>
           <%= form.hidden_field :stato, value: params[:stato], required: true %>
         <% end %>
-        
       </div>
     </div>
-
-    
-     
     <div class="grid lg:grid-cols-4 gap-4">
       <div class=" ">
         <div class="my-5">
           <%= form.label :tipo %>
-          
           <% if params[:tipo].nil? %>
             <%= form.select :tipo, options_for_select(Content.tipos.map {|k, v| [k.titleize, k]}, selected:  @content.tipo || Content.tipos.keys.first),  { prompt: "Scegli" },  class: "my-4 block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
           <% else%>
-          <h1 class="font-bold text-xl">
-          <%= form.label params[:tipo] %>
-          </h1>
-           <%= form.hidden_field :tipo, value: params[:tipo], required: true %>
+            <h1 class="font-bold text-xl">
+              <%= form.label params[:tipo] %>
+            </h1>
+            <%= form.hidden_field :tipo, value: params[:tipo], required: true %>
           <% end %>
-          
         </div>
       </div>
       <div class= "">
@@ -66,37 +55,29 @@
           <%= form.select :visibility, options_for_select(Content.visibilities.map {|k, v| [k.titleize, k]}, selected:  @content.visibility || Content.visibilities.keys.first),  { prompt: "Scegli" },  class: "my-4 block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
         </div>
       </div>
-   
-    <!------->
-    <%= render 'radio_button', form: form %>
-   </div>
-   
-
-  
-  <% if params[:parent_id] %>
-       <div class="my-5">
-       <%= link_to "Genitore: #{params[:parent_id]}", content_path(params[:parent_id]) %>
-      
-      <%= form.hidden_field :parent_id, value: params[:parent_id], required: true %>
+      <!------->
+      <%= render 'radio_button', form: form %>
     </div>
-   <% end %>
-   
+    <% if params[:parent_id] %>
+      <div class="my-5">
+        <%= link_to "Genitore: #{params[:parent_id]}", content_path(params[:parent_id]) %>
+        <%= form.hidden_field :parent_id, value: params[:parent_id], required: true %>
+      </div>
+    <% end %>
     <div class="my-5">
       <%= form.label :nome %>
       <%= form.text_field :nome, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
     </div>
-    
     <div class="my-5">
       <%= form.label :descrizione %>
       <%= form.text_field :descrizione, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
     </div>
-
     <div class="my-5">
       <%= form.label :body %>
       <%= form.text_area :body, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
-     <div class="my-5">
-      <%= form.label :mermaid %>
+    <div class="my-5">
+      <a href="https://mermaid.js.org/syntax/flowchart.html">Mermaid</a>
       <%= form.text_area :mermaid, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
     <div class="my-5">
@@ -111,7 +92,7 @@
       <%= form.label :telefono %>
       <%= form.text_field :telefono, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
-      <%= render 'contents/js/valore_euro', form: form %>
+    <%= render 'contents/js/valore_euro', form: form %>
     <br>
     <br>
     <div class="block">

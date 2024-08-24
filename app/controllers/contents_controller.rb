@@ -10,7 +10,15 @@ class ContentsController < ApplicationController
   # GET /contents or /contents.json
  
   def index  
-    
+    Content.all.each do  |content|
+      if content.present?
+        # Genera un nuovo valore casuale per il campo `tipo` tra 0 e 4
+        
+        
+        # Aggiorna il campo `tipo` con il nuovo valore casuale
+        content.update(tipo: "nota")
+      end
+    end
     if !user_signed_in?
       redirect_to root_path
     end
