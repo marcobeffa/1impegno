@@ -1,3 +1,5 @@
+require 'csv'
+
 class ContentsController < ApplicationController
   include ApplicationHelper
   
@@ -6,11 +8,51 @@ class ContentsController < ApplicationController
   before_action :edit_auth, only: %i[ edit update destroy ]
   before_action :set_public, only: %i[ public ]
 
+  def export_csv
+    @contents = Content.all
+
+    csv_data = CSV.generate(headers: true) do |csv|
+      # Definire l'intestazione del CSV
+      csv << ["id", "user_id", "tipo", "nome", "descrizione", "body", "img_url", "email", "telefono", "costo", "ricavo", "created_at", "updated_at", "data", "visibility", "energy", "importanza", "mermaid", "stato", "costo_eur", "ricavo_eur", "parent_id"]
+
+      # Popolare il CSV con i dati
+      @contents.each do |content|
+        csv << [
+          content.id,
+          content.user_id,
+          content.tipo,
+          content.nome,
+          content.descrizione,
+          content.body,
+          content.img_url,
+          content.email,
+          content.telefono,
+          content.costo,
+          content.ricavo,
+          content.created_at,
+          content.updated_at,
+          content.data,
+          content.visibility,
+          content.energy,
+          content.importanza,
+          content.mermaid,
+          content.stato,
+          content.costo_eur,
+          content.ricavo_eur,
+          content.parent_id
+        ]
+      end
+    end
+
+    # Definire il nome del file e inviare il file come risposta
+    send_data csv_data, filename: "contents_#{Date.today}.csv"
+  end
+ 
   
   # GET /contents or /contents.json
  
   def index  
-    Content.all.each do  |content|
+    current_user.contents.all.each do  |content|
       if content.present?
         # Genera un nuovo valore casuale per il campo `tipo` tra 0 e 4
         
@@ -27,7 +69,7 @@ class ContentsController < ApplicationController
       @contents = current_user.contents.where(tipo:  params[:tipo])
     elsif params[:query].present?
      # @contents = Content.where("nome LIKE ?", "%#{params[:query]}%")
-     @contents = Content.where("lower(nome) LIKE ?", "%#{params[:query].downcase}%") 
+     @contents = current_user.contents.where("lower(nome) LIKE ?", "%#{params[:query].downcase}%") 
     else
       @contents = current_user.contents.where(parent_id: nil)
     end

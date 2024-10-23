@@ -6,4 +6,7 @@ class WeeksController < ApplicationController
 
   def show
   end
+
+  def planning
+  end
 end

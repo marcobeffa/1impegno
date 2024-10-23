@@ -1,12 +1,25 @@
 Rails.application.routes.draw do
+
+  scope controller: :pages do
+    get :weekplan
+   
+  end
+  get 'contents/export_csv', to: 'contents#export_csv', as: 'export_csv_contents'
+
+  get 'planning/:ymlname/', to: 'weeks#planning', as: 'planning'
+  get 'collections', to: 'pages#collections'
+  get 'events', to: 'pages#events'
+  # pagine in prova
+
   get 'passate/:user_id/', to: 'weeks#passate', as: 'passate'
   get 'weeks/:user_id/', to: 'weeks#future', as: 'weeks'
   get 'weeks/:user_id/:year/:number', to: 'weeks#show', as: 'week'
   
 
-  
+
   post 'newprogetto', to: 'links#newprogetto'
   get 'dashboard/imprese'
+  
   get 'dashboard/settimana'
   get 'dashboard/obiettivo'
   get 'dashboard/attivit'

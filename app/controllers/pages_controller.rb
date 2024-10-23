@@ -14,6 +14,8 @@ class PagesController < ApplicationController
     
   end
 
+  def weekplan
+  end
   def home
    
    
@@ -32,6 +34,10 @@ class PagesController < ApplicationController
   end  
 
 
+  def events
+    
+    
+  end
 
 
 
